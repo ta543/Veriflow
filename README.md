@@ -1,5 +1,5 @@
 
-# VeriFlow - Advanced QA Framework
+# VeriFlow - QA Framework
 
 VeriFlow is an advanced, scalable, and feature-rich QA automation framework built with **Elixir** and **Phoenix Framework**. The framework is designed to handle complex test scenarios, automate testing processes, and integrate with modern CI/CD pipelines. It allows for efficient test case management, parallel test execution, reporting, and more, making it the ideal tool for continuous testing in modern development environments.
 
