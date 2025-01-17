@@ -18,6 +18,8 @@ defmodule AdvancedQaFrameworkWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    # Add routes for test cases here
+    resources "/test_cases", TestCaseController
   end
 
   # Other scopes may use custom stacks.
