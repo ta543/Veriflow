@@ -14,7 +14,7 @@ defmodule VeriFlow.MixProject do
   def application do
     [
       mod: {VeriFlow.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :ecto_sql]
     ]
   end
 
@@ -22,6 +22,7 @@ defmodule VeriFlow.MixProject do
     [
       {:phoenix, "~> 1.7.18"},
       {:phoenix_html, "~> 4.1"},
+      {:postgrex, ">= 0.0.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 1.0.0"},
       {:floki, ">= 0.30.0", only: :test},

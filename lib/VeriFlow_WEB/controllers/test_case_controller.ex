@@ -1,14 +1,15 @@
 defmodule VeriFlowWeb.TestCaseController do
   use VeriFlowWeb, :controller
 
-  alias VeriFlowTestCases
+  alias VeriFlow.TestCases
 
   def create(conn, %{"test_case" => test_case_params}) do
     case TestCases.create(test_case_params) do
       {:ok, test_case} ->
         conn
         |> put_flash(:info, "Test case created successfully")
-        |> redirect(to: Routes.test_case_path(conn, :show, test_case))
+        |> redirect(to: ~p"/test_cases/#{test_case.id}")
+
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -24,7 +25,8 @@ defmodule VeriFlowWeb.TestCaseController do
       {:ok, test_case} ->
         conn
         |> put_flash(:info, "Test case updated successfully")
-        |> redirect(to: Routes.test_case_path(conn, :show, test_case))
+        |> redirect(to: ~p"/test_cases/#{test_case.id}")
+
       {:error, changeset} ->
         render(conn, "edit.html", test_case: changeset)
     end
@@ -35,11 +37,12 @@ defmodule VeriFlowWeb.TestCaseController do
       {:ok, _test_case} ->
         conn
         |> put_flash(:info, "Test case deleted successfully")
-        |> redirect(to: Routes.test_case_path(conn, :index))
+        |> redirect(to: ~p"/test_cases")
+
       {:error, _} ->
         conn
         |> put_flash(:error, "Unable to delete test case")
-        |> redirect(to: Routes.test_case_path(conn, :index))
+        |> redirect(to: ~p"/test_cases")
     end
   end
 end

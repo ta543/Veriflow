@@ -1,7 +1,17 @@
 import Config
 
 # General application configuration
-config :veriflow, ecto_repos: [VeriFlow.Repo]
+
+config :veriflow,
+  ecto_repos: [VeriFlow.Repo]
+
+config :veriflow, VeriFlow.Repo,
+  database: "veriflow_dev",
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
 
 # Endpoint configuration
 config :veriflow, VeriFlowWeb.Endpoint,
@@ -20,7 +30,7 @@ config :veriflow, VeriFlowWeb.Endpoint,
       ~r"assets/static/.*(svg|eot|woff|woff2|ttf)$"
     ]
   ],
-  http: [ip: {127, 0, 0, 1}, port: 4001]
+  http: [ip: {127, 0, 0, 1}, port: 4008]
 
 # Phoenix JSON library
 config :phoenix, :json_library, Jason
@@ -53,7 +63,7 @@ watchers: [
 # Tailwind configuration
 config :tailwind,
   version: "3.4.6",
-  veriflow: [
+  VeriFlow: [  # Correct capitalization
     args: ~w(
       --config=tailwind.config.js
       --input=css/app.css
@@ -65,7 +75,7 @@ config :tailwind,
 # Esbuild configuration
 config :esbuild,
   version: "0.23.0",
-  veriflow: [
+  VeriFlow: [  # Correct capitalization
     args: ~w(js/app.js --bundle --target=es2016 --outdir=../priv/static/assets),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}

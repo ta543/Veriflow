@@ -1,4 +1,4 @@
-defmodule VeriFlow do
+defmodule Veriflow do
   @moduledoc """
   VeriFlow keeps the contexts that define your domain
   and business logic.
