@@ -1,5 +1,5 @@
-defmodule AdvancedQaFramework.Repo do
+defmodule VeriFlowRepo do
   use Ecto.Repo,
-    otp_app: :advanced_qa_framework,
+    otp_app: :veriflow,
     adapter: Ecto.Adapters.Postgres
 end

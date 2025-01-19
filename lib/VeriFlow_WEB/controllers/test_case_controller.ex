@@ -1,7 +1,7 @@
-defmodule AdvancedQaFrameworkWeb.TestCaseController do
-  use AdvancedQaFrameworkWeb, :controller
+defmodule VeriFlowWeb.TestCaseController do
+  use VeriFlowWeb, :controller
 
-  alias AdvancedQaFramework.TestCases
+  alias VeriFlowTestCases
 
   def create(conn, %{"test_case" => test_case_params}) do
     case TestCases.create(test_case_params) do

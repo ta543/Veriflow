@@ -1,6 +1,6 @@
-defmodule AdvancedQaFrameworkWeb.PageController do
-  use AdvancedQaFrameworkWeb, :controller
-  use Gettext, otp_app: :advanced_qa_framework
+defmodule VeriFlowWeb.PageController do
+  use VeriFlowWeb, :controller
+  use Gettext.Backend, otp_app: :veriflow
 
 
   def home(conn, _params) do

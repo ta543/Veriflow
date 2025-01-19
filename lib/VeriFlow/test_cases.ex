@@ -1,4 +1,4 @@
-defmodule AdvancedQaFramework.TestCase do
+defmodule VeriFlowTestCase do
   use Ecto.Schema
   import Ecto.Changeset
 

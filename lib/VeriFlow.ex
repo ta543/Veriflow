@@ -1,6 +1,6 @@
-defmodule AdvancedQaFramework do
+defmodule VeriFlow do
   @moduledoc """
-  AdvancedQaFramework keeps the contexts that define your domain
+  VeriFlow keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

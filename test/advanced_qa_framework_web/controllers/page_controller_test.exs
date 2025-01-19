@@ -1,5 +1,5 @@
-defmodule AdvancedQaFrameworkWeb.PageControllerTest do
-  use AdvancedQaFrameworkWeb.ConnCase
+defmodule VeriFlowWeb.PageControllerTest do
+  use VeriFlowWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")

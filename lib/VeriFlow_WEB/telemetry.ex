@@ -1,4 +1,4 @@
-defmodule AdvancedQaFrameworkWeb.Telemetry do
+defmodule VeriFlowWeb.Telemetry do
   use Supervisor
   import Telemetry.Metrics
 
@@ -63,7 +63,7 @@ defmodule AdvancedQaFrameworkWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {AdvancedQaFrameworkWeb, :count_users, []}
+      # {VeriFlowWeb, :count_users, []}
     ]
   end
 end

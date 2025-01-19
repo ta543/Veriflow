@@ -1,12 +1,12 @@
-defmodule AdvancedQaFrameworkWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :advanced_qa_framework
+defmodule VeriFlowWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :veriflow
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_advanced_qa_framework_key",
+    key: "_VeriFlow_key",
     signing_salt: "RrwBL+Wi",
     same_site: "Lax"
   ]
@@ -21,9 +21,9 @@ defmodule AdvancedQaFrameworkWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :advanced_qa_framework,
+    from: :veriflow,
     gzip: false,
-    only: AdvancedQaFrameworkWeb.static_paths()
+    only: VeriFlowWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -48,5 +48,5 @@ defmodule AdvancedQaFrameworkWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug AdvancedQaFrameworkWeb.Router
+  plug VeriFlowWeb.Router
 end

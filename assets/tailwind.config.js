@@ -8,8 +8,8 @@ const path = require("path")
 module.exports = {
   content: [
     "./js/**/*.js",
-    "../lib/advanced_qa_framework_web.ex",
-    "../lib/advanced_qa_framework_web/**/*.*ex"
+    "../lib/VeriFlow_web.ex",
+    "../lib/VeriFlow_web/**/*.*ex"
   ],
   theme: {
     extend: {

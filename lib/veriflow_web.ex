@@ -1,12 +1,12 @@
-defmodule AdvancedQaFrameworkWeb do
+defmodule VeriFlowWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, components, channels, and so on.
 
   This can be used in your application as:
 
-      use AdvancedQaFrameworkWeb, :controller
-      use AdvancedQaFrameworkWeb, :html
+      use VeriFlowWeb, :controller
+      use VeriFlowWeb, :html
 
   The definitions below will be executed for every controller,
   component, etc, so keep them short and clean, focused
@@ -40,9 +40,9 @@ defmodule AdvancedQaFrameworkWeb do
     quote do
       use Phoenix.Controller,
         formats: [:html, :json],
-        layouts: [html: AdvancedQaFrameworkWeb.Layouts]
+        layouts: [html: VeriFlowWeb.Layouts]
 
-      use Gettext, backend: AdvancedQaFrameworkWeb.Gettext
+      use Gettext, backend: VeriFlowWeb.Gettext
 
       import Plug.Conn
 
@@ -53,7 +53,7 @@ defmodule AdvancedQaFrameworkWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {AdvancedQaFrameworkWeb.Layouts, :app}
+        layout: {VeriFlowWeb.Layouts, :app}
 
       unquote(html_helpers())
     end
@@ -77,18 +77,32 @@ defmodule AdvancedQaFrameworkWeb do
 
       # Include general helpers for rendering HTML
       unquote(html_helpers())
+      # Use the backend explicitly
+      use Gettext, backend: VeriFlowWeb.Gettext
+    end
+  end
+
+  def view do
+    quote do
+      use Phoenix.View,
+        namespace: VeriFlowWeb
+
+      import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
+      import VeriFlowWeb.Gettext
+      import VeriFlowWeb.ErrorHelpers
+      alias VeriFlowWeb.Router.Helpers, as: Routes
     end
   end
 
   defp html_helpers do
     quote do
       # Translation
-      use Gettext, backend: AdvancedQaFrameworkWeb.Gettext
+      use Gettext, backend: VeriFlowWeb.Gettext
 
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components
-      import AdvancedQaFrameworkWeb.CoreComponents
+      import VeriFlowWeb.CoreComponents
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
@@ -101,9 +115,9 @@ defmodule AdvancedQaFrameworkWeb do
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
-        endpoint: AdvancedQaFrameworkWeb.Endpoint,
-        router: AdvancedQaFrameworkWeb.Router,
-        statics: AdvancedQaFrameworkWeb.static_paths()
+        endpoint: VeriFlowWeb.Endpoint,
+        router: VeriFlowWeb.Router,
+        statics: VeriFlowWeb.static_paths()
     end
   end
 

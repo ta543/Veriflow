@@ -1,4 +1,4 @@
-defmodule AdvancedQaFrameworkWeb.CoreComponents do
+defmodule VeriFlowWeb.CoreComponents do
   @moduledoc """
   Provides core UI components.
 
@@ -15,7 +15,7 @@ defmodule AdvancedQaFrameworkWeb.CoreComponents do
   Icons are provided by [heroicons](https://heroicons.com). See `icon/1` for usage.
   """
   use Phoenix.Component
-  use Gettext, backend: AdvancedQaFrameworkWeb.Gettext
+  use Gettext, backend: VeriFlowWeb.Gettext
 
   alias Phoenix.LiveView.JS
 
@@ -661,9 +661,9 @@ defmodule AdvancedQaFrameworkWeb.CoreComponents do
     # with our gettext backend as first argument. Translations are
     # available in the errors.po file (as we use the "errors" domain).
     if count = opts[:count] do
-      Gettext.dngettext(AdvancedQaFrameworkWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(VeriFlowWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(AdvancedQaFrameworkWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(VeriFlowWeb.Gettext, "errors", msg, opts)
     end
   end
 

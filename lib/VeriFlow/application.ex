@@ -1,4 +1,4 @@
-defmodule AdvancedQaFramework.Application do
+defmodule VeriFlow.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -8,20 +8,20 @@ defmodule AdvancedQaFramework.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      AdvancedQaFrameworkWeb.Telemetry,
-      {DNSCluster, query: Application.get_env(:advanced_qa_framework, :dns_cluster_query) || :ignore},
-      {Phoenix.PubSub, name: AdvancedQaFramework.PubSub},
+      VeriFlowWeb.Telemetry,
+      {DNSCluster, query: Application.get_env(:veriflow, :dns_cluster_query) || :ignore},
+      {Phoenix.PubSub, name: VeriFlowPubSub},
       # Start the Finch HTTP client for sending emails
-      {Finch, name: AdvancedQaFramework.Finch},
-      # Start a worker by calling: AdvancedQaFramework.Worker.start_link(arg)
-      # {AdvancedQaFramework.Worker, arg},
+      {Finch, name: VeriFlowFinch},
+      # Start a worker by calling: VeriFlowWorker.start_link(arg)
+      # {VeriFlowWorker, arg},
       # Start to serve requests, typically the last entry
-      AdvancedQaFrameworkWeb.Endpoint
+      VeriFlowWeb.Endpoint
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
+    # See https://hexdocs.pm/elixir/Supervisor.html.
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: AdvancedQaFramework.Supervisor]
+    opts = [strategy: :one_for_one, name: VeriFlowSupervisor]
     Supervisor.start_link(children, opts)
   end
 
@@ -29,7 +29,7 @@ defmodule AdvancedQaFramework.Application do
   # whenever the application is updated.
   @impl true
   def config_change(changed, _new, removed) do
-    AdvancedQaFrameworkWeb.Endpoint.config_change(changed, removed)
+    VeriFlowWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end
