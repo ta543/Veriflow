@@ -5,10 +5,10 @@ import Config
 config :veriflow,
   ecto_repos: [VeriFlow.Repo]
 
-config :veriflow, VeriFlow.Repo,
-  database: "veriflow_dev",
-  username: "postgres",
-  password: "postgres",
+  config :veriflow, VeriFlow.Repo,
+  username: "sap", # Use the correct username
+  password: "your_password", # Set the password you configured
+  database: "sap", # The database name
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
