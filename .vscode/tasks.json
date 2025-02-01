@@ -4,7 +4,7 @@
     {
       "label": "Mix Default Compile",
       "type": "shell",
-      "command": "mix clean && mix deps.get && mix deps.compile && mix phx.server",
+      "command": "clear && mix test /Users/sap/work/personal/QA/VeriFlow/lib/tests/HomePage/HomePageTests.exs",
       "group": {
         "kind": "build",
         "isDefault": true
