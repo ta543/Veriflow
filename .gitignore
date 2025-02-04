@@ -1,14 +1,19 @@
+# The directory Mix will write compiled artifacts to.
 /_build/
-/cover/
-/deps/
-/doc/
-/.fetch
-erl_crash.dump
-*.ez
-/tmp/
-VeriFlow-*.tar
-/priv/static/assets/
-/priv/static/cache_manifest.json
-npm-debug.log
-/assets/node_modules/
 
+/cover/
+
+/deps/
+
+/doc/
+
+/.fetch
+
+erl_crash.dump
+
+*.ez
+
+elixir_testing-*.tar
+
+/tmp/
+.DS_Store
