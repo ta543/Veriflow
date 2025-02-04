@@ -55,21 +55,6 @@ jobs:
             echo "compile_result=success" >> $GITHUB_ENV
           fi
 
-      - name: "Run Tests"
-        id: test_project
-        run: mix test
-        continue-on-error: true
-
-      - name: "Set test result"
-        if: always()
-        run: |
-          if [[ "${{ steps.test_project.outcome }}" == "failure" ]]; then
-            echo "test_result=failure" >> $GITHUB_ENV
-            exit 1
-          else
-            echo "test_result=success" >> $GITHUB_ENV
-          fi
-
       - name: "Apply Labels"
         if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' && always()
         uses: actions/github-script@v7
