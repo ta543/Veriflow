@@ -1,0 +1,98 @@
+name: VeriFlow | Run Class Tests
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+run-name: '👷🚧[#${{ github.run_number }}][${{ github.event.inputs.testConfig }} Tests] 🌍Env: ${{ github.event.inputs.appEnvironment }} | 🏷️Release: ${{ github.event.inputs.appRelease }} | 📱Device: ${{ github.event.inputs.deviceConfig }}'
+
+on:
+  workflow_dispatch:
+    inputs:
+      appEnvironment:
+        description: "Select the VeriFlow application environment:"
+        required: true
+        type: choice
+        options:
+          - "UAT"
+          - "QA"
+          - "DEV"
+      appRelease:
+        description: "Enter the VeriFlow application release:"
+        required: true
+        default: "latest"
+        type: string
+      testConfig:
+        description: "Select the VeriFlow Tests"
+        required: true
+        type: choice
+        options:
+          - "FeatureA"
+          - "FeatureB"
+          - "FeatureC"
+          - "FeatureD"
+      deviceConfig:
+        description: "Select the device configuration:"
+        required: true
+        type: choice
+        options:
+          - "GooglePixel4XL"
+          - "GalaxyS23Ultra"
+          - "iPhone14Pro"
+          - "iPhone15ProMax"
+      devicePlatform:
+        description: "Select the device platform:"
+        required: true
+        type: choice
+        options:
+          - "android"
+          - "ios"
+      enableTestRetry:
+        description: "Enable re-run of failing tests?"
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: '️Build & Execute Tests🛠️'
+    env:
+      PERSONAL_GITHUB_KEY: ${{ secrets.PERSONAL_GITHUB_KEY }}
+      CICD: true
+
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+
+      - name: "Set up Elixir"
+        uses: actions/setup-elixir@v2
+        with:
+          elixir-version: "1.14"
+          otp-version: "25.0"
+
+      - name: "Install Dependencies"
+        run: mix deps.get
+
+      - name: "Run Tests"
+        run: |
+          TEST_CONFIG="${{ github.event.inputs.testConfig }}"
+          TEST_CONFIG="${TEST_CONFIG// /}Tests"
+
+          MIX_COMMAND="mix test --trace \
+          --env=${{ github.event.inputs.appEnvironment }} \
+          --release=${{ github.event.inputs.appRelease }} \
+          --device=${{ github.event.inputs.deviceConfig }} \
+          --platform=${{ github.event.inputs.devicePlatform }} \
+          --retry=${{ github.event.inputs.enableTestRetry }}"
+          
+          echo "Executing command: $MIX_COMMAND"
+          eval $MIX_COMMAND
+        shell: bash
+
+      - name: "Upload Test Results"
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results/
+          retention-days: 7

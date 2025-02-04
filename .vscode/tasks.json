@@ -1,33 +1,33 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-	  {
-		"label": "Mix Default Compile",
-		"type": "shell",
-		"command": "clear && mix test /Volumes/chappy/chappy/Coding/Projects/work/personal/QA/Elixir_Testing-main/test/tests/HomePageTests.exs",
-		"group": {
-		  "kind": "build",
-		  "isDefault": true
-		},
-		"problemMatcher": [],
-		"options": {
-		  "cwd": "${workspaceFolder}"
-		}
-	  },
-	  {
-		"label": "Mix Run Server",
-		"type": "shell",
-		"command": "mix phx.server",
-		"group": {
-		  "kind": "build",
-		  "isDefault": false
-		},
-		"problemMatcher": [],
-		"options": {
-		  "cwd": "${workspaceFolder}"
-		}
-	  }
-	]
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Elixir Test Run",
+        "type": "shell",
+        "command": "clear && mix test /Users/sap/work/personal/QA/VeriFlow/lib/tests/HomePage/HomePageTests.exs",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": [],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        }
+      },
+      {
+        "label": "Gradle Test Run",
+        "type": "shell",
+        "command": "mix phx.server",
+        "group": {
+          "kind": "build",
+          "isDefault": false
+        },
+        "problemMatcher": [],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        }
+      }
+    ]
   }
   
   
