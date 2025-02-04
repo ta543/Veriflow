@@ -40,6 +40,14 @@ jobs:
       - name: "Install Dependencies"
         run: mix deps.get
 
+      - name: "Install ChromeDriver"
+        run: sudo apt-get install -y chromium-chromedriver
+
+      - name: "Start ChromeDriver"
+        run: |
+          nohup chromedriver --port=4444 --url-base=/wd/hub &
+          sleep 5 # Give ChromeDriver time to start
+
       - name: "Compile Project"
         id: compile_project
         run: mix compile
@@ -53,6 +61,21 @@ jobs:
             exit 1
           else
             echo "compile_result=success" >> $GITHUB_ENV
+          fi
+
+      - name: "Run Tests"
+        id: test_project
+        run: mix test
+        continue-on-error: true
+
+      - name: "Set test result"
+        if: always()
+        run: |
+          if [[ "${{ steps.test_project.outcome }}" == "failure" ]]; then
+            echo "test_result=failure" >> $GITHUB_ENV
+            exit 1
+          else
+            echo "test_result=success" >> $GITHUB_ENV
           fi
 
       - name: "Apply Labels"
