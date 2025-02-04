@@ -24,7 +24,7 @@ defmodule VeriFlow.MixProject do
   defp deps do
     [
       {:hound, "~> 1.1"},
-      {:ex_unit_formatter_html, "~> 0.4"}
+      {:junit_formatter, "~> 3.1"}
     ]
   end
 end
