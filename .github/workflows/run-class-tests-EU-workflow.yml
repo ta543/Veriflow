@@ -54,28 +54,45 @@ on:
         type: boolean
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-    name: '️Build & Execute Tests🛠️'
+    name: 'Build & Execute Tests 🛠️'
     env:
       PERSONAL_GITHUB_KEY: ${{ secrets.PERSONAL_GITHUB_KEY }}
       CICD: true
 
     steps:
-      - name: "Checkout code"
+      - name: "Checkout Code"
         uses: actions/checkout@v4
 
       - name: "Set up Elixir"
-        uses: actions/setup-elixir@v2
+        uses: erlef/setup-elixir@v1
         with:
-          elixir-version: "1.14"
+          elixir-version: "1.14.0"
           otp-version: "25.0"
 
       - name: "Install Dependencies"
         run: mix deps.get
 
-      - name: "Run Tests"
+      - name: "Verify Chrome Installation"
+        run: google-chrome --version
+
+      - name: "Start Headless Chrome"
         run: |
+          export DISPLAY=:99
+          nohup google-chrome --headless --disable-gpu --remote-debugging-port=9222 --no-sandbox --disable-dev-shm-usage &
+
+      - name: "Compile Project"
+        id: compile_project
+        run: mix compile
+        continue-on-error: true
+
+      - name: "Run Elixir Tests"
+        id: test_project
+        env:
+          CHROME_HEADLESS: true
+        run: |
+          mkdir -p test-results/
           TEST_CONFIG="${{ github.event.inputs.testConfig }}"
           TEST_CONFIG="${TEST_CONFIG// /}Tests"
 
@@ -84,11 +101,23 @@ jobs:
           --release=${{ github.event.inputs.appRelease }} \
           --device=${{ github.event.inputs.deviceConfig }} \
           --platform=${{ github.event.inputs.devicePlatform }} \
-          --retry=${{ github.event.inputs.enableTestRetry }}"
-          
+          --retry=${{ github.event.inputs.enableTestRetry }} \
+          --formatter JUnitFormatter --formatter ExUnit.CLIFormatter"
+
           echo "Executing command: $MIX_COMMAND"
           eval $MIX_COMMAND
-        shell: bash
+
+      - name: "Generate Allure Report"
+        run: |
+          mkdir -p test-results/
+          allure generate test-results/ --clean -o allure-report/
+
+      - name: "Upload Allure Report"
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 7
 
       - name: "Upload Test Results"
         uses: actions/upload-artifact@v4
@@ -96,3 +125,20 @@ jobs:
           name: test-results
           path: test-results/
           retention-days: 7
+
+      - name: "Post Comment on PR"
+        if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = `${process.env.GITHUB_SERVER_URL}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const testMessage = process.env.test_result === 'success'
+              ? '✅ Tests passed successfully.'
+              : `❌ Tests failed. [View Workflow Run](${url})`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: testMessage
+            })
