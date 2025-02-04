@@ -7,8 +7,9 @@ defmodule VeriFlow.MixProject do
       version: "0.1.0",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
+      test_paths: ["test/tests"],
       deps: deps(),
-      elixirc_options: [warnings_as_errors: false] # Suppress warnings temporarily
+      elixirc_options: [warnings_as_errors: false]
     ]
   end
 
