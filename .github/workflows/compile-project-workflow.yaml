@@ -41,21 +41,24 @@ jobs:
         run: mix deps.get
 
       - name: "Install ChromeDriver"
-        run: sudo apt-get install -y chromium-chromedriver
-
-      - name: "Start ChromeDriver on port 64584"
         run: |
-          nohup chromedriver --port=64584 --url-base=/wd/hub &
-          for i in {1..10}; do
-            if curl -s http://localhost:64584/wd/hub/status | grep '"ready":true' > /dev/null; then
-              echo "ChromeDriver is running on port 64584"
-              break
-            fi
-            echo "Waiting for ChromeDriver to start..."
-            sleep 2
-          done
-          curl -s http://localhost:64584/wd/hub/status || echo "ChromeDriver status check failed"
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser chromium-chromedriver
+          chromedriver --version
       
+          - name: "Start ChromeDriver on port 64584"
+          run: |
+            nohup chromedriver --port=64584 --url-base=/wd/hub &
+            for i in {1..10}; do
+              if curl -s http://localhost:64584/wd/hub/status | grep '"ready":true' > /dev/null; then
+                echo "ChromeDriver is ready on port 64584"
+                break
+              fi
+              echo "Waiting for ChromeDriver to be ready..."
+              sleep 2
+            done
+            curl -s http://localhost:64584/wd/hub/status || echo "ChromeDriver status check failed"
+              
       - name: "Compile Project"
         id: compile_project
         run: mix compile
