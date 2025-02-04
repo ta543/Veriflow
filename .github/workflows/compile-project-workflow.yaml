@@ -39,20 +39,69 @@ jobs:
 
       - name: "Install Dependencies"
         run: mix deps.get
-              
+
+      - name: "Install Google Chrome and ChromeDriver"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          sudo apt-get install -y chromedriver
+          echo "Chrome and ChromeDriver Installed"
+
+      - name: "Start ChromeDriver on Port 64584"
+        run: |
+          nohup chromedriver --port=64584 --url-base=/wd/hub &
+          for i in {1..15}; do
+            if curl -s http://localhost:64584/wd/hub/status | grep '"ready":true' > /dev/null; then
+              echo "✅ ChromeDriver is running on port 64584"
+              break
+            fi
+            echo "⏳ Waiting for ChromeDriver to start..."
+            sleep 2
+          done
+
+      - name: "Create Test Results Directory"
+        run: mkdir -p test-results
+
       - name: "Compile Project"
         id: compile_project
         run: mix compile
         continue-on-error: true
 
-      - name: "Set compile result"
+      - name: "Set Compile Result"
         if: always()
         run: |
           if [[ "${{ steps.compile_project.outcome }}" == "failure" ]]; then
             echo "compile_result=failure" >> $GITHUB_ENV
+            exit 1
           else
             echo "compile_result=success" >> $GITHUB_ENV
           fi
+
+      - name: "Run Tests with JUnitFormatter"
+        id: test_project
+        run: mix test --formatter JUnitFormatter --formatter ExUnit.CLIFormatter --trace
+        continue-on-error: true
+
+      - name: "Generate Allure Report"
+        run: |
+          allure generate test-results/ --clean -o allure-report/
+          ls -l allure-report/  # Verify files exist
+
+      - name: "Set Test Result"
+        if: always()
+        run: |
+          if [[ "${{ steps.test_project.outcome }}" == "failure" ]]; then
+            echo "test_result=failure" >> $GITHUB_ENV
+            exit 1
+          else
+            echo "test_result=success" >> $GITHUB_ENV
+          fi
+
+      - name: "Upload Allure Report as Artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/
 
       - name: "Apply Labels"
         if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' && always()
@@ -68,7 +117,7 @@ jobs:
               { name: 'test-success', color: '1E90FF', description: 'Tests succeeded' },
               { name: 'test-failure', color: 'FF4500', description: 'Tests failed' }
             ];
-            
+
             const resultLabelCompile = process.env.compile_result === 'success' ? 'build-success' : 'build-failure';
             const resultLabelTest = process.env.test_result === 'success' ? 'test-success' : 'test-failure';
 
@@ -108,7 +157,7 @@ jobs:
 
             manageLabels(github, context, labels, resultLabelCompile, resultLabelTest);
 
-      - name: "Post comment on PR"
+      - name: "Post Comment on PR"
         if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' && always()
         uses: actions/github-script@v7
         with:

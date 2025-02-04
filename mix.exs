@@ -24,7 +24,7 @@ defmodule VeriFlow.MixProject do
   defp deps do
     [
       {:hound, "~> 1.1"},
-      {:junit_formatter, "~> 3.1"}
+      {:junit_formatter, "~> 3.1", only: :test}
     ]
   end
 end
