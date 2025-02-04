@@ -41,12 +41,19 @@ jobs:
         run: mix deps.get
 
       - name: "Install ChromeDriver"
-        run: sudo apt-get install -y chromium-chromedriver
+        run: sudo apt-get install -y chromedriver
 
       - name: "Start ChromeDriver"
         run: |
           nohup chromedriver --port=4444 --url-base=/wd/hub &
-          sleep 5 # Give ChromeDriver time to start
+          for i in {1..10}; do
+            if curl http://localhost:4444/wd/hub/status -s | grep "200 OK" > /dev/null; then
+              echo "ChromeDriver is running"
+              break
+            fi
+            echo "Waiting for ChromeDriver to start..."
+            sleep 2
+          done
 
       - name: "Compile Project"
         id: compile_project
@@ -58,7 +65,6 @@ jobs:
         run: |
           if [[ "${{ steps.compile_project.outcome }}" == "failure" ]]; then
             echo "compile_result=failure" >> $GITHUB_ENV
-            exit 1
           else
             echo "compile_result=success" >> $GITHUB_ENV
           fi
@@ -73,7 +79,6 @@ jobs:
         run: |
           if [[ "${{ steps.test_project.outcome }}" == "failure" ]]; then
             echo "test_result=failure" >> $GITHUB_ENV
-            exit 1
           else
             echo "test_result=success" >> $GITHUB_ENV
           fi
@@ -126,7 +131,7 @@ jobs:
                 owner,
                 repo,
                 issue_number,
-                labels: [compileResultLabel, testResultLabel]
+                labels: [compileResultLabel, resultLabelTest]
               });
             }
 

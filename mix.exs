@@ -23,7 +23,8 @@ defmodule VeriFlow.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:hound, "~> 1.1"}
+      {:hound, "~> 1.1"},
+      {:ex_unit_formatter_html, "~> 0.4"}
     ]
   end
 end
