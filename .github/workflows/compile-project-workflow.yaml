@@ -4,8 +4,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: false
 
-run-name: "👷🚧[#${{ github.run_number }}][VeriFlow] PR: \"${{ github.event.pull_request.title }}\" | Commit: ${{ github.sha }}"
-
 on:
   pull_request:
     branches:
@@ -44,120 +42,26 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y chromium-browser chromium-chromedriver
+          mkdir -p /home/runner/snap/chromium/common/.cache
+          touch /home/runner/snap/chromium/common/.cache/desktop-runtime-date || echo "Skipping touch"
           chromedriver --version
-      
-          - name: "Start ChromeDriver on port 64584"
-          run: |
-            nohup chromedriver --port=64584 --url-base=/wd/hub &
-            for i in {1..10}; do
-              if curl -s http://localhost:64584/wd/hub/status | grep '"ready":true' > /dev/null; then
-                echo "ChromeDriver is ready on port 64584"
-                break
-              fi
-              echo "Waiting for ChromeDriver to be ready..."
-              sleep 2
-            done
-            curl -s http://localhost:64584/wd/hub/status || echo "ChromeDriver status check failed"
-              
-      - name: "Compile Project"
-        id: compile_project
-        run: mix compile
-        continue-on-error: true
 
-      - name: "Set compile result"
-        if: always()
+      - name: "Start ChromeDriver on port 64584"
         run: |
-          if [[ "${{ steps.compile_project.outcome }}" == "failure" ]]; then
-            echo "compile_result=failure" >> $GITHUB_ENV
-          else
-            echo "compile_result=success" >> $GITHUB_ENV
-          fi
+          set -x
+          nohup chromedriver --port=64584 --url-base=/wd/hub --verbose &
+          for i in {1..10}; do
+            if curl -s http://localhost:64584/wd/hub/status | grep '"ready":true' > /dev/null; then
+              echo "ChromeDriver is running on port 64584"
+              break
+            fi
+            echo "Waiting for ChromeDriver to be ready..."
+            sleep 2
+          done
+          curl -s http://localhost:64584/wd/hub/status || echo "ChromeDriver status check failed"
+
+      - name: "Compile Project"
+        run: mix compile
 
       - name: "Run Tests"
-        id: test_project
-        run: mix test
-        continue-on-error: true
-
-      - name: "Set test result"
-        if: always()
-        run: |
-          if [[ "${{ steps.test_project.outcome }}" == "failure" ]]; then
-            echo "test_result=failure" >> $GITHUB_ENV
-          else
-            echo "test_result=success" >> $GITHUB_ENV
-          fi
-
-      - name: "Apply Labels"
-        if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' && always()
-        uses: actions/github-script@v7
-        env:
-          compile_result: ${{ env.compile_result }}
-          test_result: ${{ env.test_result }}
-        with:
-          script: |
-            const labels = [
-              { name: 'build-success', color: '0E8A16', description: 'Build succeeded' },
-              { name: 'build-failure', color: 'B60205', description: 'Build failed' },
-              { name: 'test-success', color: '1E90FF', description: 'Tests succeeded' },
-              { name: 'test-failure', color: 'FF4500', description: 'Tests failed' }
-            ];
-            
-            const resultLabelCompile = process.env.compile_result === 'success' ? 'build-success' : 'build-failure';
-            const resultLabelTest = process.env.test_result === 'success' ? 'test-success' : 'test-failure';
-
-            async function manageLabels(github, context, labels, compileResultLabel, testResultLabel) {
-              const issue_number = context.payload.pull_request.number;
-              const { owner, repo } = context.repo;
-
-              for (const label of labels) {
-                try {
-                  await github.rest.issues.updateLabel({
-                    owner,
-                    repo,
-                    name: label.name,
-                    color: label.color,
-                    description: label.description
-                  });
-                } catch (error) {
-                  if (error.status === 404) {
-                    await github.rest.issues.createLabel({
-                      owner,
-                      repo,
-                      name: label.name,
-                      color: label.color,
-                      description: label.description
-                    });
-                  }
-                }
-              }
-
-              await github.rest.issues.addLabels({
-                owner,
-                repo,
-                issue_number,
-                labels: [compileResultLabel, resultLabelTest]
-              });
-            }
-
-            manageLabels(github, context, labels, resultLabelCompile, resultLabelTest);
-
-      - name: "Post comment on PR"
-        if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' && always()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const url = `${process.env.GITHUB_SERVER_URL}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-            const compileMessage = process.env.compile_result === 'success'
-              ? '✅ Compilation completed successfully.'
-              : `❌ Compilation failed. [View Workflow Run](${url})`;
-            const testMessage = process.env.test_result === 'success'
-              ? '✅ Tests passed successfully.'
-              : `❌ Tests failed. [View Workflow Run](${url})`;
-
-            const message = `${compileMessage}\n${testMessage}`;
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: message
-            })
+        run: mix test --trace
