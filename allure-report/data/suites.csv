@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","2976","test Login page test - successful logout","","","passed","","","Elixir.HomePageTests","Elixir.HomePageTests",""
+"","2156","test Key presses test","","","passed","","","Elixir.HomePageTests","Elixir.HomePageTests",""
+"","2309","test Checkbox test","","","passed","","","Elixir.HomePageTests","Elixir.HomePageTests",""
+"","3906","test Login page test - successful login","","","passed","","","Elixir.HomePageTests","Elixir.HomePageTests",""
+"","2164","test Internet dropdown test","","","passed","","","Elixir.HomePageTests","Elixir.HomePageTests",""
