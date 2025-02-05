@@ -38,12 +38,13 @@ jobs:
           restore-keys: ${{ runner.os }}-mix
 
       - name: "Install Dependencies"
+        id: install_dependencies
         run: mix deps.get
 
       - name: "Set Compile Result"
         if: always()
         run: |
-          if [[ "${{ steps.compile_project.outcome }}" == "failure" ]]; then
+          if [[ "${{ steps.install_dependencies.outcome }}" == "failure" ]]; then
             echo "compile_result=failure" >> $GITHUB_ENV
             exit 1
           else
