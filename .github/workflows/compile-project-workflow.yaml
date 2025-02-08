@@ -1,5 +1,10 @@
 name: VeriFlow | Compile
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: false
@@ -65,7 +70,7 @@ jobs:
 
             const resultLabelCompile = process.env.compile_result === 'success' ? 'build-success' : 'build-failure';
 
-            async function manageLabels(github, context, labels, compileResultLabel, testResultLabel) {
+            async function manageLabels(github, context, labels, compileResultLabel) {
               const issue_number = context.payload.pull_request.number;
               const { owner, repo } = context.repo;
 
@@ -95,7 +100,7 @@ jobs:
                 owner,
                 repo,
                 issue_number,
-                labels: [compileResultLabel]
+                labels: [compileResultLabel] // Ensure this is an array
               });
             }
 
@@ -111,10 +116,12 @@ jobs:
               ? '✅ Compilation completed successfully.'
               : `❌ Compilation failed. [View Workflow Run](${url})`;
 
+            const testMessage = ''; // Ensure this variable is defined
             const message = `${compileMessage}\n${testMessage}`;
+
             github.rest.issues.createComment({
-              issue_number: context.issue.number,
+              issue_number: context.payload.pull_request.number,  // Corrected reference
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: message
-            })
+            });
