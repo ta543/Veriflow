@@ -25,12 +25,11 @@ defmodule HomePageTests do
   test "Internet dropdown test" do
     HomePage.visit()
     HomePage.click_dropdown()
-    option1 = DropdownPage.select_option(2)
-    option2 = DropdownPage.select_option(3)
-    option1_selected = attribute_value(option1, "selected")
-    option2_selected = attribute_value(option2, "selected")
-    assert option1_selected == nil
-    assert option2_selected == "true"
+    DropdownPage.checkthat_dropdown_page_is_displayed()
+    DropdownPage.select_option(2)
+    assert DropdownPage.selected?(2)
+    DropdownPage.select_option(3)
+    assert DropdownPage.selected?(3)
   end
 
   feature("[VeriFlow] Authentication")

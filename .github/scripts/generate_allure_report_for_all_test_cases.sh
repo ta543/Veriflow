@@ -1,10 +1,12 @@
 #!/bin/bash
+set -e  # Exit immediately if a command exits with a non-zero status
 
 # Define directories
 SCRIPT_DIR="/Volumes/chappy/chappy/Coding/Projects/work/personal/QA/VeriFlow/.github/scripts"
-RESULTS_DIR="$SCRIPT_DIR/../../test-results"
-ALLURE_RESULTS_DIR="$SCRIPT_DIR/../../allure-results"
-ALLURE_REPORT_DIR="$SCRIPT_DIR/../../allure-report"
+PROJECT_ROOT="$SCRIPT_DIR/../../"
+RESULTS_DIR="$PROJECT_ROOT/test-results"
+ALLURE_RESULTS_DIR="$PROJECT_ROOT/allure-results"
+ALLURE_REPORT_DIR="$PROJECT_ROOT/allure-report"
 
 # Ensure Allure CLI is installed
 if ! command -v allure &> /dev/null; then
@@ -15,40 +17,34 @@ if ! command -v allure &> /dev/null; then
 fi
 
 # Remove existing directories if they exist
-if [ -d "$RESULTS_DIR" ]; then
-    echo "🗑️ Removing existing test-results directory..."
-    rm -rf "$RESULTS_DIR"
-fi
+echo "🗑️ Cleaning up old test results..."
+rm -rf "$RESULTS_DIR" "$ALLURE_RESULTS_DIR" "$ALLURE_REPORT_DIR"
 
-if [ -d "$ALLURE_RESULTS_DIR" ]; then
-    echo "🗑️ Removing existing allure-results directory..."
-    rm -rf "$ALLURE_RESULTS_DIR"
-fi
-
-if [ -d "$ALLURE_REPORT_DIR" ]; then
-    echo "🗑️ Removing existing allure-report directory..."
-    rm -rf "$ALLURE_REPORT_DIR"
-fi
-
-# Ensure necessary directories exist
+# Recreate necessary directories
 mkdir -p "$RESULTS_DIR"
 mkdir -p "$ALLURE_RESULTS_DIR"
 
 echo "🚀 Running Elixir tests with JUnitFormatter..."
-cd "$SCRIPT_DIR/../../" || exit 1  # Move to the project root
+cd "$PROJECT_ROOT" || exit 1  # Move to the project root
 
-# Run tests with JUnitFormatter and CLIFormatter
-MIX_ENV=test mix test --formatter JUnitFormatter --formatter ExUnit.CLIFormatter
+# Run only the specific test (Line 25 of home_page_test.exs)
+MIX_ENV=test mix test test/tests/home_page_test.exs:25 --formatter JUnitFormatter --formatter ExUnit.CLIFormatter
 
-# Move the JUnit XML report to the results directory
-if [ -f "test-results/test-junit-report.xml" ]; then
-    mv test-results/test-junit-report.xml "$RESULTS_DIR/"
+TEST_REPORT="$PROJECT_ROOT/test-results/test-junit-report.xml"
+
+if [ -f "$TEST_REPORT" ]; then
+    if [ "$TEST_REPORT" != "$RESULTS_DIR/test-junit-report.xml" ]; then
+        echo "📂 Moving JUnit XML report to results directory..."
+        mv "$TEST_REPORT" "$RESULTS_DIR/"
+    else
+        echo "✅ JUnit XML report is already in the correct location. Skipping move."
+    fi
 else
-    echo "❌ JUnit XML report not found. Ensure your tests generate the test-junit-report.xml file."
+    echo "❌ JUnit XML report not found. Ensure your tests generate 'test-junit-report.xml'."
     exit 1
 fi
 
-# Check if test results exist
+# Check if test results directory contains any files
 if [ ! -d "$RESULTS_DIR" ] || [ -z "$(ls -A "$RESULTS_DIR")" ]; then
     echo "❌ No test results found in $RESULTS_DIR. Skipping Allure report generation."
     exit 1
