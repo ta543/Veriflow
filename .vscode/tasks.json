@@ -1,33 +1,31 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "Elixir Test Run",
-        "type": "shell",
-        "command": "clear && mix test /Users/sap/work/personal/QA/VeriFlow/lib/tests/HomePage/HomePageTests.exs",
-        "group": {
-          "kind": "build",
-          "isDefault": true
-        },
-        "problemMatcher": [],
-        "options": {
-          "cwd": "${workspaceFolder}"
-        }
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Elixir Test Run",
+      "type": "shell",
+      "command": "clear && /Volumes/chappy/chappy/Coding/Projects/work/personal/QA/VeriFlow/.github/scripts/generate_allure_report_for_all_test_cases.sh",
+      "group": {
+        "kind": "build",
+        "isDefault": true
       },
-      {
-        "label": "Gradle Test Run",
-        "type": "shell",
-        "command": "mix phx.server",
-        "group": {
-          "kind": "build",
-          "isDefault": false
-        },
-        "problemMatcher": [],
-        "options": {
-          "cwd": "${workspaceFolder}"
-        }
+      "problemMatcher": [],
+      "options": {
+        "cwd": "/Volumes/chappy/chappy/Coding/Projects/work/personal/QA/VeriFlow"
       }
-    ]
-  }
-  
-  
+    },
+    {
+      "label": "Gradle Test Run",
+      "type": "shell",
+      "command": "./gradlew test",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }
+  ]
+}
