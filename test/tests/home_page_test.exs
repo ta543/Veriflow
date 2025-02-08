@@ -81,8 +81,6 @@ defmodule HomePageTests do
     assert CheckboxPage.checked?(checkbox2) == false
   end
 
-# hudwuhdwhudwu
-
   feature("[VeriFlow] Keyboard Events")
   story("Key Presses")
   severity(:NORMAL)
