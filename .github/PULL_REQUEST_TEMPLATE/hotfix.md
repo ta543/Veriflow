@@ -22,11 +22,11 @@
 > Attach a screenshot or video demonstrating the issue being resolved.  
 > ![image](https://github.com/user-attachments/assets/3f4806a2-2014-46dd-8ddb-fe8c72dcbc7f)
 
-> [!DANGER]
+> [!WARNING]  
 > **IMPACT ANALYSIS**  
-> - Systems/Features affected by this hotfix:
-> - Potential side effects or risks:
-> - Rollback plan (in case of failure):
+> - Systems/Features affected:
+> - Potential risks and side effects:
+> - Rollback plan (if required):
 
 ---
 

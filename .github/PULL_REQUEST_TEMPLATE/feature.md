@@ -18,10 +18,10 @@
 > Attach screenshots, screen recordings, or GIFs to demonstrate the new functionality.  
 > ![image](https://github.com/user-attachments/assets/3f4806a2-2014-46dd-8ddb-fe8c72dcbc7f)
 
-> [!DANGER]
+> [!WARNING]  
 > **IMPACT ANALYSIS**  
-> - Systems/Features impacted by this change:
-> - Any potential risks or side effects:
+> - Systems/Features affected:
+> - Potential risks and side effects:
 > - Rollback plan (if required):
 
 ---

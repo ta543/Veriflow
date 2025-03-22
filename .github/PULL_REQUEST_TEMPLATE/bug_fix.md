@@ -21,11 +21,11 @@
 > Attach evidence showing the bug is fixed (before/after screenshots, logs, or recordings).  
 > ![image](https://github.com/user-attachments/assets/3f4806a2-2014-46dd-8ddb-fe8c72dcbc7f)
 
-> [!DANGER]
+> [!WARNING]  
 > **IMPACT ANALYSIS**  
-> - Systems/Features affected by this fix:
-> - Potential side effects or risks:
-> - Rollback plan (if needed):
+> - Systems/Features affected:
+> - Potential risks and side effects:
+> - Rollback plan (if required):
 
 ---
 
