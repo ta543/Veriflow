@@ -28,38 +28,57 @@
       "@ActionUtils": ["./utils/action-utils"],
       "@APIUtils": ["./utils/api-utils"],
       "@LocatorUtils": ["./utils/locator-utils"],
+      "@DBManager": ["./utils/db-manager"],
+      "@StepsUtils": ["./utils/steps-utils"],
+      "@TestFixtures": ["./utils/test-fixtures"],
+      // Managers
+      "@SlackManager": ["./managers/slack-manager"],
+      // Allure Configs
+      "@AllureEnvConfig": ["../../allure/config/env-config"],
       // Test Data
       "@TestMetadata": ["./utils/test-metadata"],
       "@AllureMetaData": ["./utils/setupAllure"],
-      "@TestDataSauceDemo": ["../../tests/testdata/sauce-demo-test-data"],
-      "@TestDataTheInternet": ["../../tests/testdata/the-internet-test-data"],
-      "@TestDataAutomationExercise": ["../../tests/testdata/automation-exercise-testdata"],
-      "@TestDataPractiseAutomationFormFields": ["../../tests/testdata/practise-automation-form-fields-test-data"],
-      // Pages - The Internet
-      "@TheInternetHomePage": ["../../tests/pages/e2e-testing/the-internet-pages/home-page"],
-      "@TheInternetLoginPage": ["../../tests/pages/e2e-testing/the-internet-pages/login-page"],
-      "@TheInternetDropdownPage": ["../../tests/pages/e2e-testing/the-internet-pages/dropdown-page"],
-      "@TheInternetCheckboxPage": ["../../tests/pages/e2e-testing/the-internet-pages/checkbox-page"],
-      "@TheInternetKeypressPage": ["../../tests/pages/e2e-testing/the-internet-pages/keypress-page"],
-      // Pages - Practice Automation
-      "@PracticeAutomationHomePage": ["../../tests/pages/e2e-testing/practice-automation-pages/home-page"],
-      "@PracticeAutomationBrokenLinksPage": ["../../tests/pages/e2e-testing/practice-automation-pages/broken-links-page"],
-      "@PracticeAutomationFileDownloadPage": ["../../tests/pages/e2e-testing/practice-automation-pages/file-download-page"],
-      "@PracticeAutomationFileUploadPage": ["../../tests/pages/e2e-testing/practice-automation-pages/file-upload-page"],
-      "@PracticeAutomationFormFieldsPage": ["../../tests/pages/e2e-testing/practice-automation-pages/form-fields-page"],
-      "@PracticeAutomationPopUpsPage": ["../../tests/pages/e2e-testing/practice-automation-pages/popups-page"],
-      // Pages - Automation Exercise
-      "@AutomationExerciseHomePage": ["../../tests/pages/e2e-testing/automation-exercise-pages/home-page"],
-      "@AutomationExerciseCartPage": ["../../tests/pages/e2e-testing/automation-exercise-pages/cart-page"],
-      "@AutomationExerciseContactUsPage": ["../../tests/pages/e2e-testing/automation-exercise-pages/contact-us-page"],
-      "@AutomationExerciseLoginPage": ["../../tests/pages/e2e-testing/automation-exercise-pages/login-page"],
-      "@AutomationExerciseProductsPage": ["../../tests/pages/e2e-testing/automation-exercise-pages/products-page"],
-      // Pages - Sauce Demo
-      "@SauceDemoLoginPage": ["../../tests/pages/e2e-testing/sauce-demo-pages/sauce-demo-login-page"],
-      "@SauceDemoMiniCartPage": ["../../tests/pages/e2e-testing/sauce-demo-pages/sauce-demo-mini-cart"],
-      "@SauceDemoProductsPage": ["../../tests/pages/e2e-testing/sauce-demo-pages/sauce-demo-products-page"],
+      "@TestDataSauceDemo": ["../../tests/testdata/testdata/sauce-demo-test-data"],
+      "@TestDataTheInternet": ["../../tests/testdata/testdata/the-internet-test-data"],
+      "@TestDataAutomationExercise": ["../../tests/testdata/testdata/automation-exercise-testdata"],
+      "@ExpandTestingTestData": ["../../tests/testdata/testdata/practice-expandtesting-testdata"],
+      "@TestDataPractiseAutomationFormFields": ["../../tests/testdata/testdata/practise-automation-form-fields-test-data"],
+      
+      // DB Data
+      // "@TimescaleDBData": ["../../tests/testdata/testdata/sauce-demo-test-data"],
+      // "@AllureMetaData": ["./utils/setupAllure"],      
+
       // API Helpers
-      "@AutomationExerciseAPI": ["./api-helpers/automation-exercise-api-helper"]
+      "@AutomationExerciseAPI": ["./api-helpers/automation-exercise-api-helper"],
+      // Pages - The Internet | E2E
+      "@TheInternetHomePage": ["../../tests/pages/e2e/the-internet-pages/home-page"],
+      "@TheInternetDropdownPage": ["../../tests/pages/e2e/the-internet-pages/dropdown-page"],
+      "@TheInternetLoginPage": ["../../tests/pages/e2e/the-internet-pages/login-page"],
+      "@TheInternetCheckboxPage": ["../../tests/pages/e2e/the-internet-pages/checkbox-page"],
+      "@TheInternetKeypressPage": ["../../tests/pages/e2e/the-internet-pages/keypress-page"],
+      // Pages - Practice Automation | E2E
+      "@PracticeAutomationHomePage": ["../../tests/pages/e2e/practice-automation-pages/home-page"],
+      "@PracticeAutomationBrokenLinksPage": ["../../tests/pages/e2e/practice-automation-pages/broken-links-page"],
+      "@PracticeAutomationFileDownloadPage": ["../../tests/pages/e2e/practice-automation-pages/file-download-page"],
+      "@PracticeAutomationFileUploadPage": ["../../tests/pages/e2e/practice-automation-pages/file-upload-page"],
+      "@PracticeAutomationFormFieldsPage": ["../../tests/pages/e2e/practice-automation-pages/form-fields-page"],
+      "@PracticeAutomationPopUpsPage": ["../../tests/pages/e2e/practice-automation-pages/popups-page"],
+      // Pages - Automation Exercise | E2E
+      "@AutomatioExerciseHomePage": ["../../tests/pages/e2e/automation-exercise-pages/home-page"],
+      "@AutomatioExerciseProductsPage": ["../../tests/pages/e2e/automation-exercise-pages/products-page"],
+      "@AutomatioExerciseCartPage": ["../../tests/pages/e2e/automation-exercise-pages/cart-page"],
+      "@AutomatioExerciseContactUsPage": ["../../tests/pages/e2e/automation-exercise-pages/contact-us-page"],
+      // Pages - ExpandTesting | E2E
+      "@ExpandTestingHomePage": ["../../tests/pages/e2e/expandtesting-pages/home-page"],
+      "@ExpandTestingLoginPage": ["../../tests/pages/e2e/expandtesting-pages/login-page"],
+      "@ExpandTestingRegisterPage": ["../../tests/pages/e2e/expandtesting-pages/register-page"],
+      "@ExpandTestingFormFieldsPage": ["../../tests/pages/e2e/expandtesting-pages/form-fields-page"],
+      // Pages - Sauce Demo | E2E
+      "@SauceDemoLoginPage": ["../../tests/pages/e2e/sauce-demo-pages/sauce-demo-login-page"],
+      "@SauceDemoMiniCartPage": ["../../tests/pages/e2e/sauce-demo-pages/sauce-demo-mini-cart"],
+      "@SauceDemoProductsPage": ["../../tests/pages/e2e/sauce-demo-pages/sauce-demo-products-page"],
+      // Pages - TimescaleDB | DB
+      "@TimescaleDBPage": ["../../tests/pages/db/timescaledb-page"]
     },
     "declaration": false, // No need to generate declaration files (.d.ts) for a test project
     "downlevelIteration": true, // Enables support for iterating on objects like `Map` and `Set` in older environments

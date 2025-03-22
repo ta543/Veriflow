@@ -10,7 +10,7 @@
 import { click, fill } from '@ActionUtils';
 import { expectElementToBeVisible, expectPageToHaveURL } from '@AssertUtils';
 import { getLocatorByRole } from '@LocatorUtils';
-import { ContactFormData } from '@TestDataAutomationExercise';
+import { ContactFormData } from '../../../testdata/testdata/automation-exercise-testdata';
 
 // Locators
 const contactUsHeading = () => getLocatorByRole("heading", { name: "GET IN TOUCH" });

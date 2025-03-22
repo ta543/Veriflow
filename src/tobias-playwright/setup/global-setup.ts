@@ -5,13 +5,11 @@
  * You can add any initialization setup code within this function.
  */
 
-import { execSync } from 'child_process';
+import { updateEnvConfig, getCurrentEnvConfig } from '@AllureEnvConfig';
 
 async function globalSetup() {
-  console.log("🔄 Moving old Allure results to history...");
-  execSync("bash prepare-allure.sh", { stdio: "inherit" });
-
-  console.log("✅ Allure results cleaned. Ready for test execution.");
+    console.log('🔄 Running global setup...');
+    updateEnvConfig({ suite: 'ALL' }); // Reset suite before tests run
 }
 
 export default globalSetup;

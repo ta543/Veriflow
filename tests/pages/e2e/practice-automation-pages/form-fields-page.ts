@@ -6,7 +6,7 @@
 import { click, scrollLocatorIntoView, gotoURL } from '@ActionUtils';
 import { expectPageToHaveURL } from '@AssertUtils';
 import { getLocator, getLocatorByRole } from '@LocatorUtils';
-import { FormFieldsCredentials } from '@TestDataPractiseAutomationFormFields';
+import { FormFieldsCredentials } from '../../../testdata/testdata/practise-automation-form-fields-test-data';
 
 const formFieldsPageURL = 'https://practice-automation.com/form-fields';
 const nameInput = () => getLocator('input[id="name-input"]');

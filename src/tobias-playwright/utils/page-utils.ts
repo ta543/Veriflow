@@ -27,22 +27,30 @@ export function setPage(pageInstance: Page): void {
 }
 
 /**
- * Switches to a different page by its index (1-based).
- * If the desired page isn't immediately available, this function will wait and retry for up to 'SMALL_TIMEOUT' seconds.
- * @param {number} winNum - The index of the page to switch to.
- * @throws {Error} If the desired page isn't found within 'SMALL_TIMEOUT' seconds.
+ * Blocks common ad domains to improve test stability and speed.
+ * This function should be called during global page setup.
  */
-export async function switchPage(winNum: number): Promise<void> {
-  const startTime = Date.now();
-  while (page.context().pages().length < winNum && Date.now() - startTime < SMALL_TIMEOUT) {
-    await new Promise(resolve => setTimeout(resolve, 100));
-  }
-  if (page.context().pages().length < winNum) {
-    throw new Error(`Page number ${winNum} not found after ${SMALL_TIMEOUT} seconds`);
-  }
-  const pageInstance = page.context().pages()[winNum - 1];
-  await pageInstance.waitForLoadState();
-  setPage(pageInstance);
+export async function blockAds(page: Page): Promise<void> {
+  const blockedDomains = [
+    'googlesyndication.com',
+    'doubleclick.net',
+    'adservice.google.com',
+    'pagead2.googlesyndication.com',
+    'adclick.g.doubleclick.net',
+    'ads.youtube.com',
+    'ad.doubleclick.net',
+    'static.doubleclick.net',
+    'tpc.googlesyndication.com',
+    'googleads.g.doubleclick.net'
+  ];
+
+  await page.route('**/*', (route) => {
+    const url = route.request().url();
+    if (blockedDomains.some(domain => url.includes(domain))) {
+      return route.abort();
+    }
+    return route.continue();
+  });
 }
 
 /**

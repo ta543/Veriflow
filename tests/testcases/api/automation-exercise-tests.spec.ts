@@ -20,8 +20,7 @@ test.afterAll(async () => {
   await apiRequest.dispose();
 }); 
 
-test.describe('Automation Exercise API Tests', () => {
-  
+test.describe.parallel('Automation Exercise | API', () => {
   test('Get All Products List', async () => {
     setupAllure('apiAutomationExerciseGetAllProducts');
     const response = await API.getAllProducts();

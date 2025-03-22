@@ -5,12 +5,12 @@
 
 import { test } from '@PageSetup';
 import { setupAllure } from '@AllureMetaData';
-import * as HomePage from '../../pages/e2e-testing/automation-exercise-pages/home-page';
-import * as ProductsPage from '../../pages/e2e-testing/automation-exercise-pages/products-page';
-import * as CartPage from '../../pages/e2e-testing/automation-exercise-pages/cart-page';
-import * as ContactUsPage from '../../pages/e2e-testing/automation-exercise-pages/contact-us-page';
+import * as HomePage from '@AutomatioExerciseHomePage';
+import * as ProductsPage from '@AutomatioExerciseProductsPage';
+import * as CartPage from '@AutomatioExerciseCartPage';
+import * as ContactUsPage from '@AutomatioExerciseContactUsPage';
 
-test.describe('Automation Exercise App Tests', () => {
+test.describe.parallel('Automation Exercise | E2E', () => {
   test('Search product test', async () => {
     setupAllure('automationExerciseSearchProductTest');
     await HomePage.navigateToHomePage();
