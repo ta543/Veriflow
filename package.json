@@ -66,7 +66,7 @@
     "Prepare | Husky": "husky install",
     "Format": "prettier --write 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts' '**/*.json' '**/*.md' '!package-lock.json' '!dist/**/*' '!build/**/*'",
     "Allure": "allure generate ./allure-results --clean && allure open ./allure-report",
-    "Build": "tsc",
+    "build": "tsc",
     "Regression": "npx playwright test --workers=10",
     "test:chrome": "cd $BASE_DIR && npx playwright test --retries 0 --project=chrome",
     "test:chrome-headed": "cd $BASE_DIR && npx playwright test -j 1 --retries 0 --headed --project=chrome",
