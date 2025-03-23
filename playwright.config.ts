@@ -42,7 +42,7 @@ export default defineConfig({
    * The number of times to retry failed tests. Retries value is only set to happen on CI.
    * See https://playwright.dev/docs/api/class-testconfig#testconfig-retries
    */
-  retries: 2,
+  // retries: 2,
   retries: process.env.CI ? 3 : 6,
   /**
    * The number of worker threads to use for running tests. This is set to a different value on CI.

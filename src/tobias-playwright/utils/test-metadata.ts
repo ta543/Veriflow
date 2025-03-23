@@ -500,6 +500,7 @@ export const testMetadata = {
   timescaleDBVerifyFinancialTrend: {
     owner: 'Tobias Andersen - [tobias@tobiasa.com]',
     tms: 'VF-6',
+    displayname: '[Data Validation] Verify Data Completeness for Each Series',
     description: 'Ensure financial data follows a consistent increasing or decreasing trend.',
     tags: ['TimescaleDB', 'Database', 'FinancialData', 'Trends'],
     severity: 'MEDIUM',
@@ -511,6 +512,7 @@ export const testMetadata = {
   timescaleDBDetectAnomalousSpikes: {
     owner: 'Tobias Andersen - [tobias@tobiasa.com]',
     tms: 'VF-5',
+    displayname: '[Data Validation] Verify Data Completeness for Each Series',
     description: 'Detect anomalous financial data spikes that may indicate fraud or errors.',
     tags: ['TimescaleDB', 'Database', 'FinancialData', 'Anomalies'],
     severity: 'CRITICAL',
@@ -522,6 +524,7 @@ export const testMetadata = {
   timescaleDBMeasurePerformance: {
     owner: 'Tobias Andersen - [tobias@tobiasa.com]',
     tms: 'VF-4',
+    displayname: '[Data Validation] Verify Data Completeness for Each Series',
     description: 'Measure query execution time to ensure optimal database performance.',
     tags: ['TimescaleDB', 'Database', 'Performance', 'Optimization'],
     severity: 'NORMAL',
@@ -533,6 +536,7 @@ export const testMetadata = {
   timescaleDBVerifyForeignKeyIntegrity: {
     owner: 'Tobias Andersen - [tobias@tobiasa.com]',
     tms: 'VF-3',
+    displayname: '[Data Validation] Verify Foreign Keys for Each Series',
     description: 'Verify that all series_reference values in financial data exist in the reference table.',
     tags: ['TimescaleDB', 'Database', 'ForeignKeys', 'DataIntegrity'],
     severity: 'CRITICAL',
@@ -544,6 +548,7 @@ export const testMetadata = {
   timescaleDBDynamicSwitchingTest: {
     owner: 'Tobias Andersen - [tobias@tobiasa.com]',
     tms: 'VF-21',
+    displayname: '[Data Validation] Verify Data Completeness for Each Series',
     description: 'Ensure test databases can be dynamically created from a template and switched between at runtime.',
     tags: ['TimescaleDB', 'Database', 'Failover'],
     severity: 'CRITICAL',
@@ -555,10 +560,11 @@ export const testMetadata = {
   timescaleDBRestartAndVerifyFromPeer: {
     owner: 'Tobias Andersen - [tobias@tobiasa.com]',
     tms: 'VF-22',
+    displayname: '[Cluster Resilience] Restart & Verify From Peer',
     description: 'Restart one TimescaleDB container and verify from another container that it comes back online using pg_isready.',
     tags: ['TimescaleDB', 'DB', 'Failover', 'HealthCheck', 'Container'],
     severity: 'CRITICAL',
-    suite: 'TimescaleDB - System Health & Recovery',
+    suite: 'TimescaleDB | DB',
     feature: '[TIMESCALEDB][DB] Cluster Resilience',
     story: 'Ensure the system can monitor and confirm the availability of a peer database after restart.'
   },

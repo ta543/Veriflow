@@ -7,7 +7,6 @@ import { test, expect } from '@PageSetup';
 import { setupAllure } from "@AllureMetaData";
 import { withSteps } from '@StepsUtils';
 import DBManager from '@DBManager';
-
 import * as TimescaleDBPage from '@TimescaleDBPage';
 
 test.beforeAll(async () => {
@@ -19,12 +18,10 @@ test.afterAll(async () => {
 });
 
 test.describe.parallel('TimescaleDB | DB', () => {
-
   let Timescale: typeof TimescaleDBPage;
   test.beforeEach(async ({}, testInfo) => {
     Timescale = withSteps(TimescaleDBPage, test.step, 'Timescale');
   });
-
   test('Verify Data Import', async () => {  
     setupAllure('timescaleDBVerifyDataImport');
     const rowCount = await Timescale.getFinancialDataRowCount();

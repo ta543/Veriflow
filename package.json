@@ -38,7 +38,6 @@
     "eslint-import-resolver-typescript": "^3.6.0",
     "eslint-plugin-import": "^2.28.0",
     "eslint-plugin-jsdoc": "^46.4.6",
-    "eslint-plugin-playwright": "^0.15.3",
     "husky": "^8.0.3",
     "lint-staged": "^15.4.3",
     "mongodb": "^6.14.2",
@@ -61,12 +60,12 @@
     "Report": "npx playwright show-report playwright-report",
     "Trace": "npx playwright show-trace --port 0",
     "UI": "playwright test --ui-port 0",
-    "Lint": "eslint 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts'",
-    "Lint:fix": "eslint 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts' --fix",
-    "Prepare | Husky": "husky install",
+    "Lint": "npx eslint 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts'",
+    "Lint:fix": "npx eslint 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts' --fix",
     "Format": "prettier --write 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts' '**/*.json' '**/*.md' '!package-lock.json' '!dist/**/*' '!build/**/*'",
-    "Allure": "allure generate ./allure-results --clean && allure open ./allure-report",
     "build": "tsc",
+    "Prepare | Husky": "husky install",
+    "Allure": "allure generate ./allure-results --clean && allure open ./allure-report",
     "Regression": "npx playwright test --workers=10",
     "test:chrome": "cd $BASE_DIR && npx playwright test --retries 0 --project=chrome",
     "test:chrome-headed": "cd $BASE_DIR && npx playwright test -j 1 --retries 0 --headed --project=chrome",
@@ -83,6 +82,12 @@
     "@playwright/test": "^1.50.1",
     "@types/node-fetch": "^2.6.12",
     "@types/pg": "^8.11.11",
-    "allure-playwright": "^3.1.0"
+    "@typescript-eslint/eslint-plugin": "^8.27.0",
+    "@typescript-eslint/parser": "^8.27.0",
+    "allure-playwright": "^3.1.0",
+    "eslint": "^9.23.0",
+    "eslint-plugin-playwright": "^2.2.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "typescript-eslint": "^8.27.0"
   }
 }

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ✅ Set the correct base directory for Allure reports
-BASE_DIR="/Volumes/chappy/chappy/Coding/Projects/work/personal/QA/Veriflow-playwright"
+BASE_DIR="/Volumes/chappy/chappy/Coding/Projects/personal/personal/QA/Veriflow-playwright"
 
 # Paths for Allure results and history
 ALLURE_DIR="$BASE_DIR/allure"

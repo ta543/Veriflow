@@ -2,10 +2,7 @@ import { Reporter, FullConfig, Suite, TestCase, TestResult } from '@playwright/t
 import chalk from 'chalk';
 
 export default class MyReporter implements Reporter {
-  private testCount = 0;
-  private totalTests = 0;
-  private passed = 0;
-  private failed = 0;
+  private testResults = new Map<string, TestResult[]>();
 
   onBegin(_config: FullConfig, suite: Suite): void {
     console.clear();
@@ -21,22 +18,26 @@ export default class MyReporter implements Reporter {
       console.error(chalk.redBright("❌ Error accessing suite title:"), error);
     }
 
-    this.totalTests = suite.allTests().length;
+    const totalUniqueTests = suite.allTests().length;
     console.log(chalk.gray(`🕒 Starting test execution...`));
-    console.log(chalk.gray(`🧪 Total tests to run: ${this.totalTests}\n`));
+    console.log(chalk.gray(`🧪 Total tests to run: ${totalUniqueTests}\n`));
   }
 
   onTestBegin(test: TestCase): void {
-    this.testCount++;
     console.log(`${chalk.bold.hex('#FF00FF')('🚀 [RUNNING]')} ${chalk.hex('#00FFFF')(test.title)}`);
   }
 
   onTestEnd(test: TestCase, result: TestResult): void {
+    const key = test.titlePath().join(' > ');
+    if (!this.testResults.has(key)) {
+      this.testResults.set(key, []);
+    }
+    this.testResults.get(key)!.push(result);
+
+    // Show step feedback (per attempt)
     if (result.status === 'passed') {
-      this.passed++;
       console.log(`${chalk.bold.green('✅ [PASSED]')} ${chalk.whiteBright(test.title)}`);
     } else if (result.status === 'failed') {
-      this.failed++;
       console.log(`${chalk.bold.redBright('❌ [FAILED]')} ${chalk.whiteBright(test.title)}`);
       if (result.error) {
         console.error(chalk.redBright(`   📌 Reason: ${result.error.message}`));
@@ -45,17 +46,9 @@ export default class MyReporter implements Reporter {
         }
       }
     }
-
-    // 🎯 Live summary:
-    const passedStr = chalk.green(`✅ Passed: ${this.passed}/${this.totalTests}`);
-    const failedStr = this.failed > 0
-      ? chalk.red(`❌ Failed: ${this.failed}/${this.totalTests}`)
-      : '';
-    
-    console.log(`${passedStr}${failedStr ? '   ' + failedStr : ''}\n`);
   }
 
-  onStdOut(chunk: string | Buffer, _test?: TestCase, _result?: TestResult): void {
+  onStdOut(chunk: string | Buffer): void {
     const output = typeof chunk === 'string' ? chunk : chunk.toString();
 
     for (const line of output.split('\n')) {
@@ -69,7 +62,7 @@ export default class MyReporter implements Reporter {
     }
   }
 
-  onStdErr(chunk: string | Buffer, _test?: TestCase, _result?: TestResult): void {
+  onStdErr(chunk: string | Buffer): void {
     const output = typeof chunk === 'string' ? chunk : chunk.toString();
     console.error(chalk.redBright(`[stderr] ${output.trim()}`));
   }
@@ -84,17 +77,30 @@ export default class MyReporter implements Reporter {
   onEnd(): void {
     console.log(chalk.magenta("\n=== Test Run Completed ==="));
 
-    console.log(`📊 ${chalk.bold('Total Tests:')} ${this.totalTests}`);
-    console.log(`✅ ${chalk.bold.green('Passed:')} ${this.passed}/${this.totalTests}`);
-  
-    if (this.failed > 0) {
-      console.log(`❌ ${chalk.bold.red('Failed:')} ${this.failed}/${this.totalTests}`);
+    let passed = 0;
+    let failed = 0;
+
+    for (const results of this.testResults.values()) {
+      const finalResult = results[results.length - 1];
+      if (finalResult.status === 'passed') {
+        passed++;
+      } else {
+        failed++;
+      }
+    }
+
+    const total = passed + failed;
+
+    console.log(`📊 ${chalk.bold('Total Tests:')} ${total}`);
+    console.log(`✅ ${chalk.bold.green('Passed:')} ${passed}/${total}`);
+    console.log(`❌ ${chalk.bold.red('Failed:')} ${failed}/${total}`);
+
+    if (failed > 0) {
       console.log(chalk.redBright(`❗ Some tests failed. Check logs above for details.`));
     } else {
-      console.log(`❌ ${chalk.dim('Failed: 0/0')}`);
       console.log(chalk.bold.yellowBright(`🎉 All tests passed!`));
     }
-  
+
     console.log(chalk.gray(`🕒 Test execution finished.`));
   }
 }
