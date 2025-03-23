@@ -9,6 +9,13 @@ import { withSteps } from '@StepsUtils';
 import DBManager from '@DBManager';
 import * as TimescaleDBPage from '@TimescaleDBPage';
 
+/*
+ To run the tests in parallel, you can utilize the test.describe.configure() method to set the mode to 'parallel'.
+ By default, the tests will run sequentially when fullyParallel: false is set in playwright.config.
+ The tests will not be skipped upon encountering a failure except when the mode is set to 'serial'.
+*/
+test.describe.configure({ mode: 'parallel' });
+
 test.beforeAll(async () => {
   await TimescaleDBPage.connectToDatabase('veriflow_timescale', 'timescale');
 });
@@ -17,7 +24,7 @@ test.afterAll(async () => {
   await DBManager.disconnect();
 });
 
-test.describe.parallel('TimescaleDB | DB', () => {
+test.describe('TimescaleDB | DB', () => {
   let Timescale: typeof TimescaleDBPage;
   test.beforeEach(async ({}, testInfo) => {
     Timescale = withSteps(TimescaleDBPage, test.step, 'Timescale');
@@ -81,7 +88,7 @@ test.describe.parallel('TimescaleDB | DB', () => {
     expect(hasNoDuplicates).toBeTruthy();
   });
 
-  test('Validate Financial Data Against Expected Ranges per Subject', async () => {
+  test('[TimescaleDB][DB][DataValidation][Regression] Validate Financial Data Against Expected Ranges per Subject', async () => {
       setupAllure('timescaleDBValidateDataRangesPerSubject');
       const subjects = ['GDP', 'Inflation', 'Employment'];
       for (const subject of subjects) {

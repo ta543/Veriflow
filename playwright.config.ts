@@ -4,15 +4,18 @@
  * See https://playwright.dev/docs/test-configuration for more details.
  */
 
-import { ACTION_TIMEOUT, EXPECT_TIMEOUT, NAVIGATION_TIMEOUT, TEST_TIMEOUT } from '@TimeoutConstants';
-import { WaitForLoadStateOptions } from 'setup/optional-parameter-types';
-
+import { ACTION_TIMEOUT, EXPECT_TIMEOUT, NAVIGATION_TIMEOUT, TEST_TIMEOUT } from '@TIMEOUT';
+import { WaitForLoadStateOptions } from './src/tobias-playwright/types/optional-parameter-types';
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env' });
+import os from 'os';
 
 const BASE_URL = process.env.URL || 'https://the-internet.herokuapp.com/';
-// const startLocalHost = process.env.URL && process.env.URL.includes('localhost');
+const startLocalHost = process.env.URL && process.env.URL.includes('localhost');
+export const LOCAL_HOST_URL = 'https://localhost:9002';
+const Reporter = require.resolve('./src/tobias-playwright/setup/reporter');
+
 /**
  * Default load state to be used while loading a URL or performing a click and navigate operation.
  * The load state is set to 'domcontentloaded', which means the action will wait until the 'DOMContentLoaded' event is fired.
@@ -32,7 +35,7 @@ export default defineConfig({
    * Determines whether to run tests within each spec file in parallel, in addition to running the spec files themselves in parallel.
    * See https://playwright.dev/docs/api/class-testconfig#testconfig-fullyparallel
    */
-  fullyParallel: true,
+  fullyParallel: false,
   /**
    * Whether to fail the build on CI if you accidentally left test.only in the source code.
    * See https://playwright.dev/docs/api/class-testconfig#testconfig-forbidonly
@@ -42,8 +45,7 @@ export default defineConfig({
    * The number of times to retry failed tests. Retries value is only set to happen on CI.
    * See https://playwright.dev/docs/api/class-testconfig#testconfig-retries
    */
-  // retries: 2,
-  retries: process.env.CI ? 3 : 6,
+  retries: process.env.CI ? 2 : 0,
   /**
    * The number of worker threads to use for running tests. This is set to a different value on CI.
    * See https://playwright.dev/docs/api/class-testconfig#testconfig-workers
@@ -54,16 +56,14 @@ export default defineConfig({
    * The reporter to use. This can be set to use a different value on CI.
    * See https://playwright.dev/docs/test-reporters
    */
-
   reporter: [
     ['allure-playwright', { outputFolder: 'allure/allure-results' }],
     ['junit', { outputFile: 'test-results.xml' }],
-    ['./src/tobias-playwright/utils/MyReporter'],
+    [Reporter],
     ['json', { outputFile: 'allure/allure-results/test-results.json' }],
     ['html', { outputFolder: 'allure/allure-report', open: 'never' }],
     // ['list'],
   ],
-  // quiet: true,
 
   /**
    * Shared settings for all the projects below.
@@ -168,16 +168,18 @@ export default defineConfig({
 
   /**
    * If the tests are being run on localhost, this configuration starts a web server.
-   * See https://playwright.dev/docs/test-configuration#webserver
+   * See https://playwright.dev/docs/test-webserver#configuring-a-web-server
    */
-  // ...(startLocalHost && {
-  //   webServer: {
-  //     command: 'cd ~/repos/ui && npm start ui-server',
-  //     port: 9002,
-  //     timeout: 60 * 1000,
-  //     reuseExistingServer: !process.env.CI,
-  //     stdout: 'pipe',
-  //     stderr: 'pipe',
-  //   },
-  // }),
+  ...(startLocalHost && {
+    webServer: {
+      cwd: `${os.homedir()}/repos/ui`,
+      command: 'npm start ui-server',
+      url: LOCAL_HOST_URL,
+      ignoreHTTPSErrors: true,
+      timeout: 60 * 1000,
+      reuseExistingServer: true,
+      stdout: 'pipe',
+      stderr: 'pipe',
+    },
+  }),
 });

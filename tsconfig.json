@@ -1,14 +1,27 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    // Language and Environment
     "target": "es6",
+
+    // Modules
+    "module": "commonjs",
+    // "baseUrl": ".",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    // "paths": {
+    //   "@pages/*": ["./tests/pages/*"],
+    //   "@testdata/*": ["./tests/testdata/*"],
+    //   "@pagesetup": ["./test-setup/page-setup"],
+    //   "@constants/*": ["./src/vasu-playwright-lib/constants/*"],
+    //   "@utils/*": ["src/vasu-playwright-lib/utils/*"]
+    // }, // Sets up custom path mappings, enabling to import modules with convenient shorter paths
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "outDir": "dist",
     "strict": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "moduleResolution": "node",
     "importHelpers": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": true,
@@ -20,34 +33,31 @@
     "baseUrl": "src/tobias-playwright",
     "paths": {
       // Utils
-      "@PageSetup": ["./setup/page-setup"],
       "@PageUtils": ["./utils/page-utils"],
-      "@TimeoutConstants": ["./utils/timeout-constants"],
       "@AssertUtils": ["./utils/assert-utils"],
       "@ElementUtils": ["./utils/element-utils"],
       "@ActionUtils": ["./utils/action-utils"],
       "@APIUtils": ["./utils/api-utils"],
       "@LocatorUtils": ["./utils/locator-utils"],
-      "@DBManager": ["./utils/db-manager"],
       "@StepsUtils": ["./utils/steps-utils"],
       "@TestFixtures": ["./utils/test-fixtures"],
+      // Constants
+      "@TIMEOUT": ["./constants/timeouts"],
+      "@LOADSTATE": ["./constants/loadstate"],
       // Managers
       "@SlackManager": ["./managers/slack-manager"],
-      // Allure Configs
+      "@DBManager": ["./managers/db-manager"],
+      // Setup
+      "@PageSetup": ["./setup/page-setup"],
+      "@TestMetadata": ["./setup/test-metadata"],
+      "@AllureMetaData": ["./setup/setupAllure"],
       "@AllureEnvConfig": ["../../allure/config/env-config"],
       // Test Data
-      "@TestMetadata": ["./utils/test-metadata"],
-      "@AllureMetaData": ["./utils/setupAllure"],
       "@TestDataSauceDemo": ["../../tests/testdata/testdata/sauce-demo-test-data"],
       "@TestDataTheInternet": ["../../tests/testdata/testdata/the-internet-test-data"],
       "@TestDataAutomationExercise": ["../../tests/testdata/testdata/automation-exercise-testdata"],
       "@ExpandTestingTestData": ["../../tests/testdata/testdata/practice-expandtesting-testdata"],
       "@TestDataPractiseAutomationFormFields": ["../../tests/testdata/testdata/practise-automation-form-fields-test-data"],
-      
-      // DB Data
-      // "@TimescaleDBData": ["../../tests/testdata/testdata/sauce-demo-test-data"],
-      // "@AllureMetaData": ["./utils/setupAllure"],      
-
       // API Helpers
       "@AutomationExerciseAPI": ["./api-helpers/automation-exercise-api-helper"],
       // Pages - The Internet | E2E

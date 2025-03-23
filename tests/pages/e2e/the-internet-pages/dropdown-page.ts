@@ -8,7 +8,8 @@
  * VeriFlow Test Automation - The Internet | DropdownPage
  */
 
-import { gotoURL, selectByIndex } from '@ActionUtils';
+import { selectByIndex } from '@ActionUtils';
+import { gotoURL } from '@PageUtils';
 import { expectPageToHaveURL } from '@AssertUtils';
 import { getLocatorByXPath } from '@LocatorUtils';
 

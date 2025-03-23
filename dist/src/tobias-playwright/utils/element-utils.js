@@ -10,7 +10,7 @@ exports.isElementChecked = exports.isElementHidden = exports.isElementVisible = 
 const tslib_1 = require("tslib");
 const _PageUtils_1 = require("@PageUtils");
 const _LocatorUtils_1 = require("@LocatorUtils");
-const _TimeoutConstants_1 = require("@TimeoutConstants");
+const _TimeoutConstants_1 = require("@TIMEOUT");
 const _ActionUtils_1 = require("@ActionUtils");
 /**
  * 1. Retreiving Data: Use these functions to retrieve text, values, and counts from web elements.

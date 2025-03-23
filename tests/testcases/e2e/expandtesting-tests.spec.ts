@@ -4,16 +4,26 @@
  */
 
 import { test } from '@PageSetup';
-import { setupAllure } from "@AllureMetaData";
+import { setupAllure } from "setup/setupAllure";
 import * as HomePage from '@ExpandTestingHomePage';
 import * as LoginPage from '@ExpandTestingLoginPage';
 import * as FormFieldsPage from '@ExpandTestingFormFieldsPage';
 import * as RegisterPage from '@ExpandTestingRegisterPage';
 
-test.describe.parallel('ExpandTesting | E2E', () => {
-  test('Web Inputs Test', async () => {
+/*
+ To run the tests in parallel, you can utilize the test.describe.configure() method to set the mode to 'parallel'.
+ By default, the tests will run sequentially when fullyParallel: false is set in playwright.config.
+ The tests will not be skipped upon encountering a failure except when the mode is set to 'serial'.
+*/
+test.describe.configure({ mode: 'parallel' });
+
+test.beforeEach('Navigating to Home Page', async () => {
+  await HomePage.navigateToHomePage();
+});
+
+test.describe('ExpandTesting | E2E', () => {
+  test('[Regression] Web Inputs Test', async () => {
     setupAllure('expandTestingWebInputsTest');
-    await HomePage.navigateToHomePage();
     await HomePage.navigateToWebInputPage();
     await FormFieldsPage.closeAdIfVisible();
     await FormFieldsPage.fillNumberField('323762');
@@ -26,7 +36,6 @@ test.describe.parallel('ExpandTesting | E2E', () => {
 
   test('Login Test', async () => {
     setupAllure('expandTestingLoginTest');
-    await HomePage.navigateToHomePage();
     await HomePage.navigateToLoginPage();
     await LoginPage.fillLoginFormWithValidCredentials();
     await LoginPage.submitLoginForm();
@@ -35,7 +44,6 @@ test.describe.parallel('ExpandTesting | E2E', () => {
 
   test('Failed Register Test', async () => {
     setupAllure('expandTestingFailedRegisterTest');
-    await HomePage.navigateToHomePage();
     await HomePage.navigateToRegisterPage();
     await RegisterPage.fillRegisterFormWithInvalidCredentials();
     await RegisterPage.submitRegisterForm();

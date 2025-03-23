@@ -3,7 +3,8 @@
  * This test suite validates form field interactions on practice-automation.com
  */
 
-import { click, scrollLocatorIntoView, gotoURL } from '@ActionUtils';
+import { click, scrollLocatorIntoView } from '@ActionUtils';
+import { gotoURL } from '@PageUtils';
 import { expectPageToHaveURL } from '@AssertUtils';
 import { getLocator, getLocatorByRole } from '@LocatorUtils';
 import { FormFieldsCredentials } from '../../../testdata/testdata/practise-automation-form-fields-test-data';

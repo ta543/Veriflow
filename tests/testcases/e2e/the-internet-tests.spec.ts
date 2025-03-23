@@ -4,17 +4,27 @@
  */
 
 import { test } from '@PageSetup';
-import { setupAllure } from '@AllureMetaData';
+import { setupAllure } from 'setup/setupAllure';
 import * as HomePage from '@TheInternetHomePage';
 import * as DropdownPage from '@TheInternetDropdownPage';
 import * as LoginPage from '@TheInternetLoginPage';
 import * as CheckboxPage from '@TheInternetCheckboxPage';
 import * as KeypressPage from '@TheInternetKeypressPage';
 
-test.describe.parallel('The Internet | E2E', () => {
+/*
+ To run the tests in parallel, you can utilize the test.describe.configure() method to set the mode to 'parallel'.
+ By default, the tests will run sequentially when fullyParallel: false is set in playwright.config.
+ The tests will not be skipped upon encountering a failure except when the mode is set to 'serial'.
+*/
+test.describe.configure({ mode: 'parallel' });
+
+test.beforeEach('Navigating to Home Page', async () => {
+  await HomePage.navigateToHomePage();
+});
+
+test.describe('The Internet | E2E', () => {
   test('Dropdown test', async () => {
     setupAllure('dropdownTest');
-    await HomePage.navigateToHomePage();
     await HomePage.clickDropdownLink();
     await DropdownPage.navigateToDropdownPage();
     await DropdownPage.verifyDropdownPageURL();
@@ -28,7 +38,6 @@ test.describe.parallel('The Internet | E2E', () => {
 
   test('Success Login', async () => {
     setupAllure('loginTest');
-    await HomePage.navigateToHomePage();
     await HomePage.clickLoginPageLink();
     await LoginPage.verifyLoginPageIsDisplayed();
     await LoginPage.loginSuccessfully();
@@ -37,24 +46,14 @@ test.describe.parallel('The Internet | E2E', () => {
 
   test('Success Logout', async () => {
     setupAllure('logoutTest');
-    await HomePage.navigateToHomePage();
     await HomePage.clickLoginPageLink();
     await LoginPage.loginSuccessfully();
     await LoginPage.logout();
     await LoginPage.verifySuccessfulLogout();
-
-
-    // const isLoggedOut = await LoginPage.isLogoutSuccessful();
-    // console.assert(isLoggedOut, 'Logout failed: User is still logged in');
-    // if (!isLoggedOut) {
-    //   throw new Error('Logout failed: Expected the user to be logged out, but they were not.');
-    // }
-    // await LoginPage.verifyLoginPageIsDisplayed();
   });
 
   test('Checkbox test', async () => {
     setupAllure('checkboxTest');
-    await HomePage.navigateToHomePage();
     await HomePage.clickCheckboxesPageLink();
 
     await CheckboxPage.toggleCheckbox(1);
@@ -73,7 +72,6 @@ test.describe.parallel('The Internet | E2E', () => {
 
   test('Key presses test', async () => {
     setupAllure('keyPressTest');
-    await HomePage.navigateToHomePage();
     await HomePage.clickKeyPressesPageLink();
     await KeypressPage.clickOnTargetElement();
     await KeypressPage.checkThatKeyPressInputIsDisplayed();

@@ -7,7 +7,8 @@
  * VeriFlow Test Automation - ExpandTesting | HomePage
  */
 
-import { click, gotoURL, wait, acceptConsentIfVisible } from '@ActionUtils';
+import { click, wait, acceptConsentIfVisible } from '@ActionUtils';
+import { gotoURL } from '@PageUtils';
 import { expectPageToHaveURL } from '@AssertUtils';
 import { getLocator } from '@LocatorUtils';
 

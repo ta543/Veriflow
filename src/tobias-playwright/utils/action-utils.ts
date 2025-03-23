@@ -2,7 +2,7 @@
  * action-utils.ts: This module provides a set of utility functions for performing various actions in Playwright tests.
  * These actions include navigation, interaction with page elements, handling of dialogs, and more.
  */
-import { Dialog, Locator, Response } from '@playwright/test';
+import { test, Dialog, Locator, Response } from '@playwright/test';
 import { getPage } from '@PageUtils';
 import {
   CheckOptions,
@@ -21,10 +21,11 @@ import {
   UploadValues,
   WaitForLoadStateOptions,
 } from '../setup/optional-parameter-types';
-import { STANDARD_TIMEOUT } from '@TimeoutConstants';
+import { STANDARD_TIMEOUT } from '@TIMEOUT';
 import { LOADSTATE } from '../../../playwright.config';
 import { getLocator, getLocatorByRole } from '@LocatorUtils';
 import { expectElementToBeVisible } from '@AssertUtils';
+import { getDefaultLoadState } from '../constants';
 
 /**
  * 1. Navigations: This section contains functions for navigating within a web page or between web pages.
@@ -32,21 +33,11 @@ import { expectElementToBeVisible } from '@AssertUtils';
  */
 
 /**
- * Navigates to the specified URL.
- * @param {string} path - The URL to navigate to.
- * @param {GotoOptions} options - The navigation options.
- * @returns {Promise<null | Response>} - The navigation response or null if no response.
- */
-export async function gotoURL(path: string, options: GotoOptions = { waitUntil: LOADSTATE }): Promise<null | Response> {
-  return await getPage().goto(path, options);
-}
-
-/**
  * Waits for a specific page load state.
  * @param {NavigationOptions} options - The navigation options.
  */
 export async function waitForPageLoadState(options?: NavigationOptions): Promise<void> {
-  let waitUntil: WaitForLoadStateOptions = LOADSTATE;
+  let waitUntil: WaitForLoadStateOptions = getDefaultLoadState();
 
   if (options?.waitUntil && options.waitUntil !== 'commit') {
     waitUntil = options.waitUntil;
@@ -132,10 +123,28 @@ export async function acceptConsentIfVisible(): Promise<void> {
  */
 export async function clickAndNavigate(input: string | Locator, options?: ClickOptions): Promise<void> {
   const timeout = options?.timeout || STANDARD_TIMEOUT;
-  await Promise.all([click(input, options), getPage().waitForEvent('framenavigated', { timeout: timeout })]);
-  await getPage().waitForLoadState(options?.loadState || LOADSTATE, {
-    timeout: timeout,
-  });
+  const elementHandle = await getLocator(input).elementHandle(options);
+  try {
+    // Adding 100 ms to the framenavigated timeout prioritizes locator error during click over navigation error, aiding in accurate debugging.
+    await Promise.all([click(input, options), getPage().waitForEvent('framenavigated', { timeout: timeout + 100 })]);
+    await getPage().waitForLoadState(options?.loadState || getDefaultLoadState(), {
+      timeout: timeout,
+    });
+    // Wait for the element to be hidden or stale after navigation. If stale then catch the error and return.
+    await test.step(
+      'Wait for element to be stale/hidden after navigation and ignore any errors in this step',
+      async () => {
+        await elementHandle?.waitForElementState('hidden', { timeout });
+      },
+      { box: true },
+    );
+  } catch (error) {
+    if (error instanceof Error && error.name === 'TimeoutError' && error.message.includes('framenavigated')) {
+      throw new Error(`After the click action, the page did not navigate to a new page\n ${error.message}`);
+    } else if (error instanceof Error && !error.message.includes('elementHandle.waitForElementState')) {
+      throw error;
+    }
+  }
 }
 
 /**

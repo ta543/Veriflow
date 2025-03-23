@@ -9,7 +9,7 @@ import { Locator } from '@playwright/test';
 import { getPage } from '@PageUtils';
 import { NavigationOptions, TimeoutOption } from 'setup/optional-parameter-types';
 import { getAllLocators, getLocator } from '@LocatorUtils';
-import { INSTANT_TIMEOUT, SMALL_TIMEOUT } from '@TimeoutConstants';
+import { INSTANT_TIMEOUT, SMALL_TIMEOUT } from '@TIMEOUT';
 import { waitForPageLoadState } from '@ActionUtils';
 
 /**

@@ -4,16 +4,26 @@
  */
 
 import { test } from '@PageSetup';
-import { setupAllure } from '@AllureMetaData';
+import { setupAllure } from 'setup/setupAllure';
 import * as HomePage from '@AutomatioExerciseHomePage';
 import * as ProductsPage from '@AutomatioExerciseProductsPage';
 import * as CartPage from '@AutomatioExerciseCartPage';
 import * as ContactUsPage from '@AutomatioExerciseContactUsPage';
 
-test.describe.parallel('Automation Exercise | E2E', () => {
+/*
+ To run the tests in parallel, you can utilize the test.describe.configure() method to set the mode to 'parallel'.
+ By default, the tests will run sequentially when fullyParallel: false is set in playwright.config.
+ The tests will not be skipped upon encountering a failure except when the mode is set to 'serial'.
+*/
+test.describe.configure({ mode: 'parallel' });
+
+test.beforeEach('Navigating to Home Page', async () => {
+  await HomePage.navigateToHomePage();
+});
+
+test.describe('Automation Exercise | E2E', () => {
   test('Search product test', async () => {
     setupAllure('automationExerciseSearchProductTest');
-    await HomePage.navigateToHomePage();
     await HomePage.clickProductsLink();
     await ProductsPage.verifyProductsPageURL();
     await ProductsPage.searchForProduct('T-shirt');
@@ -22,7 +32,6 @@ test.describe.parallel('Automation Exercise | E2E', () => {
 
   test('Add product to cart test', async () => {
     setupAllure('automationExerciseAddToCartTest');
-    await HomePage.navigateToHomePage();
     await HomePage.clickProductsLink();
     await ProductsPage.verifyProductsPageURL();
     await ProductsPage.searchForProduct('T-shirt');
@@ -34,7 +43,6 @@ test.describe.parallel('Automation Exercise | E2E', () => {
 
   test('Contact Us form test', async () => {
     setupAllure('automationExerciseContactUsTest');
-    await HomePage.navigateToHomePage();
     await ContactUsPage.navigateToContactUsPage();
     await ContactUsPage.verifyContactUsPageURL();
     await ContactUsPage.fillContactForm();

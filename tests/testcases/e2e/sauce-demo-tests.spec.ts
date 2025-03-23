@@ -4,22 +4,32 @@
  */
 
 import { test } from '@PageSetup';
-import { setupAllure } from "@AllureMetaData";
+import { setupAllure } from "setup/setupAllure";
 import * as LoginPage from '@SauceDemoLoginPage';
 import * as MiniCartPage from '@SauceDemoMiniCartPage';
 import * as ProductsPage from '@SauceDemoProductsPage';
 
-test.describe.parallel('SauceDemo | E2E', () => {
+/*
+ To run the tests in parallel, you can utilize the test.describe.configure() method to set the mode to 'parallel'.
+ By default, the tests will run sequentially when fullyParallel: false is set in playwright.config.
+ The tests will not be skipped upon encountering a failure except when the mode is set to 'serial'.
+*/
+test.describe.configure({ mode: 'parallel' });
+
+test.beforeEach('Navigating to Home Page', async ({ page }) => {
+  setPage(page);
+  await LoginPage.navigateToSauceDemoLoginPage();
+});
+
+test.describe('SauceDemo | E2E', () => {
   test('Successful login will display Products Page', async () => {
     setupAllure("sauceDemoLoginTest");
-    await LoginPage.navigateToSauceDemoLoginPage();
     await LoginPage.logInSuccessfully();
     await ProductsPage.verifyProductsPageDisplayed();
   });
 
   test('Add product to cart', async () => {
     setupAllure("sauceDemoAddToCartTest");
-    await LoginPage.navigateToSauceDemoLoginPage();
     await LoginPage.logInSuccessfully();
     await ProductsPage.verifyProductsPageDisplayed();
     await ProductsPage.addToCartByProductNumber(1);
@@ -28,7 +38,6 @@ test.describe.parallel('SauceDemo | E2E', () => {
 
   test('When login is unsuccessful will not display Products Page', async () => {
     setupAllure("sauceDemoFailedLoginTest");
-    await LoginPage.navigateToSauceDemoLoginPage();
     await LoginPage.failureLogin();
     await LoginPage.verifyErrorMessageForFailureLogin();
     await LoginPage.verifyLoginPageisDisplayed();

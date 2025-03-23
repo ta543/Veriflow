@@ -3,7 +3,8 @@
  * This test suite validates navigation on practice-automation.com
  */
 
-import { click, gotoURL, scrollLocatorIntoView } from '@ActionUtils';
+import { click, scrollLocatorIntoView } from '@ActionUtils';
+import { gotoURL } from '@PageUtils';
 import { expectPageToHaveURL } from '@AssertUtils';
 import { getLocatorByText } from '@LocatorUtils';
 

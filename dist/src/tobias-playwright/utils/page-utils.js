@@ -8,7 +8,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.closePage = exports.switchToDefaultPage = exports.switchPage = exports.setPage = exports.getPage = void 0;
 const tslib_1 = require("tslib");
-const _TimeoutConstants_1 = require("@TimeoutConstants");
+const _TimeoutConstants_1 = require("@TIMEOUT");
 let page;
 /**
  * Returns the current Page.

@@ -444,7 +444,7 @@ export const testMetadata = {
     owner: 'Tobias Andersen - [tobias@tobiasa.com]',
     tms: 'VF-11',
     description: 'Validate that financial data values remain within expected ranges per subject category.',
-    tags: ['TimescaleDB', 'Database', 'FinancialData', 'DataValidation'],
+    tags: ['TimescaleDB', 'Database', 'FinancialData', 'DataValidation', 'Regression'],
     severity: 'CRITICAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Validation',
@@ -566,6 +566,7 @@ export const testMetadata = {
     severity: 'CRITICAL',
     suite: 'TimescaleDB | DB',
     feature: '[TIMESCALEDB][DB] Cluster Resilience',
+    // skipReason: '⚠️ Temporarily disabled due to container startup flakiness on CI',
     story: 'Ensure the system can monitor and confirm the availability of a peer database after restart.'
   },
 };

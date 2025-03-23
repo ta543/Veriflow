@@ -7,7 +7,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LOADSTATE = void 0;
 const tslib_1 = require("tslib");
-const _TimeoutConstants_1 = require("@TimeoutConstants");
+const _TimeoutConstants_1 = require("@TIMEOUT");
 const test_1 = require("@playwright/test");
 const dotenv_1 = tslib_1.__importDefault(require("dotenv"));
 dotenv_1.default.config({ path: '.env' });

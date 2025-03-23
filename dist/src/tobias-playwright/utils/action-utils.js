@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.clickByJS = exports.scrollLocatorIntoView = exports.uploadFiles = exports.downloadFile = exports.doubleClick = exports.dragAndDrop = exports.focus = exports.hover = exports.getAlertText = exports.dismissAlert = exports.acceptAlert = exports.selectByIndex = exports.selectByText = exports.selectByValues = exports.selectByValue = exports.uncheck = exports.check = exports.clear = exports.type = exports.fillAndEnter = exports.waitForPopup = exports.waitForDownload = exports.fill = exports.clickAndNavigate = exports.acceptConsentIfVisible = exports.click = exports.wait = exports.handlePromptPopup = exports.goBack = exports.reloadPage = exports.waitForPageLoadState = exports.gotoURL = void 0;
 const tslib_1 = require("tslib");
 const _PageUtils_1 = require("@PageUtils");
-const _TimeoutConstants_1 = require("@TimeoutConstants");
+const _TimeoutConstants_1 = require("@TIMEOUT");
 const playwright_config_1 = require("../../../playwright.config");
 const _LocatorUtils_1 = require("@LocatorUtils");
 const _AssertUtils_1 = require("@AssertUtils");

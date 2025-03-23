@@ -1,5 +1,6 @@
 import { allure } from 'allure-playwright';
-import { testMetadata } from '@TestMetadata';
+import { test } from '@playwright/test';
+import { testMetadata } from 'setup/test-metadata';
 
 export function setupAllure(testId: keyof typeof testMetadata) {
     const details = testMetadata[testId];
@@ -17,4 +18,9 @@ export function setupAllure(testId: keyof typeof testMetadata) {
     if (details.story) allure.story(details.story);
 
     allure.attachment('Test Metadata', JSON.stringify(details, null, 2), 'application/json');
+
+    // 💥 Skip the test with reason, if specified
+    if (details.skipReason) {
+        test.skip(true, details.skipReason);
+    }
 }

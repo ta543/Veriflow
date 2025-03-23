@@ -4,7 +4,7 @@
  */
 
 import { test } from '@PageSetup';
-import { setupAllure } from "@AllureMetaData";
+import { setupAllure } from "setup/setupAllure";
 import * as HomePage from '@PracticeAutomationHomePage';
 import * as FormFieldsPage from '@PracticeAutomationFormFieldsPage';
 import * as PopupsPage from '@PracticeAutomationPopUpsPage';
@@ -12,7 +12,14 @@ import * as FileUploadPage from '@PracticeAutomationFileUploadPage';
 import * as FileDownloadPage from '@PracticeAutomationFileDownloadPage';
 import * as BrokenLinksPage from '@PracticeAutomationBrokenLinksPage';
 
-test.describe.parallel('Practice Automation | E2E', () => {
+/*
+ To run the tests in parallel, you can utilize the test.describe.configure() method to set the mode to 'parallel'.
+ By default, the tests will run sequentially when fullyParallel: false is set in playwright.config.
+ The tests will not be skipped upon encountering a failure except when the mode is set to 'serial'.
+*/
+test.describe.configure({ mode: 'parallel' });
+
+test.describe('Practice Automation | E2E', () => {
   test('Navigate to Form Fields page', async () => {
     setupAllure('practiceAutomationFormFieldsNavigationTest');
     await HomePage.navigateToHomePage();
@@ -60,7 +67,7 @@ test.describe.parallel('Practice Automation | E2E', () => {
     await FileUploadPage.verifyFileUploadSuccess();
   });
 
-  test('Download file test', async () => {
+  test('[Regression] Download file test', async () => {
     setupAllure('practiceAutomationFileDownloadTest');
     await HomePage.navigateToHomePage();
     await HomePage.clickFileDownloadLink();

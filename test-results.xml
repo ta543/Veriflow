@@ -1,6 +1,6 @@
-<testsuites id="" name="" tests="15" failures="0" skipped="0" errors="0" time="18.215603">
-<testsuite name="db/timescaledb-tests.spec.ts" timestamp="2025-03-23T17:45:38.431Z" hostname="Chrome" tests="15" failures="0" skipped="0" time="11.396" errors="0">
-<testcase name="TimescaleDB | DB › Verify Data Import" classname="db/timescaledb-tests.spec.ts" time="0.713">
+<testsuites id="" name="" tests="3" failures="0" skipped="0" errors="0" time="17.826798">
+<testsuite name="db/timescaledb-tests.spec.ts" timestamp="2025-03-23T22:05:14.064Z" hostname="Chrome" tests="1" failures="0" skipped="0" time="0.618" errors="0">
+<testcase name="TimescaleDB | DB › [TimescaleDB][DB][DataValidation][Regression] Validate Financial Data Against Expected Ranges per Subject" classname="db/timescaledb-tests.spec.ts" time="0.618">
 <system-out>
 <![CDATA[✅ Updated environment.properties:
 Environment=UAT
@@ -9,110 +9,7 @@ Platform=LOCAL
 Language=ENGLISH
 Browser=Chrome
 Suite=TimescaleDB | DB
-[step] Timescale.getFinancialDataRowCount()
-[step:pass] Timescale.getFinancialDataRowCount()
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Verify-Data-Import-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Verify-Data-Import-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="TimescaleDB | DB › Validate Column Structure" classname="db/timescaledb-tests.spec.ts" time="0.145">
-<system-out>
-<![CDATA[[step] Timescale.getFinancialDataColumnNames()
-[step:pass] Timescale.getFinancialDataColumnNames()
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-b0c71-B-Validate-Column-Structure-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-b0c71-B-Validate-Column-Structure-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="TimescaleDB | DB › Validate First Row Data" classname="db/timescaledb-tests.spec.ts" time="0.142">
-<system-out>
-<![CDATA[[step] Timescale.getFinancialDataFirstRow()
-[step:pass] Timescale.getFinancialDataFirstRow()
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Validate-First-Row-Data-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Validate-First-Row-Data-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="TimescaleDB | DB › Calculate Average Data Value" classname="db/timescaledb-tests.spec.ts" time="0.678">
-<system-out>
-<![CDATA[✅ Updated environment.properties:
-Environment=UAT
-Release=LATEST
-Platform=LOCAL
-Language=ENGLISH
-Browser=Chrome
-Suite=TimescaleDB | DB
-[step] Timescale.getAverageFinancialDataValue()
-[step:pass] Timescale.getAverageFinancialDataValue()
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-d58db-alculate-Average-Data-Value-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-d58db-alculate-Average-Data-Value-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="TimescaleDB | DB › Check Total Data Value for a Quarter" classname="db/timescaledb-tests.spec.ts" time="0.161">
-<system-out>
-<![CDATA[[step] Timescale.getTotalDataValueForQuarter("2024-Q1")
-[step:pass] Timescale.getTotalDataValueForQuarter("2024-Q1")
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-818a3-al-Data-Value-for-a-Quarter-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-818a3-al-Data-Value-for-a-Quarter-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="TimescaleDB | DB › Check Data Consistency Across Periods" classname="db/timescaledb-tests.spec.ts" time="0.148">
-<system-out>
-<![CDATA[[step] Timescale.verifyDataConsistencyAcrossPeriods()
-[step:pass] Timescale.verifyDataConsistencyAcrossPeriods()
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-6c886--Consistency-Across-Periods-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-6c886--Consistency-Across-Periods-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="TimescaleDB | DB › Validate Data Range" classname="db/timescaledb-tests.spec.ts" time="0.714">
-<system-out>
-<![CDATA[[step] Timescale.getFinancialDataRange()
-[step:pass] Timescale.getFinancialDataRange()
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Validate-Data-Range-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Validate-Data-Range-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="TimescaleDB | DB › Check Duplicate Entries" classname="db/timescaledb-tests.spec.ts" time="0.147">
-<system-out>
-<![CDATA[[step] Timescale.checkDuplicateEntries()
-[step:pass] Timescale.checkDuplicateEntries()
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Check-Duplicate-Entries-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Check-Duplicate-Entries-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="TimescaleDB | DB › Validate Financial Data Against Expected Ranges per Subject" classname="db/timescaledb-tests.spec.ts" time="0.141">
-<system-out>
-<![CDATA[[step] Timescale.getDataRangeForSubject("GDP")
+[step] Timescale.getDataRangeForSubject("GDP")
 [step:pass] Timescale.getDataRangeForSubject("GDP")
 [step] Timescale.getDataRangeForSubject("Inflation")
 [step:pass] Timescale.getDataRangeForSubject("Inflation")
@@ -122,93 +19,46 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Ch
 </system-out>
 <system-err>
 <![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-8da41-Expected-Ranges-per-Subject-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-8da41-Expected-Ranges-per-Subject-Chrome/video.webm is missing]]>
+Warning: attachment allure/allure-results/db-timescaledb-tests-Times-c2d5d-Expected-Ranges-per-Subject-Chrome/test-finished-1.png is missing
+Warning: attachment allure/allure-results/db-timescaledb-tests-Times-c2d5d-Expected-Ranges-per-Subject-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Check for Outliers in Data Values" classname="db/timescaledb-tests.spec.ts" time="0.714">
+</testsuite>
+<testsuite name="e2e/expandtesting-tests.spec.ts" timestamp="2025-03-23T22:05:14.064Z" hostname="Chrome" tests="1" failures="0" skipped="0" time="4.507" errors="0">
+<testcase name="ExpandTesting | E2E › [Regression] Web Inputs Test" classname="e2e/expandtesting-tests.spec.ts" time="4.507">
 <system-out>
-<![CDATA[[step] Timescale.detectOutliers()
-[step:pass] Timescale.detectOutliers()
+<![CDATA[✅ Updated environment.properties:
+Environment=UAT
+Release=LATEST
+Platform=LOCAL
+Language=ENGLISH
+Browser=Chrome
+Suite=ALL
 ]]>
 </system-out>
 <system-err>
 <![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-82dfb-for-Outliers-in-Data-Values-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-82dfb-for-Outliers-in-Data-Values-Chrome/video.webm is missing]]>
+Warning: attachment allure/allure-results/e2e-expandtesting-tests-Ex-ba2cc--Regression-Web-Inputs-Test-Chrome/test-finished-1.png is missing
+Warning: attachment allure/allure-results/e2e-expandtesting-tests-Ex-ba2cc--Regression-Web-Inputs-Test-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Verify Consistent Financial Data Trend" classname="db/timescaledb-tests.spec.ts" time="0.146">
+</testsuite>
+<testsuite name="e2e/practise-automation-tests.spec.ts" timestamp="2025-03-23T22:05:14.064Z" hostname="Chrome" tests="1" failures="0" skipped="0" time="5.608" errors="0">
+<testcase name="Practice Automation | E2E › [Regression] Download file test" classname="e2e/practise-automation-tests.spec.ts" time="5.608">
 <system-out>
-<![CDATA[[step] Timescale.checkFinancialDataTrends()
-[step:pass] Timescale.checkFinancialDataTrends()
+<![CDATA[✅ Updated environment.properties:
+Environment=UAT
+Release=LATEST
+Platform=LOCAL
+Language=ENGLISH
+Browser=Chrome
+Suite=ALL
 ]]>
 </system-out>
 <system-err>
 <![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-6646f-istent-Financial-Data-Trend-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-6646f-istent-Financial-Data-Trend-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="TimescaleDB | DB › Detect Anomalous Spikes in Financial Data" classname="db/timescaledb-tests.spec.ts" time="0.139">
-<system-out>
-<![CDATA[[step] Timescale.detectAnomalousSpikes()
-[step:pass] Timescale.detectAnomalousSpikes()
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-00b31-us-Spikes-in-Financial-Data-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-00b31-us-Spikes-in-Financial-Data-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="TimescaleDB | DB › Measure Query Execution Performance" classname="db/timescaledb-tests.spec.ts" time="0.718">
-<system-out>
-<![CDATA[[step] Timescale.measureQueryPerformance()
-[step:pass] Timescale.measureQueryPerformance()
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-a5002-Query-Execution-Performance-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-a5002-Query-Execution-Performance-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="TimescaleDB | DB › Verify Database Creation and Switching" classname="db/timescaledb-tests.spec.ts" time="0.578">
-<system-out>
-<![CDATA[[step] Timescale.setupTestDatabases()
-[step:pass] Timescale.setupTestDatabases()
-[step] Timescale.switchTestDatabase(1)
-[step:pass] Timescale.switchTestDatabase(1)
-[step] Timescale.switchTestDatabase(2)
-[step:pass] Timescale.switchTestDatabase(2)
-[step] Timescale.switchTestDatabase(1)
-[step:pass] Timescale.switchTestDatabase(1)
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-578dd-base-Creation-and-Switching-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-578dd-base-Creation-and-Switching-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="TimescaleDB | DB › Restart Test DB and Validate from Peer" classname="db/timescaledb-tests.spec.ts" time="6.112">
-<system-out>
-<![CDATA[[step] Timescale.execInContainer("", "docker inspect -f '{{.State.StartedAt}}' veriflow_test_1")
-[step:pass] Timescale.execInContainer("", "docker inspect -f '{{.State.StartedAt}}' veriflow_test_1")
-[step] Timescale.execInContainer("", "docker restart veriflow_test_1")
-[step:pass] Timescale.execInContainer("", "docker restart veriflow_test_1")
-[step] Timescale.execInContainer("", "docker inspect -f '{{.State.StartedAt}}' veriflow_test_1")
-[step:pass] Timescale.execInContainer("", "docker inspect -f '{{.State.StartedAt}}' veriflow_test_1")
-[step] Timescale.isContainerRunning("veriflow_test_1")
-[step:pass] Timescale.isContainerRunning("veriflow_test_1")
-[Running Status] Container is running: true
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-f28b7-t-DB-and-Validate-from-Peer-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-f28b7-t-DB-and-Validate-from-Peer-Chrome/video.webm is missing]]>
+Warning: attachment allure/allure-results/e2e-practise-automation-te-1a7d7-gression-Download-file-test-Chrome/test-finished-1.png is missing
+Warning: attachment allure/allure-results/e2e-practise-automation-te-1a7d7-gression-Download-file-test-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
 </testsuite>
