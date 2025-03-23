@@ -89,7 +89,7 @@ export async function handlePromptPopup(promptText: string): Promise<void> {
  * @param {number} ms - The amount of time to wait in milliseconds.
  */
 export async function wait(ms: number): Promise<void> {
-  // eslint-disable-next-line playwright/no-wait-for-timeout
+   
   await getPage().waitForTimeout(ms);
 }
 

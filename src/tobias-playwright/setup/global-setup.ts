@@ -5,7 +5,7 @@
  * You can add any initialization setup code within this function.
  */
 
-import { updateEnvConfig, getCurrentEnvConfig } from '@AllureEnvConfig';
+import { updateEnvConfig } from '@AllureEnvConfig';
 
 async function globalSetup() {
     console.log('🔄 Running global setup...');

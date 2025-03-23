@@ -1,5 +1,3 @@
-import { test } from '@playwright/test';
-import type { AllureTestInfo } from '@playwright/test';
 
 export function withSteps<T extends object>(
   obj: T,

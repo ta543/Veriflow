@@ -3,7 +3,7 @@
  * This page object handles interactions for the login page of practice.expandtesting.com
  */
 
-import { click, fill, wait } from '@ActionUtils';
+import { click, fill } from '@ActionUtils';
 import { expectElementToHaveText } from '@AssertUtils';
 import { getLocator, getLocatorByRole } from '@LocatorUtils';
 import { ExpandTestingLoginTestData } from '../../../testdata/testdata/practice-expandtesting-testdata';

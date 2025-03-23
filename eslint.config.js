@@ -1,9 +1,8 @@
-// eslint.config.js
-import tseslint from 'typescript-eslint';
-import playwright from 'eslint-plugin-playwright';
-import unusedImports from 'eslint-plugin-unused-imports';
+const tseslint = require('typescript-eslint');
+const playwright = require('eslint-plugin-playwright');
+const unusedImports = require('eslint-plugin-unused-imports');
 
-export default [
+module.exports = [
   {
     ignores: ['node_modules', 'dist', 'build'],
   },
@@ -24,7 +23,8 @@ export default [
       'playwright/no-skipped-test': 'warn',
       'playwright/no-force-option': 'warn',
       'unused-imports/no-unused-imports': 'error',
-      '@typescript-eslint/no-unused-vars': 'off', // handled by unused-imports
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
 ];

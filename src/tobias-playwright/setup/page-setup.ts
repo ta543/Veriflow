@@ -4,11 +4,10 @@
  * Page Setup: Automatically sets page context, blocks ads, and dynamically sets the suite.
  */
 
-import { test as base, expect, TestInfo } from '@playwright/test';
+import { test as base } from '@playwright/test';
 import { setPage, blockAds } from '@PageUtils';
 import { setDynamicSuite, getCurrentEnvConfig } from '@AllureEnvConfig';
 import * as TimescaleDBPage from '@TimescaleDBPage';
-import DBManager from '@DBManager';
 import { withSteps } from '@StepsUtils';
 
 type Fixtures = {

@@ -1,41 +1,13 @@
-<testsuites id="" name="" tests="47" failures="0" skipped="0" errors="0" time="33.213001000000006">
-<testsuite name="api/automation-exercise-tests.spec.ts" timestamp="2025-03-23T17:34:15.891Z" hostname="Chrome" tests="6" failures="0" skipped="0" time="6.183" errors="0">
-<testcase name="Automation Exercise | API › Get All Products List" classname="api/automation-exercise-tests.spec.ts" time="1.031">
-</testcase>
-<testcase name="Automation Exercise | API › Get All Brands List" classname="api/automation-exercise-tests.spec.ts" time="1.026">
-</testcase>
-<testcase name="Automation Exercise | API › PUT Request - All Brands List should return 405" classname="api/automation-exercise-tests.spec.ts" time="1">
-</testcase>
-<testcase name="Automation Exercise | API › POST Request - Search for a Product" classname="api/automation-exercise-tests.spec.ts" time="0.995">
-</testcase>
-<testcase name="Automation Exercise | API › POST Request - Verify Login without Email Parameter" classname="api/automation-exercise-tests.spec.ts" time="1.017">
-</testcase>
-<testcase name="Automation Exercise | API › DELETE Request - Verify Login should return 405" classname="api/automation-exercise-tests.spec.ts" time="1.114">
-</testcase>
-</testsuite>
-<testsuite name="api/practice-expandtesting-tests.spec.ts" timestamp="2025-03-23T17:34:15.891Z" hostname="Chrome" tests="6" failures="0" skipped="0" time="1.538" errors="0">
-<testcase name="Automation Exercise | API › Get All Products List" classname="api/practice-expandtesting-tests.spec.ts" time="0.286">
-</testcase>
-<testcase name="Automation Exercise | API › Get All Brands List" classname="api/practice-expandtesting-tests.spec.ts" time="0.245">
-</testcase>
-<testcase name="Automation Exercise | API › PUT Request - All Brands List should return 405" classname="api/practice-expandtesting-tests.spec.ts" time="0.285">
-</testcase>
-<testcase name="Automation Exercise | API › POST Request - Search for a Product" classname="api/practice-expandtesting-tests.spec.ts" time="0.254">
-</testcase>
-<testcase name="Automation Exercise | API › POST Request - Verify Login without Email Parameter" classname="api/practice-expandtesting-tests.spec.ts" time="0.248">
-</testcase>
-<testcase name="Automation Exercise | API › DELETE Request - Verify Login should return 405" classname="api/practice-expandtesting-tests.spec.ts" time="0.22">
-</testcase>
-</testsuite>
-<testsuite name="db/timescaledb-tests.spec.ts" timestamp="2025-03-23T17:34:15.891Z" hostname="Chrome" tests="15" failures="0" skipped="0" time="10.505" errors="0">
-<testcase name="TimescaleDB | DB › Verify Data Import" classname="db/timescaledb-tests.spec.ts" time="0.509">
+<testsuites id="" name="" tests="15" failures="0" skipped="0" errors="0" time="18.215603">
+<testsuite name="db/timescaledb-tests.spec.ts" timestamp="2025-03-23T17:45:38.431Z" hostname="Chrome" tests="15" failures="0" skipped="0" time="11.396" errors="0">
+<testcase name="TimescaleDB | DB › Verify Data Import" classname="db/timescaledb-tests.spec.ts" time="0.713">
 <system-out>
 <![CDATA[✅ Updated environment.properties:
 Environment=UAT
 Release=LATEST
 Platform=LOCAL
 Language=ENGLISH
-Browser=CHROME
+Browser=Chrome
 Suite=TimescaleDB | DB
 [step] Timescale.getFinancialDataRowCount()
 [step:pass] Timescale.getFinancialDataRowCount()
@@ -47,7 +19,7 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Ve
 Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Verify-Data-Import-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Validate Column Structure" classname="db/timescaledb-tests.spec.ts" time="0.153">
+<testcase name="TimescaleDB | DB › Validate Column Structure" classname="db/timescaledb-tests.spec.ts" time="0.145">
 <system-out>
 <![CDATA[[step] Timescale.getFinancialDataColumnNames()
 [step:pass] Timescale.getFinancialDataColumnNames()
@@ -59,7 +31,7 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-Times-b0c71-B-Val
 Warning: attachment allure/allure-results/db-timescaledb-tests-Times-b0c71-B-Validate-Column-Structure-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Validate First Row Data" classname="db/timescaledb-tests.spec.ts" time="0.141">
+<testcase name="TimescaleDB | DB › Validate First Row Data" classname="db/timescaledb-tests.spec.ts" time="0.142">
 <system-out>
 <![CDATA[[step] Timescale.getFinancialDataFirstRow()
 [step:pass] Timescale.getFinancialDataFirstRow()
@@ -71,7 +43,7 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Va
 Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Validate-First-Row-Data-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Calculate Average Data Value" classname="db/timescaledb-tests.spec.ts" time="0.514">
+<testcase name="TimescaleDB | DB › Calculate Average Data Value" classname="db/timescaledb-tests.spec.ts" time="0.678">
 <system-out>
 <![CDATA[✅ Updated environment.properties:
 Environment=UAT
@@ -90,7 +62,7 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-Times-d58db-alcul
 Warning: attachment allure/allure-results/db-timescaledb-tests-Times-d58db-alculate-Average-Data-Value-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Check Total Data Value for a Quarter" classname="db/timescaledb-tests.spec.ts" time="0.13">
+<testcase name="TimescaleDB | DB › Check Total Data Value for a Quarter" classname="db/timescaledb-tests.spec.ts" time="0.161">
 <system-out>
 <![CDATA[[step] Timescale.getTotalDataValueForQuarter("2024-Q1")
 [step:pass] Timescale.getTotalDataValueForQuarter("2024-Q1")
@@ -102,7 +74,7 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-Times-818a3-al-Da
 Warning: attachment allure/allure-results/db-timescaledb-tests-Times-818a3-al-Data-Value-for-a-Quarter-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Check Data Consistency Across Periods" classname="db/timescaledb-tests.spec.ts" time="0.129">
+<testcase name="TimescaleDB | DB › Check Data Consistency Across Periods" classname="db/timescaledb-tests.spec.ts" time="0.148">
 <system-out>
 <![CDATA[[step] Timescale.verifyDataConsistencyAcrossPeriods()
 [step:pass] Timescale.verifyDataConsistencyAcrossPeriods()
@@ -114,16 +86,9 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-Times-6c886--Cons
 Warning: attachment allure/allure-results/db-timescaledb-tests-Times-6c886--Consistency-Across-Periods-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Validate Data Range" classname="db/timescaledb-tests.spec.ts" time="0.516">
+<testcase name="TimescaleDB | DB › Validate Data Range" classname="db/timescaledb-tests.spec.ts" time="0.714">
 <system-out>
-<![CDATA[✅ Updated environment.properties:
-Environment=UAT
-Release=LATEST
-Platform=LOCAL
-Language=ENGLISH
-Browser=CHROME
-Suite=TimescaleDB | DB
-[step] Timescale.getFinancialDataRange()
+<![CDATA[[step] Timescale.getFinancialDataRange()
 [step:pass] Timescale.getFinancialDataRange()
 ]]>
 </system-out>
@@ -133,7 +98,7 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Va
 Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Validate-Data-Range-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Check Duplicate Entries" classname="db/timescaledb-tests.spec.ts" time="0.137">
+<testcase name="TimescaleDB | DB › Check Duplicate Entries" classname="db/timescaledb-tests.spec.ts" time="0.147">
 <system-out>
 <![CDATA[[step] Timescale.checkDuplicateEntries()
 [step:pass] Timescale.checkDuplicateEntries()
@@ -145,7 +110,7 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Ch
 Warning: attachment allure/allure-results/db-timescaledb-tests-TimescaleDB-DB-Check-Duplicate-Entries-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Validate Financial Data Against Expected Ranges per Subject" classname="db/timescaledb-tests.spec.ts" time="0.161">
+<testcase name="TimescaleDB | DB › Validate Financial Data Against Expected Ranges per Subject" classname="db/timescaledb-tests.spec.ts" time="0.141">
 <system-out>
 <![CDATA[[step] Timescale.getDataRangeForSubject("GDP")
 [step:pass] Timescale.getDataRangeForSubject("GDP")
@@ -161,16 +126,9 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-Times-8da41-Expec
 Warning: attachment allure/allure-results/db-timescaledb-tests-Times-8da41-Expected-Ranges-per-Subject-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Check for Outliers in Data Values" classname="db/timescaledb-tests.spec.ts" time="0.518">
+<testcase name="TimescaleDB | DB › Check for Outliers in Data Values" classname="db/timescaledb-tests.spec.ts" time="0.714">
 <system-out>
-<![CDATA[✅ Updated environment.properties:
-Environment=UAT
-Release=LATEST
-Platform=LOCAL
-Language=ENGLISH
-Browser=CHROME
-Suite=TimescaleDB | DB
-[step] Timescale.detectOutliers()
+<![CDATA[[step] Timescale.detectOutliers()
 [step:pass] Timescale.detectOutliers()
 ]]>
 </system-out>
@@ -180,7 +138,7 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-Times-82dfb-for-O
 Warning: attachment allure/allure-results/db-timescaledb-tests-Times-82dfb-for-Outliers-in-Data-Values-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Verify Consistent Financial Data Trend" classname="db/timescaledb-tests.spec.ts" time="0.142">
+<testcase name="TimescaleDB | DB › Verify Consistent Financial Data Trend" classname="db/timescaledb-tests.spec.ts" time="0.146">
 <system-out>
 <![CDATA[[step] Timescale.checkFinancialDataTrends()
 [step:pass] Timescale.checkFinancialDataTrends()
@@ -192,7 +150,7 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-Times-6646f-isten
 Warning: attachment allure/allure-results/db-timescaledb-tests-Times-6646f-istent-Financial-Data-Trend-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Detect Anomalous Spikes in Financial Data" classname="db/timescaledb-tests.spec.ts" time="0.143">
+<testcase name="TimescaleDB | DB › Detect Anomalous Spikes in Financial Data" classname="db/timescaledb-tests.spec.ts" time="0.139">
 <system-out>
 <![CDATA[[step] Timescale.detectAnomalousSpikes()
 [step:pass] Timescale.detectAnomalousSpikes()
@@ -204,16 +162,9 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-Times-00b31-us-Sp
 Warning: attachment allure/allure-results/db-timescaledb-tests-Times-00b31-us-Spikes-in-Financial-Data-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Measure Query Execution Performance" classname="db/timescaledb-tests.spec.ts" time="0.519">
+<testcase name="TimescaleDB | DB › Measure Query Execution Performance" classname="db/timescaledb-tests.spec.ts" time="0.718">
 <system-out>
-<![CDATA[✅ Updated environment.properties:
-Environment=UAT
-Release=LATEST
-Platform=LOCAL
-Language=ENGLISH
-Browser=CHROME
-Suite=TimescaleDB | DB
-[step] Timescale.measureQueryPerformance()
+<![CDATA[[step] Timescale.measureQueryPerformance()
 [step:pass] Timescale.measureQueryPerformance()
 ]]>
 </system-out>
@@ -223,7 +174,7 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-Times-a5002-Query
 Warning: attachment allure/allure-results/db-timescaledb-tests-Times-a5002-Query-Execution-Performance-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Verify Database Creation and Switching" classname="db/timescaledb-tests.spec.ts" time="0.657">
+<testcase name="TimescaleDB | DB › Verify Database Creation and Switching" classname="db/timescaledb-tests.spec.ts" time="0.578">
 <system-out>
 <![CDATA[[step] Timescale.setupTestDatabases()
 [step:pass] Timescale.setupTestDatabases()
@@ -241,7 +192,7 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-Times-578dd-base-
 Warning: attachment allure/allure-results/db-timescaledb-tests-Times-578dd-base-Creation-and-Switching-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
-<testcase name="TimescaleDB | DB › Restart Test DB and Validate from Peer" classname="db/timescaledb-tests.spec.ts" time="6.136">
+<testcase name="TimescaleDB | DB › Restart Test DB and Validate from Peer" classname="db/timescaledb-tests.spec.ts" time="6.112">
 <system-out>
 <![CDATA[[step] Timescale.execInContainer("", "docker inspect -f '{{.State.StartedAt}}' veriflow_test_1")
 [step:pass] Timescale.execInContainer("", "docker inspect -f '{{.State.StartedAt}}' veriflow_test_1")
@@ -258,187 +209,6 @@ Warning: attachment allure/allure-results/db-timescaledb-tests-Times-578dd-base-
 <![CDATA[
 Warning: attachment allure/allure-results/db-timescaledb-tests-Times-f28b7-t-DB-and-Validate-from-Peer-Chrome/test-finished-1.png is missing
 Warning: attachment allure/allure-results/db-timescaledb-tests-Times-f28b7-t-DB-and-Validate-from-Peer-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-</testsuite>
-<testsuite name="e2e/automation-exercise-tests.spec.ts" timestamp="2025-03-23T17:34:15.891Z" hostname="Chrome" tests="3" failures="0" skipped="0" time="16.683" errors="0">
-<testcase name="Automation Exercise | E2E › Search product test" classname="e2e/automation-exercise-tests.spec.ts" time="5.623">
-<system-out>
-<![CDATA[✅ Updated environment.properties:
-Environment=UAT
-Release=LATEST
-Platform=LOCAL
-Language=ENGLISH
-Browser=CHROME
-Suite=ALL
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-automation-exercise-te-f0bfc-ise-E2E-Search-product-test-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-automation-exercise-te-f0bfc-ise-E2E-Search-product-test-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="Automation Exercise | E2E › Add product to cart test" classname="e2e/automation-exercise-tests.spec.ts" time="6.139">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-automation-exercise-te-81451-2E-Add-product-to-cart-test-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-automation-exercise-te-81451-2E-Add-product-to-cart-test-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-automation-exercise-te-81451-2E-Add-product-to-cart-test-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="Automation Exercise | E2E › Contact Us form test" classname="e2e/automation-exercise-tests.spec.ts" time="4.921">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-automation-exercise-te-c2e6f-se-E2E-Contact-Us-form-test-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-automation-exercise-te-c2e6f-se-E2E-Contact-Us-form-test-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-automation-exercise-te-c2e6f-se-E2E-Contact-Us-form-test-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-</testsuite>
-<testsuite name="e2e/expandtesting-tests.spec.ts" timestamp="2025-03-23T17:34:15.891Z" hostname="Chrome" tests="3" failures="0" skipped="0" time="13.281" errors="0">
-<testcase name="ExpandTesting | E2E › Web Inputs Test" classname="e2e/expandtesting-tests.spec.ts" time="4.316">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-expandtesting-tests-ExpandTesting-E2E-Web-Inputs-Test-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-expandtesting-tests-ExpandTesting-E2E-Web-Inputs-Test-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-expandtesting-tests-ExpandTesting-E2E-Web-Inputs-Test-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="ExpandTesting | E2E › Login Test" classname="e2e/expandtesting-tests.spec.ts" time="4.701">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-expandtesting-tests-ExpandTesting-E2E-Login-Test-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-expandtesting-tests-ExpandTesting-E2E-Login-Test-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-expandtesting-tests-ExpandTesting-E2E-Login-Test-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="ExpandTesting | E2E › Failed Register Test" classname="e2e/expandtesting-tests.spec.ts" time="4.264">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-expandtesting-tests-Ex-f9247-ng-E2E-Failed-Register-Test-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-expandtesting-tests-Ex-f9247-ng-E2E-Failed-Register-Test-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-expandtesting-tests-Ex-f9247-ng-E2E-Failed-Register-Test-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-</testsuite>
-<testsuite name="e2e/practise-automation-tests.spec.ts" timestamp="2025-03-23T17:34:15.891Z" hostname="Chrome" tests="6" failures="0" skipped="0" time="17.24" errors="0">
-<testcase name="Practice Automation | E2E › Navigate to Form Fields page" classname="e2e/practise-automation-tests.spec.ts" time="2.048">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-practise-automation-te-2db0c-avigate-to-Form-Fields-page-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-practise-automation-te-2db0c-avigate-to-Form-Fields-page-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-practise-automation-te-2db0c-avigate-to-Form-Fields-page-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="Practice Automation | E2E › Fill and submit form test" classname="e2e/practise-automation-tests.spec.ts" time="1.576">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-practise-automation-te-1a2ae-E-Fill-and-submit-form-test-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-practise-automation-te-1a2ae-E-Fill-and-submit-form-test-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-practise-automation-te-1a2ae-E-Fill-and-submit-form-test-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="Practice Automation | E2E › Handle popups test" classname="e2e/practise-automation-tests.spec.ts" time="1.982">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-practise-automation-te-9dedc-tion-E2E-Handle-popups-test-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-practise-automation-te-9dedc-tion-E2E-Handle-popups-test-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-practise-automation-te-9dedc-tion-E2E-Handle-popups-test-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="Practice Automation | E2E › Upload file test" classname="e2e/practise-automation-tests.spec.ts" time="3.456">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-practise-automation-te-adab6-mation-E2E-Upload-file-test-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-practise-automation-te-adab6-mation-E2E-Upload-file-test-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-practise-automation-te-adab6-mation-E2E-Upload-file-test-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="Practice Automation | E2E › Download file test" classname="e2e/practise-automation-tests.spec.ts" time="5.283">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-practise-automation-te-6c31d-tion-E2E-Download-file-test-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-practise-automation-te-6c31d-tion-E2E-Download-file-test-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-practise-automation-te-6c31d-tion-E2E-Download-file-test-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="Practice Automation | E2E › Verify broken links" classname="e2e/practise-automation-tests.spec.ts" time="2.895">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-practise-automation-te-b0eaf-ion-E2E-Verify-broken-links-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-practise-automation-te-b0eaf-ion-E2E-Verify-broken-links-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-</testsuite>
-<testsuite name="e2e/sauce-demo-tests.spec.ts" timestamp="2025-03-23T17:34:15.891Z" hostname="Chrome" tests="3" failures="0" skipped="0" time="2.581" errors="0">
-<testcase name="SauceDemo | E2E › Successful login will display Products Page" classname="e2e/sauce-demo-tests.spec.ts" time="0.921">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-sauce-demo-tests-Sauce-e77e5--will-display-Products-Page-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-sauce-demo-tests-Sauce-e77e5--will-display-Products-Page-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-sauce-demo-tests-Sauce-e77e5--will-display-Products-Page-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="SauceDemo | E2E › Add product to cart" classname="e2e/sauce-demo-tests.spec.ts" time="1.122">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-sauce-demo-tests-SauceDemo-E2E-Add-product-to-cart-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-sauce-demo-tests-SauceDemo-E2E-Add-product-to-cart-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-sauce-demo-tests-SauceDemo-E2E-Add-product-to-cart-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="SauceDemo | E2E › When login is unsuccessful will not display Products Page" classname="e2e/sauce-demo-tests.spec.ts" time="0.538">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-sauce-demo-tests-Sauce-0fa18-l-not-display-Products-Page-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-sauce-demo-tests-Sauce-0fa18-l-not-display-Products-Page-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-</testsuite>
-<testsuite name="e2e/the-internet-tests.spec.ts" timestamp="2025-03-23T17:34:15.891Z" hostname="Chrome" tests="5" failures="0" skipped="0" time="18.216" errors="0">
-<testcase name="The Internet | E2E › Dropdown test" classname="e2e/the-internet-tests.spec.ts" time="3.268">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Dropdown-test-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Dropdown-test-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Dropdown-test-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="The Internet | E2E › Success Login" classname="e2e/the-internet-tests.spec.ts" time="4.526">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Success-Login-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Success-Login-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Success-Login-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="The Internet | E2E › Success Logout" classname="e2e/the-internet-tests.spec.ts" time="5.001">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Success-Logout-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Success-Logout-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Success-Logout-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="The Internet | E2E › Checkbox test" classname="e2e/the-internet-tests.spec.ts" time="2.83">
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Checkbox-test-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Checkbox-test-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Checkbox-test-Chrome-retry1/video.webm is missing]]>
-</system-err>
-</testcase>
-<testcase name="The Internet | E2E › Key presses test" classname="e2e/the-internet-tests.spec.ts" time="2.591">
-<system-out>
-<![CDATA[Key Press Input is displayed and ready for interaction
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Key-presses-test-Chrome/trace.zip is missing
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Key-presses-test-Chrome-retry1/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-the-internet-tests-The-Internet-E2E-Key-presses-test-Chrome-retry1/video.webm is missing]]>
 </system-err>
 </testcase>
 </testsuite>

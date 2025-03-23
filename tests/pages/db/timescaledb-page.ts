@@ -7,7 +7,6 @@
  * VeriFlow Test Automation - Database Automation | TimescaleDBPage
  */
 
-import { Client } from 'pg';
 import { exec } from 'child_process';
 import DBManager from '@DBManager';
 

@@ -7,9 +7,9 @@
  * VeriFlow Test Automation - ExpandTesting | HomePage
  */
 
-import { click, gotoURL, wait, acceptConsentIfVisible, scrollLocatorIntoView } from '@ActionUtils';
+import { click, gotoURL, wait, acceptConsentIfVisible } from '@ActionUtils';
 import { expectPageToHaveURL } from '@AssertUtils';
-import { getLocatorByText, getLocator, getLocatorByRole } from '@LocatorUtils';
+import { getLocator } from '@LocatorUtils';
 
 const homePageURL = 'https://practice.expandtesting.com/';
 
