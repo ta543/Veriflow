@@ -1,4 +1,4 @@
-name: VeriFlow Web | Validate PR
+name: VeriFlow | Validate PR
 
 run-name: "👷🚧[#${{ github.run_number }}][Validate PR] Name: \"${{ github.event.pull_request.title }}\""
 
