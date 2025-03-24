@@ -12,6 +12,7 @@ function globalSetup() {
     return tslib_1.__awaiter(this, void 0, void 0, function* () {
         console.log('🔄 Running global setup...');
         (0, _AllureEnvConfig_1.updateEnvConfig)({ suite: 'ALL' }); // Reset suite before tests run
+        const envConfig = (0, _AllureEnvConfig_1.getCurrentEnvConfig)();
     });
 }
 exports.default = globalSetup;
