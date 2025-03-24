@@ -1,4 +1,6 @@
-![Last Commit](https://img.shields.io/github/last-commit/ta543/Veriflow1) ![Pull Requests](https://img.shields.io/github/issues-pr-raw/ta543/Veriflow1)
+![Last Commit](https://img.shields.io/github/last-commit/ta543/Veriflow1)
+![Pull Requests](https://img.shields.io/github/issues-pr-raw/ta543/Veriflow1)
+[![Jira Board](https://img.shields.io/badge/Jira-Board-blue?logo=jira&style=flat)](https://veriflowqa.atlassian.net/jira/software/projects/VF/boards/2)
 
 <div align="center">
 
