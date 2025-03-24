@@ -105,7 +105,25 @@ export default defineConfig({
    * Configure projects for major browsers.
    * See https://playwright.dev/docs/test-configuration#projects
    */
-  projects: [
+  projects: [  
+    {
+      name: 'BrowserStack',
+      use: {
+        browserName: 'chromium',
+        connectOptions: {
+          wsEndpoint: `wss://cdp.browserstack.com/playwright?caps=` + encodeURIComponent(JSON.stringify({
+            'browser': 'chrome',
+            'os': 'osx',
+            'os_version': 'catalina',
+            'name': 'Playwright Tests',
+            'build': process.env.GITHUB_RUN_ID || 'Local Build',
+            'browserstack.username': process.env.BROWSERSTACK_USERNAME,
+            'browserstack.accessKey': process.env.BROWSERSTACK_ACCESS_KEY,
+          })),
+        },
+      },
+    },
+    
     {
       name: 'Chrome',
       use: {
