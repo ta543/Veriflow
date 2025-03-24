@@ -8,20 +8,62 @@
 
 Veriflow is a **Playwright TypeScript Framework** that is **versatile, scalable, and efficient** for automation testing designed to streamline **web (desktop & mobile), API, and Electron testing**. Built on [**Playwright**](https://playwright.dev/) and [**TypeScript**](https://www.typescriptlang.org/), it provides a **robust** and **high-performance** testing environment.
 
-## Jira
-🔹 **[Jira](https://tobiasa-team.atlassian.net/jira/software/projects/VF/boards/1)**
+🔹 **[Jira Board](https://veriflowqa.atlassian.net/jira/software/projects/VF/boards/2)**
 
-## Allure
-🔹 **[Allure]()**
+🔹 **Slack Integration**  
+Slack alerts notify the team in real-time about test results, including failures, pass rates, and broken/skipped tests. Messages are formatted with emojis and color-coded blocks for quick visibility.
 
+- ✅ **All Tests Passed**
+  
+  ![Slack Passed](./docs/images/slack-all-passed.png)
 
+- ❌ **Test Failure Example**
+  
+  ![Slack Failed](./docs/images/slack-error.png)
 
-slack
-https://join.slack.com/t/veriflowqa/shared_invite/zt-327ia0snn-zizIw6njKC6X3cJTQaCZBg
+---
+
+🔹 **Allure Reporting**  
+Allure is used for detailed test reporting with rich metadata, screenshots, and logs. Each test run generates a visual report showing suite names, pass/fail stats, and step-by-step breakdowns.
+
+- 📊 **Allure Dashboard**
+  
+  ![Allure Report](./docs/images/allure.png)
+
+---
+
+## 🧾 Reporter Output
+
+🔹 **Custom Playwright Reporter**  
+This framework includes a custom console reporter that displays detailed, color-coded test results. Each test includes:
+
+- ✅ File name and suite breakdown
+- 📂 Test group tags (like `[Regression]`, `[E2E]`, `[TimescaleDB]`)
+- 🟩 Pass/fail state with retry count
+- 📈 Summary of total tests, passed, failed, and retries
+
+- 🟢 **Reporter Output – All Tests Passed**
+
+  ![Reporter Run 1](./docs/images/reporter-run-1.png)
+
+- 🔄 **Reporter Output – Multiple Suites with Retries**
+
+  ![Reporter Run 2](./docs/images/reporter-run-2.png)
+
+---
+
+📌 **Key Console Features**
+- Collapsed output grouped by suite and file
+- Retried test indicators (`retried 1 time`, `no retries`)
+- Highlighted pass/fail summary at the bottom
+- Total retries count to catch flaky tests early
+
+---
+
+💡 Tip: You can customize this reporter further via `reporter.ts` to include duration tracking, timestamps, or CI/CD annotations.
 
 ## Databases Tested On
 1. 🔹 **[TimescaleDB](https://www.timescale.com/)**
-2. 🔹 **[MongoDB](/)**
 
 ## Websites Tested On
 1. 🔹 **[Automation Exercise](https://www.automationexercise.com/signup)**
