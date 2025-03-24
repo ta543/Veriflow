@@ -328,11 +328,7 @@ The `optional-parameter-types` module provides a set of options for utility modu
 import { getLocator, getLocatorByTestId } from '@LocatorUtils';
 import { clickAndNavigate, type } from '@ActionUtils';
 import { expectElementToHaveText } from '@AssertUtils';
-<<<<<<< HEAD
 import { STANDARD_TIMEOUT } from '@TIMEOUT';
-=======
-import { STANDARD_TIMEOUT } from '@TimeoutConstants';
->>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
 
 const loginpage = () => getLocator(`#loginpage`, { hasText: 'login' });
 const successfulMessage = () => getLocatorByTestId(`sucess-message`);
