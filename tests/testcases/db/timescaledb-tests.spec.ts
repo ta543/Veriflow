@@ -34,7 +34,7 @@ test.describe('TimescaleDB | DB', () => {
     setupAllure('timescaleDBVerifyDataImport');
     const rowCount = await Timescale.getFinancialDataRowCount();
     expect(rowCount).toBeGreaterThan(0);
-  });
+  });ddwdwdwdw
 
   test('[TimescaleDB][DB][Regression] Validate Column Structure', async () => {
     setupAllure('timescaleDBValidateColumnStructure');
