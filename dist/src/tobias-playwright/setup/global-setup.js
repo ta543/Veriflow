@@ -7,12 +7,11 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
-const child_process_1 = require("child_process");
+const _AllureEnvConfig_1 = require("@AllureEnvConfig");
 function globalSetup() {
     return tslib_1.__awaiter(this, void 0, void 0, function* () {
-        console.log("🔄 Moving old Allure results to history...");
-        (0, child_process_1.execSync)("bash prepare-allure.sh", { stdio: "inherit" });
-        console.log("✅ Allure results cleaned. Ready for test execution.");
+        console.log('🔄 Running global setup...');
+        (0, _AllureEnvConfig_1.updateEnvConfig)({ suite: 'ALL' }); // Reset suite before tests run
     });
 }
 exports.default = globalSetup;

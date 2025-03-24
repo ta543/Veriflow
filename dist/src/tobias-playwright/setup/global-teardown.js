@@ -10,11 +10,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const child_process_1 = require("child_process");
+const _SlackManager_1 = require("@SlackManager");
+const _AllureEnvConfig_1 = require("@AllureEnvConfig");
 function globalTeardown() {
     return tslib_1.__awaiter(this, void 0, void 0, function* () {
-        console.log("📊 Generating Allure report...");
         (0, child_process_1.execSync)("bash generate-allure-report.sh", { stdio: "inherit" });
-        console.log("✅ Allure report generated successfully.");
+        const envConfig = (0, _AllureEnvConfig_1.getCurrentEnvConfig)();
+        const reportUrl = yield (0, _SlackManager_1.getAllureReportUrl)();
+        yield (0, _SlackManager_1.notifySlackWithResults)(reportUrl);
     });
 }
 exports.default = globalTeardown;

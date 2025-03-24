@@ -6,16 +6,24 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const _PageSetup_1 = require("@PageSetup");
-const _AllureMetaData_1 = require("@AllureMetaData");
-const HomePage = tslib_1.__importStar(require("../../pages/e2e-testing/the-internet-pages/home-page"));
-const DropdownPage = tslib_1.__importStar(require("../../pages/e2e-testing/the-internet-pages/dropdown-page"));
-const LoginPage = tslib_1.__importStar(require("../../pages/e2e-testing/the-internet-pages/login-page"));
-const CheckboxPage = tslib_1.__importStar(require("../../pages/e2e-testing/the-internet-pages/checkbox-page"));
-const KeypressPage = tslib_1.__importStar(require("../../pages/e2e-testing/the-internet-pages/keypress-page"));
-_PageSetup_1.test.describe('The Internet App Tests', () => {
+const setupAllure_1 = require("setup/setupAllure");
+const HomePage = tslib_1.__importStar(require("@TheInternetHomePage"));
+const DropdownPage = tslib_1.__importStar(require("@TheInternetDropdownPage"));
+const LoginPage = tslib_1.__importStar(require("@TheInternetLoginPage"));
+const CheckboxPage = tslib_1.__importStar(require("@TheInternetCheckboxPage"));
+const KeypressPage = tslib_1.__importStar(require("@TheInternetKeypressPage"));
+/*
+ To run the tests in parallel, you can utilize the test.describe.configure() method to set the mode to 'parallel'.
+ By default, the tests will run sequentially when fullyParallel: false is set in playwright.config.
+ The tests will not be skipped upon encountering a failure except when the mode is set to 'serial'.
+*/
+_PageSetup_1.test.describe.configure({ mode: 'parallel' });
+_PageSetup_1.test.beforeEach('Navigating to Home Page', () => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    yield HomePage.navigateToHomePage();
+}));
+_PageSetup_1.test.describe('The Internet | E2E', () => {
     (0, _PageSetup_1.test)('Dropdown test', () => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-        (0, _AllureMetaData_1.setupAllure)('dropdownTest');
-        yield HomePage.navigateToHomePage();
+        (0, setupAllure_1.setupAllure)('dropdownTest');
         yield HomePage.clickDropdownLink();
         yield DropdownPage.navigateToDropdownPage();
         yield DropdownPage.verifyDropdownPageURL();
@@ -26,34 +34,22 @@ _PageSetup_1.test.describe('The Internet App Tests', () => {
         const isSelectedOption3 = yield DropdownPage.verifyDropdownOptionSelected(3);
         console.assert(isSelectedOption3, 'Dropdown selection failed for option 3');
     }));
-    (0, _PageSetup_1.test)('Login test - successful login', () => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-        (0, _AllureMetaData_1.setupAllure)('loginTest');
-        yield HomePage.navigateToHomePage();
+    (0, _PageSetup_1.test)('Success Login', () => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+        (0, setupAllure_1.setupAllure)('loginTest');
         yield HomePage.clickLoginPageLink();
         yield LoginPage.verifyLoginPageIsDisplayed();
         yield LoginPage.loginSuccessfully();
-        const isAuthenticated = yield LoginPage.isLoginSuccessful();
-        console.assert(isAuthenticated, 'Login failed: User was not authenticated successfully');
-        if (!isAuthenticated) {
-            throw new Error('Login failed: Expected the user to be authenticated, but it was not.');
-        }
+        yield LoginPage.verifySuccessfulLogin();
     }));
-    (0, _PageSetup_1.test)('Logout test - successful logout', () => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-        (0, _AllureMetaData_1.setupAllure)('logoutTest');
-        yield HomePage.navigateToHomePage();
+    (0, _PageSetup_1.test)('Success Logout', () => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+        (0, setupAllure_1.setupAllure)('logoutTest');
         yield HomePage.clickLoginPageLink();
         yield LoginPage.loginSuccessfully();
         yield LoginPage.logout();
-        const isLoggedOut = yield LoginPage.isLogoutSuccessful();
-        console.assert(isLoggedOut, 'Logout failed: User is still logged in');
-        if (!isLoggedOut) {
-            throw new Error('Logout failed: Expected the user to be logged out, but they were not.');
-        }
-        yield LoginPage.verifyLoginPageIsDisplayed();
+        yield LoginPage.verifySuccessfulLogout();
     }));
     (0, _PageSetup_1.test)('Checkbox test', () => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-        (0, _AllureMetaData_1.setupAllure)('checkboxTest');
-        yield HomePage.navigateToHomePage();
+        (0, setupAllure_1.setupAllure)('checkboxTest');
         yield HomePage.clickCheckboxesPageLink();
         yield CheckboxPage.toggleCheckbox(1);
         const isCheckbox1Checked = yield CheckboxPage.isCheckboxChecked(1);
@@ -69,8 +65,7 @@ _PageSetup_1.test.describe('The Internet App Tests', () => {
         }
     }));
     (0, _PageSetup_1.test)('Key presses test', () => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-        (0, _AllureMetaData_1.setupAllure)('keyPressTest');
-        yield HomePage.navigateToHomePage();
+        (0, setupAllure_1.setupAllure)('keyPressTest');
         yield HomePage.clickKeyPressesPageLink();
         yield KeypressPage.clickOnTargetElement();
         yield KeypressPage.checkThatKeyPressInputIsDisplayed();

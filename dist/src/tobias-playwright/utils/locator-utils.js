@@ -4,10 +4,12 @@
  * These utilities make it easier to interact with elements on the page, providing a layer of abstraction over Playwright's built-in locator methods.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLocatorInFrame = exports.getLocatorByXPath = exports.getLocatorByCSS = exports.getFrameLocator = exports.getAllLocators = exports.getLocatorByPlaceholder = exports.getLocatorByLabel = exports.getLocatorByRole = exports.getLocatorByText = exports.getLocatorByTestId = exports.getLocator = void 0;
+exports.getLocatorInFrame = exports.getFrameLocator = exports.getFrame = exports.getAllLocators = exports.getLocatorByPlaceholder = exports.getLocatorByLabel = exports.getLocatorByRole = exports.getLocatorByText = exports.getLocatorByTestId = exports.getVisibleLocator = exports.getLocator = void 0;
 const tslib_1 = require("tslib");
 const test_1 = require("@playwright/test");
 const _PageUtils_1 = require("@PageUtils");
+const _LOADSTATE_1 = require("@LOADSTATE");
+const _ElementUtils_1 = require("@ElementUtils");
 /**
  * 1. Locators: This section contains functions and definitions related to locators.
  * Locators are used to find and interact with elements on the page.
@@ -19,9 +21,25 @@ const _PageUtils_1 = require("@PageUtils");
  * @returns {Locator} - The created Locator object.
  */
 function getLocator(input, options) {
-    return typeof input === 'string' ? (0, _PageUtils_1.getPage)().locator(input, options) : input;
+    const locator = typeof input === 'string' ? (0, _PageUtils_1.getPage)().locator(input, options) : input;
+    return (options === null || options === void 0 ? void 0 : options.onlyVisible) ? locator.locator('visible=true') : locator;
 }
 exports.getLocator = getLocator;
+/**
+ * Returns a locator pointing to only visible element based on the input provided.
+ * By default, it returns locators that are visible. This behavior can be customized
+ * via the `options` parameter, allowing for more specific locator configurations.
+ *
+ * @param input - The selector string or Locator object to identify the element.
+ * @param options - Optional. Configuration options for the locator. Use `{ onlyVisible: false }`
+ * to include non-visible elements in the locator's search criteria.
+ * @returns A `Locator` instance pointing to an element that matches the specified
+ * criteria, prioritizing visibility unless overridden by `options`.
+ */
+function getVisibleLocator(input, options) {
+    return getLocator(input, Object.assign(Object.assign({}, _LOADSTATE_1.defaultVisibleOnlyOption), options));
+}
+exports.getVisibleLocator = getVisibleLocator;
 /**
  * Returns a Locator object with a specific testId. The global testId attribute is set in the playwright.config.ts file with default value as 'data-testid' if not set explicitly, but can be overridden by providing an attributeName.
  * @param {string | RegExp} testId - The testId to create the Locator from.
@@ -83,6 +101,7 @@ exports.getLocatorByPlaceholder = getLocatorByPlaceholder;
  */
 function getAllLocators(input, options) {
     return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        yield (0, _ElementUtils_1.waitForFirstElementToBeAttached)(input, options);
         return typeof input === 'string' ? yield (0, _PageUtils_1.getPage)().locator(input, options).all() : yield input.all();
     });
 }
@@ -92,6 +111,24 @@ exports.getAllLocators = getAllLocators;
  * Frames are used to handle and interact with iframes or frames within the web page.
  */
 /**
+ * Returns a Frame object based on the provided frame selector options. If the frame is not found, an error is thrown unless the 'force' option is set to true.
+ * @param {FrameOptions} frameSelector - The options to identify the frame.
+ * @param {{ force?: boolean }} options - Additional options for frame retrieval.
+ * - force (boolean): If true, returns the frame (or null) without throwing an error if the frame is not found.
+ * @returns {null | Frame} - The Frame object if found, otherwise null (if 'force' is true).
+ * @throws {Error} - Throws an error if the frame is not found and 'force' is false.
+ */
+function getFrame(frameSelector, options = { force: false }) {
+    const frame = (0, _PageUtils_1.getPage)().frame(frameSelector);
+    if (options.force)
+        return frame;
+    if (!frame) {
+        throw new Error(`Frame not found with selector: ${JSON.stringify(frameSelector)}`);
+    }
+    return frame;
+}
+exports.getFrame = getFrame;
+/**
  * Returns a FrameLocator object based on the input provided.
  * @param {string | FrameLocator} frameInput - The input to create the FrameLocator from.
  * @returns {FrameLocator} - The created FrameLocator object.
@@ -100,25 +137,6 @@ function getFrameLocator(frameInput) {
     return typeof frameInput === 'string' ? (0, _PageUtils_1.getPage)().frameLocator(frameInput) : frameInput;
 }
 exports.getFrameLocator = getFrameLocator;
-/**
- * Returns a Locator object based on a CSS selector.
- * @param {string} cssSelector - The CSS selector to locate the element.
- * @param {LocatorOptions} [options] - Optional parameters for the Locator.
- * @returns {Locator} - The created Locator object.
- */
-function getLocatorByCSS(cssSelector, options) {
-    return (0, _PageUtils_1.getPage)().locator(cssSelector, options);
-}
-exports.getLocatorByCSS = getLocatorByCSS;
-/**
- * Returns a Locator object based on an XPath.
- * @param {string} xpath - The XPath to locate the element.
- * @returns {Locator} - The created Locator object.
- */
-function getLocatorByXPath(xpath) {
-    return (0, _PageUtils_1.getPage)().locator(`xpath=${xpath}`);
-}
-exports.getLocatorByXPath = getLocatorByXPath;
 /**
  * Returns a Locator object within a specific frame based on the input provided.
  * @param {string | FrameLocator} frameInput - The input to create the FrameLocator from.
