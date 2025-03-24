@@ -10,7 +10,6 @@
 import {
   getLocatorByRole,
   getLocatorByText,
-  getLocatorByXPath,
 } from '@LocatorUtils';
 import { click } from '@ActionUtils';
 import { FormFieldsCredentials } from '@TestDataTheInternet';
@@ -19,11 +18,11 @@ import { expectElementToBeVisible } from '@AssertUtils';
 const usernameInput = () => getLocatorByRole('textbox', { name: 'Username' });
 const passwordInput = () => getLocatorByRole('textbox', { name: 'Password' });
 const loginButton = () => getLocatorByRole('button', { name: 'Login' });
-const errorMessage = `//*[contains(@class,'error-message')]`;
+const errorMessage = getLocatorByText('Your username is invalid!'); // update as needed if message varies
 const successMessage = () => getLocatorByText('You logged into a secure area!');
 const logoutButton = () => getLocatorByText('Logout', { exact: true });
-const logoutMessage = () => getLocatorByXPath('//div[@id="flash"]');
-const loginPageHeader = () => getLocatorByXPath("//h2[normalize-space()='Login Page']");
+const logoutMessage = () => getLocatorByText('You logged out of the secure area!');
+const loginPageHeader = () => getLocatorByRole('heading', { name: 'Login Page', level: 2 });
 
 export async function loginSuccessfully() {
   await usernameInput().fill(FormFieldsCredentials.username);

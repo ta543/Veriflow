@@ -7,7 +7,8 @@
  * VeriFlow Test Automation - Automation Exercise | HomePage
  */
 
-import { acceptConsentIfVisible, click, gotoURL, wait } from '@ActionUtils';
+import { acceptConsentIfVisible, click } from '@ActionUtils';
+import { gotoURL, wait } from '@PageUtils';
 import { expectPageToHaveURL } from '@AssertUtils';
 import { getLocatorByText } from '@LocatorUtils';
 

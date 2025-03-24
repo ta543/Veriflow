@@ -7,7 +7,8 @@
  * VeriFlow Test Automation - The Internet | HomePage
  */
 
-import { click, gotoURL } from '@ActionUtils';
+import { click } from '@ActionUtils';
+import { gotoURL } from '@PageUtils';
 import { expectPageToHaveURL } from '@AssertUtils';
 import { getLocatorByText } from '@LocatorUtils';
 

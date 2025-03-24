@@ -7,11 +7,11 @@
  * VeriFlow Test Automation - The Internet | KeyPressPage
  */
 
-import { getLocatorByCSS, getLocatorByXPath } from '@LocatorUtils';
+import { getLocatorByRole, getLocatorByText } from '@LocatorUtils';
 
-const keyPressInput = () => getLocatorByCSS('#target');
-const resultText = () => getLocatorByXPath('//*[@id="result"]');
-const targetElement = () => getLocatorByCSS('#target');
+const keyPressInput = () => getLocatorByRole('textbox');
+const resultText = () => getLocatorByText('You entered'); // assuming result begins with this or is predictable
+const targetElement = () => getLocatorByRole('textbox'); // same as keyPressInput
 
 export async function clickOnTargetElement() {
   await targetElement().waitFor({ state: 'visible', timeout: 5000 });
