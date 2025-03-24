@@ -29,7 +29,7 @@ on:
       parallelRuns:
         description: 'Number of Parallel Threads'
         required: true
-        default: '1'
+        default: '5'
         type: string
       enableSlackReport:
         description: 'Enable Slack Notifications'
@@ -58,31 +58,25 @@ jobs:
       - name: 'Install Dependencies'
         run: npm ci
 
+      - name: Install BrowserStack CLI
+        run: npm install -g browserstack-playwright-cli
+
       - name: 'Run Playwright Tests on BrowserStack'
-        env:
-          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
         run: |
           mkdir -p test-results/
           
           TEST_GROUP=$(echo "${{ github.event.inputs.testGroup }}" | tr '[:upper:]' '[:lower:]')
-      
-          if [ "$TEST_GROUP" = "REGRESSION" ]; then
+
+          if [ "$TEST_GROUP" = "regression" ]; then
             GREP="--grep '\\[Regression\\]'"
-          elif [ "$TEST_GROUP" = "SMOKE" ]; then
+          elif [ "$TEST_GROUP" = "smoke" ]; then
             GREP="--grep '\\[Smoke\\]'"
-          elif [ "$TEST_GROUP" = "ALL" ]; then
-            GREP=""
           else
             GREP=""
           fi
-      
-          echo "🧪 Running Playwright tests with: $GREP"
-          
-          npx playwright test $GREP \
-            --project=BrowserStack \
-            --workers=${{ github.event.inputs.parallelRuns }}
-      
+
+          browserstack-playwright --config browserstack.yml $GREP $RETRY --parallels=${{ github.event.inputs.parallelRuns }}
+
       - name: 'Generate Allure Report'
         run: |
           npx allure generate test-results/ --clean -o allure-report/
