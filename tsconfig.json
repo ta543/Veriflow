@@ -93,7 +93,7 @@
     "noImplicitReturns": true, // Ensures that all code paths in a function explicitly return a value
     "typeRoots": ["node_modules/@types"], // Specifies the location of type declaration files
 
-    // Completeness
+    // Completeness // 
     "skipLibCheck": true // Skip type checking of all declaration files (*.d.ts) for faster compilation times
   },
   "include": ["src/**/*.ts", "tests/**/*.ts", "test-setup/**/*.ts", "playwright.config.ts", ".eslintrc.js"],
