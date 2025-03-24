@@ -3,7 +3,6 @@
  * This test suite validates navigation and functionality on practice-automation.com
  */
 
-<<<<<<< HEAD
 import { test } from 'test-setup/page-setup';
 import { setupAllure } from "@AllureMetaData";
 import * as HomePage from '@PracticeAutomationHomePage';
@@ -21,19 +20,7 @@ import * as BrokenLinksPage from '@PracticeAutomationBrokenLinksPage';
 test.describe.configure({ mode: 'parallel' });
 
 test.describe('Practice Automation | E2E', () => {
-=======
-import { test } from '@PageSetup';
-import { setupAllure } from "@AllureMetaData";
-import * as HomePage from '../../pages/e2e-testing/practice-automation-pages/home-page';
-import * as FormFieldsPage from '../../pages/e2e-testing/practice-automation-pages/form-fields-page';
-import * as PopupsPage from '../../pages/e2e-testing/practice-automation-pages/popups-page';
-import * as FileUploadPage from '../../pages/e2e-testing/practice-automation-pages/file-upload-page';
-import * as FileDownloadPage from '../../pages/e2e-testing/practice-automation-pages/file-download-page';
-import * as BrokenLinksPage from '../../pages/e2e-testing/practice-automation-pages/broken-links-page';
-
-test.describe('Practice Automation App Tests', () => {
-
->>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
+  
   test('Navigate to Form Fields page', async () => {
     setupAllure('practiceAutomationFormFieldsNavigationTest');
     await HomePage.navigateToHomePage();
@@ -81,11 +68,7 @@ test.describe('Practice Automation App Tests', () => {
     await FileUploadPage.verifyFileUploadSuccess();
   });
 
-<<<<<<< HEAD
   test('[Regression] Download file test', async () => {
-=======
-  test('Download file test', async () => {
->>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
     setupAllure('practiceAutomationFileDownloadTest');
     await HomePage.navigateToHomePage();
     await HomePage.clickFileDownloadLink();

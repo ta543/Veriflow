@@ -3,7 +3,6 @@
  * This test suite validates navigation and functionality on automationexercise.com
  */
 
-<<<<<<< HEAD
 import { test } from 'test-setup/page-setup';
 import { setupAllure } from '@AllureMetaData';import * as HomePage from '@AutomatioExerciseHomePage';
 import * as ProductsPage from '@AutomatioExerciseProductsPage';
@@ -24,19 +23,6 @@ test.beforeEach('Navigating to Home Page', async () => {
 test.describe('Automation Exercise | E2E', () => {
   test('Search product test', async () => {
     setupAllure('automationExerciseSearchProductTest');
-=======
-import { test } from '@PageSetup';
-import { setupAllure } from '@AllureMetaData';
-import * as HomePage from '../../pages/e2e-testing/automation-exercise-pages/home-page';
-import * as ProductsPage from '../../pages/e2e-testing/automation-exercise-pages/products-page';
-import * as CartPage from '../../pages/e2e-testing/automation-exercise-pages/cart-page';
-import * as ContactUsPage from '../../pages/e2e-testing/automation-exercise-pages/contact-us-page';
-
-test.describe('Automation Exercise App Tests', () => {
-  test('Search product test', async () => {
-    setupAllure('automationExerciseSearchProductTest');
-    await HomePage.navigateToHomePage();
->>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
     await HomePage.clickProductsLink();
     await ProductsPage.verifyProductsPageURL();
     await ProductsPage.searchForProduct('T-shirt');
@@ -45,10 +31,6 @@ test.describe('Automation Exercise App Tests', () => {
 
   test('Add product to cart test', async () => {
     setupAllure('automationExerciseAddToCartTest');
-<<<<<<< HEAD
-=======
-    await HomePage.navigateToHomePage();
->>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
     await HomePage.clickProductsLink();
     await ProductsPage.verifyProductsPageURL();
     await ProductsPage.searchForProduct('T-shirt');
@@ -60,10 +42,6 @@ test.describe('Automation Exercise App Tests', () => {
 
   test('Contact Us form test', async () => {
     setupAllure('automationExerciseContactUsTest');
-<<<<<<< HEAD
-=======
-    await HomePage.navigateToHomePage();
->>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
     await ContactUsPage.navigateToContactUsPage();
     await ContactUsPage.verifyContactUsPageURL();
     await ContactUsPage.fillContactForm();

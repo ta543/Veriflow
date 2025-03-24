@@ -147,22 +147,15 @@ export default class TimescaleDBPage {
     }
 
     static async getTotalDataValueForQuarter(quarter: keyof typeof quarterMonths): Promise<number> {
-        const quarterMonths: Record<'2024-Q1' | '2024-Q2' | '2024-Q3' | '2024-Q4', string[]> = {
-          "2024-Q1": ["2024-01-01", "2024-02-01", "2024-03-01"],
-          "2024-Q2": ["2024-04-01", "2024-05-01", "2024-06-01"],
-          "2024-Q3": ["2024-07-01", "2024-08-01", "2024-09-01"],
-          "2024-Q4": ["2024-10-01", "2024-11-01", "2024-12-01"]
-        };
-      
         const months = quarterMonths[quarter];
-      
+    
         const result = await DBManager.getPGClient().query(
           `SELECT SUM(data_value) AS total 
            FROM business_financial_data 
            WHERE period = ANY($1::DATE[])`,
           [months]
         );
-      
+    
         return parseFloat(result.rows[0].total || '0');
     }
             

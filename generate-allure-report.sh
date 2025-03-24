@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ✅ Set the correct base directory for Allure reports
-BASE_DIR="/Volumes/chappy/chappy/Coding/Projects/work/personal/QA/Veriflow-playwright"
+BASE_DIR="/Volumes/chappy/chappy/Coding/Projects/personal/personal/QA/Veriflow-playwright"
 ALLURE_DIR="$BASE_DIR/allure"
 ALLURE_RESULTS="$ALLURE_DIR/allure-results"
 ALLURE_HISTORY="$ALLURE_DIR/allure-history"
@@ -38,22 +38,18 @@ if [ -d "$ROOT_ALLURE_RESULTS" ]; then
     # Remove empty root allure-results folder
     rm -rf "$ROOT_ALLURE_RESULTS"
 
-    echo "✅ Moved root allure-results to $ALLURE_RESULTS"
 fi
 
 # ✅ Ensure allure-results is empty before running tests
 mkdir -p "$ALLURE_RESULTS"
 
 # ✅ Copy configuration files to allure-results
-echo "📂 Copying Allure configuration files..."
 cp "$ALLURE_CONFIG/environment.properties" "$ALLURE_RESULTS/"
 cp "$ALLURE_CONFIG/categories.json" "$ALLURE_RESULTS/"
 
 # ✅ Ensure trend files exist and sync them from history
-echo "🔄 Syncing history to allure-results for trend tracking..."
 for file in history-trend.json history.json duration-trend.json retry-trend.json; do
     if [ ! -f "$ALLURE_HISTORY/$file" ]; then
-        echo "🛠️ Creating missing trend file: $file"
         touch "$ALLURE_HISTORY/$file"
     fi
     cp "$ALLURE_HISTORY/$file" "$ALLURE_RESULTS/" 2>/dev/null

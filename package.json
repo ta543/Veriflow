@@ -30,10 +30,7 @@
     "*.ts": "eslint --fix"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@slack/web-api": "^7.8.0",
-=======
->>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
     "@types/node": "^20.5.0",
     "allure-commandline": "^2.23.1",
     "allure-js-commons": "^3.1.0",
@@ -41,26 +38,18 @@
     "eslint-import-resolver-typescript": "^3.6.0",
     "eslint-plugin-import": "^2.28.0",
     "eslint-plugin-jsdoc": "^46.4.6",
-<<<<<<< HEAD
     "husky": "^8.0.3",
     "lint-staged": "^15.4.3",
     "mongodb": "^6.14.2",
     "node-fetch": "^2.7.0",
     "open": "^10.1.0",
     "pg": "^8.13.3",
-=======
-    "eslint-plugin-playwright": "^0.15.3",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.4.3",
-    "open": "^10.1.0",
->>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
     "prettier": "^3.0.2",
     "tslib": "^2.6.2",
     "typescript": "5.1.6",
     "winston": "^3.10.0"
   },
   "scripts": {
-<<<<<<< HEAD
     "Testcase": "npx playwright test tests/testcases/db/timescaledb-tests.spec.ts --grep='Verify Database Creation and Switching'",
     "Suite": "npx playwright test tests/testcases/db/timescaledb-tests.spec.ts",
     "All": "npx playwright test",
@@ -82,27 +71,6 @@
     "test:chrome": "cd $BASE_DIR && npx playwright test --retries 0 --project=chrome",
     "test:chrome-headed": "cd $BASE_DIR && npx playwright test -j 1 --retries 0 --headed --project=chrome",
     "test:reg": "cd $BASE_DIR && npx playwright test --project=chrome -g '@reg'",
-=======
-    "test file testcase": "npx playwright test tests/testcases/api-test-cases/automation-exercise-api-tests.spec.ts --grep='DELETE Request - Verify Login should return 405'",
-    "test file": "npx playwright test tests/testcases/api-test-cases/automation-exercise-api-tests.spec.ts",
-    "test all": "npx playwright test",
-    "locator": "npx playwright codegen https://practice-automation.com/",
-    "test list": "npx playwright test --list",
-    "test devtools": "npx playwright test --ui",
-    "syntax": "npx tsc --noEmit",
-    "report": "npx playwright show-report playwright-report",
-    "trace": "npx playwright show-trace --port 0",
-    "ui": "playwright test --ui-port 0",
-    "lint": "eslint 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts'",
-    "lint:fix": "eslint 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts' --fix",
-    "prepare": "husky install",
-    "format": "prettier --write 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts' '**/*.json' '**/*.md' '!package-lock.json' '!dist/**/*' '!build/**/*'",
-    "allure": "allure generate ./allure-results --clean && allure open ./allure-report",
-    "test:chrome": "cd $BASE_DIR && npx playwright test --retries 0 --project=chrome",
-    "test:chrome-headed": "cd $BASE_DIR && npx playwright test -j 1 --retries 0 --headed --project=chrome",
-    "test:reg": "cd $BASE_DIR && npx playwright test --project=chrome -g '@reg'",
-    "build": "tsc",
->>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
     "test:smoke": "npx playwright test --project=chrome -g '@smoke'",
     "postinstall": "playwright install"
   },
@@ -113,7 +81,6 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.50.1",
-<<<<<<< HEAD
     "@types/node-fetch": "^2.6.12",
     "@types/pg": "^8.11.11",
     "@typescript-eslint/eslint-plugin": "^8.27.0",
@@ -123,8 +90,5 @@
     "eslint-plugin-playwright": "^2.2.0",
     "eslint-plugin-unused-imports": "^4.1.4",
     "typescript-eslint": "^8.27.0"
-=======
-    "allure-playwright": "^3.1.0"
->>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
   }
 }
