@@ -35,7 +35,7 @@ export default defineConfig({
    * Determines whether to run tests within each spec file in parallel, in addition to running the spec files themselves in parallel.
    * See https://playwright.dev/docs/api/class-testconfig#testconfig-fullyparallel
    */
-  fullyParallel: false,
+  fullyParallel: true,
   /**
    * Whether to fail the build on CI if you accidentally left test.only in the source code.
    * See https://playwright.dev/docs/api/class-testconfig#testconfig-forbidonly
@@ -45,7 +45,7 @@ export default defineConfig({
    * The number of times to retry failed tests. Retries value is only set to happen on CI.
    * See https://playwright.dev/docs/api/class-testconfig#testconfig-retries
    */
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 6 : 3,
   /**
    * The number of worker threads to use for running tests. This is set to a different value on CI.
    * See https://playwright.dev/docs/api/class-testconfig#testconfig-workers

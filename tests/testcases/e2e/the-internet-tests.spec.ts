@@ -23,7 +23,7 @@ test.beforeEach('Navigating to Home Page', async () => {
 });
 
 test.describe('The Internet | E2E', () => {
-  test('Dropdown test', async () => {
+  test('[TheInternet][E2E][Regression] Dropdown test', async () => {
     setupAllure('dropdownTest');
     await HomePage.clickDropdownLink();
     await DropdownPage.navigateToDropdownPage();
@@ -36,7 +36,7 @@ test.describe('The Internet | E2E', () => {
     console.assert(isSelectedOption3, 'Dropdown selection failed for option 3');
   });
 
-  test('Success Login', async () => {
+  test('[TheInternet][E2E][Regression] Success Login', async () => {
     setupAllure('loginTest');
     await HomePage.clickLoginPageLink();
     await LoginPage.verifyLoginPageIsDisplayed();
@@ -52,7 +52,7 @@ test.describe('The Internet | E2E', () => {
     await LoginPage.verifySuccessfulLogout();
   });
 
-  test('Checkbox test', async () => {
+  test('[TheInternet][E2E][Regression] Checkbox test', async () => {
     setupAllure('checkboxTest');
     await HomePage.clickCheckboxesPageLink();
 
@@ -70,14 +70,14 @@ test.describe('The Internet | E2E', () => {
     }
   });
 
-  test('Key presses test', async () => {
+  test('[TheInternet][E2E][Regression] Key presses test', async () => {
     setupAllure('keyPressTest');
     await HomePage.clickKeyPressesPageLink();
     await KeypressPage.clickOnTargetElement();
     await KeypressPage.checkThatKeyPressInputIsDisplayed();
     await KeypressPage.sendKey('W');
     const resultW = await KeypressPage.getLastKeyPressed();
-    console.assert(resultW?.includes('You entered: W'), `Expected "You entered: W", but got "${resultW}"`);
+    console.assert(resultW?.includes('You entered: W'), `Expected "You entered: W", but got "${resultW}"`); 
     await KeypressPage.sendKey('A');
     const resultA = await KeypressPage.getLastKeyPressed();
     console.assert(resultA?.includes('You entered: A'), `Expected "You entered: A", but got "${resultA}"`);

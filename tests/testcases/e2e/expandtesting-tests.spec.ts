@@ -22,7 +22,7 @@ test.beforeEach('Navigating to Home Page', async () => {
 });
 
 test.describe('ExpandTesting | E2E', () => {
-  test('[Regression] Web Inputs Test', async () => {
+  test('[ExpandTesting][E2E][Regression] Web Inputs Test', async () => {
     setupAllure('expandTestingWebInputsTest');
     await HomePage.navigateToWebInputPage();
     await FormFieldsPage.closeAdIfVisible();
@@ -34,7 +34,7 @@ test.describe('ExpandTesting | E2E', () => {
     await FormFieldsPage.verifyOutputNumberVisible();
   });
 
-  test('Login Test', async () => {
+  test('[ExpandTesting][E2E][Regression] Login Test', async () => {
     setupAllure('expandTestingLoginTest');
     await HomePage.navigateToLoginPage();
     await LoginPage.fillLoginFormWithValidCredentials();
@@ -42,7 +42,7 @@ test.describe('ExpandTesting | E2E', () => {
     await LoginPage.verifySuccessfulLogin();
   });
 
-  test('Failed Register Test', async () => {
+  test('[ExpandTesting][E2E][Regression] Failed Register Test', async () => {
     setupAllure('expandTestingFailedRegisterTest');
     await HomePage.navigateToRegisterPage();
     await RegisterPage.fillRegisterFormWithInvalidCredentials();

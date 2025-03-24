@@ -33,12 +33,16 @@ export default class MyReporter implements Reporter {
       this.testResults.set(key, []);
     }
     this.testResults.get(key)!.push(result);
-
+  
+    const retryCount = this.testResults.get(key)!.length - 1;
+  
+    const retryInfo = retryCount > 0 ? chalk.gray(` (retry #${retryCount})`) : '';
+  
     // Show step feedback (per attempt)
     if (result.status === 'passed') {
-      console.log(`${chalk.bold.green('✅ [PASSED]')} ${chalk.whiteBright(test.title)}`);
+      console.log(`${chalk.bold.green('✅ [PASSED]')} ${chalk.whiteBright(test.title)}${retryInfo}`);
     } else if (result.status === 'failed') {
-      console.log(`${chalk.bold.redBright('❌ [FAILED]')} ${chalk.whiteBright(test.title)}`);
+      console.log(`${chalk.bold.redBright('❌ [FAILED]')} ${chalk.whiteBright(test.title)}${retryInfo}`);
       if (result.error) {
         console.error(chalk.redBright(`   📌 Reason: ${result.error.message}`));
         if (result.error.stack) {
@@ -76,31 +80,60 @@ export default class MyReporter implements Reporter {
 
   onEnd(): void {
     console.log(chalk.magenta("\n=== Test Run Completed ==="));
-
+    console.log(chalk.bold("\n📋 Test Summary:"));
+  
     let passed = 0;
     let failed = 0;
-
-    for (const results of this.testResults.values()) {
+    let totalRetries = 0;
+  
+    for (const [title, results] of this.testResults.entries()) {
       const finalResult = results[results.length - 1];
+      const retryCount = results.length - 1;
+      totalRetries += retryCount;
+  
+      const statusIcon = finalResult.status === 'passed'
+        ? chalk.green('✅')
+        : chalk.red('❌');
+  
+      const statusLabel = finalResult.status === 'passed'
+        ? chalk.greenBright('PASSED')
+        : chalk.redBright('FAILED');
+  
+      const retryLabel = retryCount > 0
+        ? chalk.gray(`(retried ${retryCount} ${retryCount === 1 ? 'time' : 'times'})`)
+        : chalk.gray('(no retries)');
+  
+      const fullTitle = chalk.whiteBright(title);
+  
+      console.log(` ${statusIcon} ${fullTitle} — ${statusLabel} ${retryLabel}`);
+  
+      if (finalResult.status === 'failed' && finalResult.error?.message) {
+        const errorMessage = finalResult.error.message.split('\n')[0]; // only first line
+        console.log(chalk.red(`     📌 ${errorMessage}`));
+      }
+  
       if (finalResult.status === 'passed') {
         passed++;
       } else {
         failed++;
       }
     }
-
+  
     const total = passed + failed;
-
-    console.log(`📊 ${chalk.bold('Total Tests:')} ${total}`);
-    console.log(`✅ ${chalk.bold.green('Passed:')} ${passed}/${total}`);
-    console.log(`❌ ${chalk.bold.red('Failed:')} ${failed}/${total}`);
-
+  
+    console.log(` `);
+    console.log(`🧪 Total Tests: ${chalk.white(total)}`);
+    console.log(`✅ Passed: ${chalk.green(passed)}`);
+    console.log(`❌ Failed: ${chalk.red(failed)}`);
+    console.log(`🔁 Total Retries: ${chalk.yellow(totalRetries)}`);
+    console.log(` `);
+  
     if (failed > 0) {
       console.log(chalk.redBright(`❗ Some tests failed. Check logs above for details.`));
     } else {
       console.log(chalk.bold.yellowBright(`🎉 All tests passed!`));
     }
-
-    console.log(chalk.gray(`🕒 Test execution finished.`));
-  }
+  
+    console.log(chalk.gray(`🕒 Test execution finished.\n`));
+  }  
 }

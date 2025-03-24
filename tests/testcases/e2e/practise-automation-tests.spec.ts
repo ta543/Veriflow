@@ -21,14 +21,14 @@ test.describe.configure({ mode: 'parallel' });
 
 test.describe('Practice Automation | E2E', () => {
   
-  test('Navigate to Form Fields page', async () => {
+  test('[PracticeAutomation][E2E][Regression] Navigate to Form Fields page', async () => {
     setupAllure('practiceAutomationFormFieldsNavigationTest');
     await HomePage.navigateToHomePage();
     await HomePage.clickFormFieldsLink();
     await FormFieldsPage.verifyFormFieldsPageURL();
   });
 
-  test('Fill and submit form test', async () => {
+  test('[PracticeAutomation][E2E][Regression] Fill and submit form test', async () => {
     setupAllure('practiceAutomationFormSubmissionTest');
     await FormFieldsPage.navigateToFormFieldsPage();
     await FormFieldsPage.fillForm();
@@ -39,7 +39,7 @@ test.describe('Practice Automation | E2E', () => {
     }
   });
 
-  test('Handle popups test', async () => {
+  test('[PracticeAutomation][E2E][Regression] Handle popups test', async () => {
     setupAllure('practiceAutomationPopupsTest');
     await HomePage.navigateToHomePage();
     await HomePage.clickPopupsLink();
@@ -59,7 +59,7 @@ test.describe('Practice Automation | E2E', () => {
     await PopupsPage.verifyTooltipText();
   });
 
-  test('Upload file test', async () => {
+  test('[PracticeAutomation][E2E][Regression] Upload file test', async () => {
     setupAllure('practiceAutomationFileUploadTest');
     await HomePage.navigateToHomePage();
     await HomePage.clickFileUploadLink();
@@ -68,7 +68,7 @@ test.describe('Practice Automation | E2E', () => {
     await FileUploadPage.verifyFileUploadSuccess();
   });
 
-  test('[Regression] Download file test', async () => {
+  test('[PracticeAutomation][E2E][Regression] Download file test', async () => {
     setupAllure('practiceAutomationFileDownloadTest');
     await HomePage.navigateToHomePage();
     await HomePage.clickFileDownloadLink();
@@ -76,7 +76,7 @@ test.describe('Practice Automation | E2E', () => {
     await FileDownloadPage.downloadFile();
   });
 
-  test('Verify broken links', async () => {
+  test('[PracticeAutomation][E2E][Regression] Verify broken links', async () => {
     setupAllure('practiceAutomationBrokenLinksTest');
     await HomePage.navigateToHomePage();
     await HomePage.clickBrokenLinksLink();

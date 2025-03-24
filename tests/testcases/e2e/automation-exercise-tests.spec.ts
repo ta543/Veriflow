@@ -21,7 +21,7 @@ test.beforeEach('Navigating to Home Page', async () => {
 });
 
 test.describe('Automation Exercise | E2E', () => {
-  test('Search product test', async () => {
+  test('[AutomationExercise][E2E][Regression] Search product test', async () => {
     setupAllure('automationExerciseSearchProductTest');
     await HomePage.clickProductsLink();
     await ProductsPage.verifyProductsPageURL();
@@ -29,7 +29,7 @@ test.describe('Automation Exercise | E2E', () => {
     await ProductsPage.verifytShirtSearchDisplayed();
   });
 
-  test('Add product to cart test', async () => {
+  test('[AutomationExercise][E2E][Regression] Add product to cart test', async () => {
     setupAllure('automationExerciseAddToCartTest');
     await HomePage.clickProductsLink();
     await ProductsPage.verifyProductsPageURL();
@@ -40,7 +40,7 @@ test.describe('Automation Exercise | E2E', () => {
     await CartPage.verifyCartPageURL();
   });
 
-  test('Contact Us form test', async () => {
+  test('[AutomationExercise][E2E][Regression] Contact Us form test', async () => {
     setupAllure('automationExerciseContactUsTest');
     await ContactUsPage.navigateToContactUsPage();
     await ContactUsPage.verifyContactUsPageURL();

@@ -21,13 +21,13 @@ test.beforeEach('Navigating to Home Page', async () => {
 });
 
 test.describe('SauceDemo | E2E', () => {
-  test('Successful login will display Products Page', async () => {
+  test('[SauceDemo][E2E][Regression] Successful login will display Products Page', async () => {
     setupAllure("sauceDemoLoginTest");
     await LoginPage.logInSuccessfully();
     await ProductsPage.verifyProductsPageDisplayed();
   });
 
-  test('Add product to cart', async () => {
+  test('[SauceDemo][E2E][Regression] Add product to cart', async () => {
     setupAllure("sauceDemoAddToCartTest");
     await LoginPage.logInSuccessfully();
     await ProductsPage.verifyProductsPageDisplayed();
@@ -35,7 +35,7 @@ test.describe('SauceDemo | E2E', () => {
     await MiniCartPage.verifyMiniCartCount('1');
   });
 
-  test('When login is unsuccessful will not display Products Page', async () => {
+  test('[SauceDemo][E2E][Regression] When login is unsuccessful will not display Products Page', async () => {
     setupAllure("sauceDemoFailedLoginTest");
     await LoginPage.failureLogin();
     await LoginPage.verifyErrorMessageForFailureLogin();

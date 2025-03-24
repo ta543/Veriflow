@@ -29,13 +29,14 @@ test.describe('TimescaleDB | DB', () => {
   test.beforeEach(async () => {
     Timescale = withSteps(TimescaleDBPage, test.step, 'Timescale');
   });
-  test('Verify Data Import', async () => {  
+  
+  test('[TimescaleDB][DB][Regression] Verify Data Import', async () => {  
     setupAllure('timescaleDBVerifyDataImport');
     const rowCount = await Timescale.getFinancialDataRowCount();
     expect(rowCount).toBeGreaterThan(0);
   });
 
-  test('Validate Column Structure', async () => {
+  test('[TimescaleDB][DB][Regression] Validate Column Structure', async () => {
     setupAllure('timescaleDBValidateColumnStructure');
     const columns = await Timescale.getFinancialDataColumnNames();
     const expectedColumns = [
@@ -48,7 +49,7 @@ test.describe('TimescaleDB | DB', () => {
     expect(columns.sort()).toEqual(expectedColumns.sort());
   });
 
-  test('Validate First Row Data', async () => {
+  test('[TimescaleDB][DB][Regression] Validate First Row Data', async () => {
     setupAllure('timescaleDBValidateFirstRowData');
     const firstRow = await Timescale.getFinancialDataFirstRow();
     expect(firstRow.series_reference).toMatch(/BDCQ/);
@@ -56,33 +57,33 @@ test.describe('TimescaleDB | DB', () => {
     expect(firstRow.status).toMatch(/[FR]/);
   });
 
-  test('Calculate Average Data Value', async () => {
+  test('[TimescaleDB][DB][Regression] Calculate Average Data Value', async () => {
     setupAllure('timescaleDBCalculateAverageDataValue');
     const avgValue = await Timescale.getAverageFinancialDataValue();
     expect(avgValue).toBeGreaterThan(0);
   });
 
-  test('Check Total Data Value for a Quarter', async () => {
+  test('[TimescaleDB][DB][Regression] Check Total Data Value for a Quarter', async () => {
     setupAllure('timescaleDBCheckTotalDataValueForQuarter');
     const quarter = '2024-Q1';
     const totalValue = await Timescale.getTotalDataValueForQuarter(quarter);
     expect(totalValue).toBeGreaterThan(1000);
   });
 
-  test('Check Data Consistency Across Periods', async () => {
+  test('[TimescaleDB][DB][Regression] Check Data Consistency Across Periods', async () => {
       setupAllure('timescaleDBCheckDataConsistency');
       const isConsistent = await Timescale.verifyDataConsistencyAcrossPeriods();
       expect(isConsistent).toBeTruthy();
   });
 
-  test('Validate Data Range', async () => {
+  test('[TimescaleDB][DB][Regression] Validate Data Range', async () => {
     setupAllure('timescaleDBValidateDataRange');
     const { min, max } = await Timescale.getFinancialDataRange();
     expect(min).toBeGreaterThanOrEqual(0);
     expect(max).toBeLessThanOrEqual(100000);
   });
 
-  test('Check Duplicate Entries', async () => {
+  test('[TimescaleDB][DB][Regression] Check Duplicate Entries', async () => {
     setupAllure('timescaleDBCheckDuplicateEntries');
     const hasNoDuplicates = await Timescale.checkDuplicateEntries();
     expect(hasNoDuplicates).toBeTruthy();
@@ -98,31 +99,31 @@ test.describe('TimescaleDB | DB', () => {
     }
   });
 
-  test('Check for Outliers in Data Values', async () => {
+  test('[TimescaleDB][DB][Regression] Check for Outliers in Data Values', async () => {
     setupAllure('timescaleDBCheckOutliers');
     const outlierCount = await Timescale.detectOutliers();
     expect(outlierCount).toBeLessThanOrEqual(2);
   });
 
-  test('Verify Consistent Financial Data Trend', async () => {
+  test('[TimescaleDB][DB][Regression] Verify Consistent Financial Data Trend', async () => {
     setupAllure('timescaleDBVerifyFinancialTrend');
     const trendData = await Timescale.checkFinancialDataTrends();
     expect(trendData.every(record => record.trend === 'increasing' || record.trend === 'decreasing')).toBeTruthy();
   });
 
-  test('Detect Anomalous Spikes in Financial Data', async () => {
+  test('[TimescaleDB][DB][Regression] Detect Anomalous Spikes in Financial Data', async () => {
     setupAllure('timescaleDBDetectAnomalousSpikes');
     const anomalies = await Timescale.detectAnomalousSpikes();    
     expect(anomalies.length).toBeLessThanOrEqual(2);
   });
 
-  test('Measure Query Execution Performance', async () => {
+  test('[TimescaleDB][DB][Regression] Measure Query Execution Performance', async () => {
     setupAllure('timescaleDBMeasurePerformance');
     const executionTime = await Timescale.measureQueryPerformance();
     expect(executionTime).toBeLessThan(500);
   });
 
-  test('Verify Database Creation and Switching', async () => {
+  test('[TimescaleDB][DB][Regression] Verify Database Creation and Switching', async () => {
     setupAllure('timescaleDBDynamicSwitchingTest');
     await Timescale.setupTestDatabases();
     await Timescale.switchTestDatabase(1);
@@ -138,7 +139,7 @@ test.describe('TimescaleDB | DB', () => {
     expect(parseInt(rowCount3.rows[0].count, 10)).toBe(parseInt(rowCount1.rows[0].count, 10));
   });
 
-  test('Restart Test DB and Validate from Peer', async () => {
+  test('[TimescaleDB][DB][Regression] Restart Test DB and Validate from Peer', async () => {
     setupAllure('timescaleDBRestartAndVerifyFromPeer');
     const containerToRestart = 'veriflow_test_1';
     const startTimeBefore = await Timescale.execInContainer(
@@ -155,7 +156,7 @@ test.describe('TimescaleDB | DB', () => {
     // console.log(`[After Restart] Container started at: ${startTimeAfter}`);
     expect(startTimeAfter).not.toBe(startTimeBefore);
     const isRunning = await Timescale.isContainerRunning(containerToRestart);
-    console.log(`[Running Status] Container is running: ${isRunning}`);
+    // console.log(`[Running Status] Container is running: ${isRunning}`);
     expect(isRunning).toBeTruthy();
   });
 });

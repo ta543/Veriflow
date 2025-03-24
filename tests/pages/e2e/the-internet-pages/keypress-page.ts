@@ -7,10 +7,10 @@
  * VeriFlow Test Automation - The Internet | KeyPressPage
  */
 
-import { getLocatorByRole } from '@LocatorUtils';
+import { getLocatorByRole, getLocatorByText } from '@LocatorUtils';
 
 const keyPressInput = () => getLocatorByRole('textbox');
-const resultText = () => getLocatorByRole('status');
+const resultText = () => getLocatorByText('You entered: W');
 const targetElement = () => getLocatorByRole('textbox');
 
 export async function clickOnTargetElement() {
@@ -26,11 +26,12 @@ export async function checkThatKeyPressInputIsDisplayed() {
 
 export async function sendKey(key: string) {
   const inputField = keyPressInput();
-  await inputField.focus(); // Ensure the input field is focused
+  await inputField.focus();
   await inputField.press(key);
 }
 
 export async function getLastKeyPressed(): Promise<string | null> {
-  await resultText().waitFor({ state: 'visible', timeout: 5000 });
-  return await resultText().textContent();
+  const locator = getLocatorByText('You entered:', { exact: false });
+  await locator.waitFor({ state: 'visible', timeout: 5000 });
+  return await locator.textContent();
 }
