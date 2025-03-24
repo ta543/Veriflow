@@ -17,7 +17,7 @@ Slack alerts notify the team in real-time about test results, including failures
   
   ![Slack Passed](./docs/images/slack-all-passed.png)
 
-- ❌ **Test Failure Example**
+- ❌ **Test Failure**
   
   ![Slack Failed](./docs/images/slack-error.png)
 
