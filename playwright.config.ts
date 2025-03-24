@@ -4,6 +4,7 @@
  * See https://playwright.dev/docs/test-configuration for more details.
  */
 
+<<<<<<< HEAD
 import { ACTION_TIMEOUT, EXPECT_TIMEOUT, NAVIGATION_TIMEOUT, TEST_TIMEOUT } from '@TIMEOUT';
 import { WaitForLoadStateOptions } from './src/tobias-playwright/types/optional-parameter-types';
 import { defineConfig, devices } from '@playwright/test';
@@ -16,6 +17,17 @@ const startLocalHost = process.env.URL && process.env.URL.includes('localhost');
 export const LOCAL_HOST_URL = 'https://localhost:9002';
 const Reporter = require.resolve('./src/tobias-playwright/setup/reporter');
 
+=======
+import { ACTION_TIMEOUT, EXPECT_TIMEOUT, NAVIGATION_TIMEOUT, TEST_TIMEOUT } from '@TimeoutConstants';
+import { WaitForLoadStateOptions } from 'setup/optional-parameter-types';
+
+import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env' });
+
+const BASE_URL = process.env.URL || 'https://the-internet.herokuapp.com/';
+// const startLocalHost = process.env.URL && process.env.URL.includes('localhost');
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
 /**
  * Default load state to be used while loading a URL or performing a click and navigate operation.
  * The load state is set to 'domcontentloaded', which means the action will wait until the 'DOMContentLoaded' event is fired.
@@ -56,6 +68,7 @@ export default defineConfig({
    * The reporter to use. This can be set to use a different value on CI.
    * See https://playwright.dev/docs/test-reporters
    */
+<<<<<<< HEAD
   reporter: [
     ['allure-playwright', { outputFolder: 'allure/allure-results' }],
     ['junit', { outputFile: 'test-results.xml' }],
@@ -64,6 +77,18 @@ export default defineConfig({
     ['html', { outputFolder: 'allure/allure-report', open: 'never' }],
     // ['list'],
   ],
+=======
+
+  reporter: [
+    ['allure-playwright', { outputFolder: 'allure/allure-results' }],
+    ['junit', { outputFile: 'test-results.xml' }],
+    ['./src/tobias-playwright/utils/MyReporter'],
+    // ['list'],
+    ['json', { outputFile: 'allure/allure-results/test-results.json' }],
+    ['html', { outputFolder: 'allure/allure-report', open: 'never' }],
+  ],
+  quiet: true,
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
 
   /**
    * Shared settings for all the projects below.
@@ -168,6 +193,7 @@ export default defineConfig({
 
   /**
    * If the tests are being run on localhost, this configuration starts a web server.
+<<<<<<< HEAD
    * See https://playwright.dev/docs/test-webserver#configuring-a-web-server
    */
   ...(startLocalHost && {
@@ -182,4 +208,18 @@ export default defineConfig({
       stderr: 'pipe',
     },
   }),
+=======
+   * See https://playwright.dev/docs/test-configuration#webserver
+   */
+  // ...(startLocalHost && {
+  //   webServer: {
+  //     command: 'cd ~/repos/ui && npm start ui-server',
+  //     port: 9002,
+  //     timeout: 60 * 1000,
+  //     reuseExistingServer: !process.env.CI,
+  //     stdout: 'pipe',
+  //     stderr: 'pipe',
+  //   },
+  // }),
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
 });

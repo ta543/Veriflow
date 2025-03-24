@@ -3,6 +3,7 @@
  * This test suite validates navigation and functionality on the-internet.herokuapp.com
  */
 
+<<<<<<< HEAD
 import { test } from 'test-setup/page-setup';
 import { setupAllure } from '@AllureMetaData';import * as HomePage from '@TheInternetHomePage';
 import * as DropdownPage from '@TheInternetDropdownPage';
@@ -24,6 +25,20 @@ test.beforeEach('Navigating to Home Page', async () => {
 test.describe('The Internet | E2E', () => {
   test('Dropdown test', async () => {
     setupAllure('dropdownTest');
+=======
+import { test } from '@PageSetup';
+import { setupAllure } from '@AllureMetaData';
+import * as HomePage from '../../pages/e2e-testing/the-internet-pages/home-page';
+import * as DropdownPage from '../../pages/e2e-testing/the-internet-pages/dropdown-page';
+import * as LoginPage from '../../pages/e2e-testing/the-internet-pages/login-page';
+import * as CheckboxPage from '../../pages/e2e-testing/the-internet-pages/checkbox-page';
+import * as KeypressPage from '../../pages/e2e-testing/the-internet-pages/keypress-page';
+
+test.describe('The Internet App Tests', () => {
+  test('Dropdown test', async () => {
+    setupAllure('dropdownTest');
+    await HomePage.navigateToHomePage();
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
     await HomePage.clickDropdownLink();
     await DropdownPage.navigateToDropdownPage();
     await DropdownPage.verifyDropdownPageURL();
@@ -35,6 +50,7 @@ test.describe('The Internet | E2E', () => {
     console.assert(isSelectedOption3, 'Dropdown selection failed for option 3');
   });
 
+<<<<<<< HEAD
   test('Success Login', async () => {
     setupAllure('loginTest');
     await HomePage.clickLoginPageLink();
@@ -49,10 +65,41 @@ test.describe('The Internet | E2E', () => {
     await LoginPage.loginSuccessfully();
     await LoginPage.logout();
     await LoginPage.verifySuccessfulLogout();
+=======
+  test('Login test - successful login', async () => {
+    setupAllure('loginTest');
+    await HomePage.navigateToHomePage();
+    await HomePage.clickLoginPageLink();
+    await LoginPage.verifyLoginPageIsDisplayed();
+    await LoginPage.loginSuccessfully();
+    const isAuthenticated = await LoginPage.isLoginSuccessful();
+    console.assert(isAuthenticated, 'Login failed: User was not authenticated successfully');
+    if (!isAuthenticated) {
+      throw new Error('Login failed: Expected the user to be authenticated, but it was not.');
+    }
+  });
+
+  test('Logout test - successful logout', async () => {
+    setupAllure('logoutTest');
+    await HomePage.navigateToHomePage();
+    await HomePage.clickLoginPageLink();
+    await LoginPage.loginSuccessfully();
+    await LoginPage.logout();
+    const isLoggedOut = await LoginPage.isLogoutSuccessful();
+    console.assert(isLoggedOut, 'Logout failed: User is still logged in');
+    if (!isLoggedOut) {
+      throw new Error('Logout failed: Expected the user to be logged out, but they were not.');
+    }
+    await LoginPage.verifyLoginPageIsDisplayed();
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
   });
 
   test('Checkbox test', async () => {
     setupAllure('checkboxTest');
+<<<<<<< HEAD
+=======
+    await HomePage.navigateToHomePage();
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
     await HomePage.clickCheckboxesPageLink();
 
     await CheckboxPage.toggleCheckbox(1);
@@ -71,6 +118,10 @@ test.describe('The Internet | E2E', () => {
 
   test('Key presses test', async () => {
     setupAllure('keyPressTest');
+<<<<<<< HEAD
+=======
+    await HomePage.navigateToHomePage();
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
     await HomePage.clickKeyPressesPageLink();
     await KeypressPage.clickOnTargetElement();
     await KeypressPage.checkThatKeyPressInputIsDisplayed();

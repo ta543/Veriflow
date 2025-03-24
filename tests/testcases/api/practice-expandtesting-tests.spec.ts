@@ -4,7 +4,12 @@
  */
 
 import { test, expect, request as playwrightRequest, APIRequestContext } from '@playwright/test';
+<<<<<<< HEAD
 import { setupAllure } from '@AllureMetaData';import { initializeAPI } from '@AutomationExerciseAPI';
+=======
+import { setupAllure } from '@AllureMetaData';
+import { initializeAPI } from '@AutomationExerciseAPI';
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
 import { APIUtils } from '@APIUtils';
 import * as API from '@AutomationExerciseAPI';
 
@@ -19,7 +24,11 @@ test.afterAll(async () => {
   await apiRequest.dispose();
 }); 
 
+<<<<<<< HEAD
 test.describe.parallel('Automation Exercise | API', () => {
+=======
+test.describe('Automation Exercise API Tests', () => {
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
   
   test('Get All Products List', async () => {
     setupAllure('apiAutomationExerciseGetAllProducts');

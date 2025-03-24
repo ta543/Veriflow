@@ -3,19 +3,29 @@
  * These utilities make it easier to interact with elements on the page, providing a layer of abstraction over Playwright's built-in locator methods.
  */
 
+<<<<<<< HEAD
 import { Frame, FrameLocator, Locator, selectors } from '@playwright/test';
 import { getPage } from '@PageUtils';
 import {
   FrameOptions,
+=======
+import { FrameLocator, Locator, selectors } from '@playwright/test';
+import { getPage } from '@PageUtils';
+import {
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
   GetByPlaceholderOptions,
   GetByRoleOptions,
   GetByRoleTypes,
   GetByTextOptions,
   LocatorOptions,
+<<<<<<< HEAD
   LocatorWaitOptions,
 } from 'types/optional-parameter-types';
 import { defaultVisibleOnlyOption } from '@LOADSTATE';
 import { waitForFirstElementToBeAttached } from '@ElementUtils';
+=======
+} from 'setup/optional-parameter-types';
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
 
 /**
  * 1. Locators: This section contains functions and definitions related to locators.
@@ -29,6 +39,7 @@ import { waitForFirstElementToBeAttached } from '@ElementUtils';
  * @returns {Locator} - The created Locator object.
  */
 export function getLocator(input: string | Locator, options?: LocatorOptions): Locator {
+<<<<<<< HEAD
   const locator = typeof input === 'string' ? getPage().locator(input, options) : input;
   return options?.onlyVisible ? locator.locator('visible=true') : locator;
 }
@@ -46,6 +57,9 @@ export function getLocator(input: string | Locator, options?: LocatorOptions): L
  */
 export function getVisibleLocator(input: string | Locator, options?: LocatorOptions): Locator {
   return getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+=======
+  return typeof input === 'string' ? getPage().locator(input, options) : input;
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
 }
 
 /**
@@ -107,11 +121,15 @@ export function getLocatorByPlaceholder(text: string | RegExp, options?: GetByPl
  * @param {LocatorOptions} options - Optional parameters for the Locators.
  * @returns {Promise<Locator[]>} - The created Locator objects.
  */
+<<<<<<< HEAD
 export async function getAllLocators(
   input: string | Locator,
   options?: LocatorOptions & LocatorWaitOptions,
 ): Promise<Locator[]> {
   await waitForFirstElementToBeAttached(input, options);
+=======
+export async function getAllLocators(input: string | Locator, options?: LocatorOptions): Promise<Locator[]> {
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
   return typeof input === 'string' ? await getPage().locator(input, options).all() : await input.all();
 }
 
@@ -121,6 +139,7 @@ export async function getAllLocators(
  */
 
 /**
+<<<<<<< HEAD
  * Returns a Frame object based on the provided frame selector options. If the frame is not found, an error is thrown unless the 'force' option is set to true.
  * @param {FrameOptions} frameSelector - The options to identify the frame.
  * @param {{ force?: boolean }} options - Additional options for frame retrieval.
@@ -138,6 +157,8 @@ export function getFrame(frameSelector: FrameOptions, options = { force: false }
 }
 
 /**
+=======
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
  * Returns a FrameLocator object based on the input provided.
  * @param {string | FrameLocator} frameInput - The input to create the FrameLocator from.
  * @returns {FrameLocator} - The created FrameLocator object.
@@ -147,6 +168,28 @@ export function getFrameLocator(frameInput: string | FrameLocator): FrameLocator
 }
 
 /**
+<<<<<<< HEAD
+=======
+ * Returns a Locator object based on a CSS selector.
+ * @param {string} cssSelector - The CSS selector to locate the element.
+ * @param {LocatorOptions} [options] - Optional parameters for the Locator.
+ * @returns {Locator} - The created Locator object.
+ */
+export function getLocatorByCSS(cssSelector: string, options?: LocatorOptions): Locator {
+  return getPage().locator(cssSelector, options);
+}
+
+/**
+ * Returns a Locator object based on an XPath.
+ * @param {string} xpath - The XPath to locate the element.
+ * @returns {Locator} - The created Locator object.
+ */
+export function getLocatorByXPath(xpath: string): Locator {
+  return getPage().locator(`xpath=${xpath}`);
+}
+
+/**
+>>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb
  * Returns a Locator object within a specific frame based on the input provided.
  * @param {string | FrameLocator} frameInput - The input to create the FrameLocator from.
  * @param {string | Locator} input - The input to create the Locator from, within the frame.
