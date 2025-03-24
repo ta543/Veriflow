@@ -1,4 +1,4 @@
-# VeriFlow — 🐛 Bug Fix Pull Request
+# VeriFlow — 🚨 Bug Fix Pull Request
 
 > [!NOTE]
 > **JIRA TICKET**  

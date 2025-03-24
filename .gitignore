@@ -7,6 +7,25 @@ node_modules/
 .idea
 .DS_Store
 allure*
-
-# Playwright
+*.log
+*.tsbuildinfo
+dist/
+build/
+out/
+Thumbs.db
+.env
+.env.local
+.env.*.local
+coverage/
+*.lcov
+*.json
+yarn.lock
+pnpm-lock.yaml
+package-lock.json
+.idea/
+*.iml
+*.swp
+*.swo
+*.tmp
+*.bak
 /blob-report/
