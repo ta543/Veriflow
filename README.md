@@ -8,7 +8,7 @@
 
 </div>
 
-Veriflow is a **Playwright TypeScript Framework** that is **versatile, scalable, and efficient** for automation testing designed to streamline **web (desktop & mobile), API, and Electron testing**. Built on [**Playwright**](https://playwright.dev/) and [**TypeScript**](https://www.typescriptlang.org/), it provides a **robust** and **high-performance** testing environment.
+Veriflow is a **Playwright TypeScript Framework** that is **versatile, scalable, and efficient** for automation testing designed to streamline **web (desktop & mobile), API, and DB testing**. Built on [**Playwright**](https://playwright.dev/) and [**TypeScript**](https://www.typescriptlang.org/), it provides a **robust** and **high-performance** testing environment.
 
 🔹 **Slack Integration**  
 Slack alerts notify the team in real-time about test results, including failures, pass rates, and broken/skipped tests. Messages are formatted with emojis and color-coded blocks for quick visibility.
