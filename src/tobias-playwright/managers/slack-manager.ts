@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import fetch from 'node-fetch';
 import { spawn } from 'child_process';
-import { getCurrentEnvConfig } from '../../../allure/config/env-config';
+import { getCurrentEnvConfig } from '@AllureEnvConfig';
 import { testMetadata } from 'setup/test-metadata';
 
 const envConfig = getCurrentEnvConfig();

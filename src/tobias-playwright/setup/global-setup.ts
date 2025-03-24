@@ -5,11 +5,12 @@
  * You can add any initialization setup code within this function.
  */
 
-import { updateEnvConfig } from '@AllureEnvConfig';
+import { updateEnvConfig, getCurrentEnvConfig } from '@AllureEnvConfig';
 
 async function globalSetup() {
     console.log('🔄 Running global setup...');
     updateEnvConfig({ suite: 'ALL' }); // Reset suite before tests run
+    const envConfig = getCurrentEnvConfig();
 }
 
 export default globalSetup;
