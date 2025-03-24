@@ -49,24 +49,24 @@ test.describe('TimescaleDB | DB', () => {
   });
 
   test('Validate First Row Data', async () => {
-      setupAllure('timescaleDBValidateFirstRowData');
-      const firstRow = await Timescale.getFinancialDataFirstRow();
-      expect(firstRow.series_reference).toMatch(/BDCQ/);
-      expect(firstRow.units).toBe('Dollars');
-      expect(firstRow.status).toMatch(/[FR]/);
+    setupAllure('timescaleDBValidateFirstRowData');
+    const firstRow = await Timescale.getFinancialDataFirstRow();
+    expect(firstRow.series_reference).toMatch(/BDCQ/);
+    expect(firstRow.units).toBe('Dollars');
+    expect(firstRow.status).toMatch(/[FR]/);
   });
 
   test('Calculate Average Data Value', async () => {
-      setupAllure('timescaleDBCalculateAverageDataValue');
-      const avgValue = await Timescale.getAverageFinancialDataValue();
-      expect(avgValue).toBeGreaterThan(0);
+    setupAllure('timescaleDBCalculateAverageDataValue');
+    const avgValue = await Timescale.getAverageFinancialDataValue();
+    expect(avgValue).toBeGreaterThan(0);
   });
 
   test('Check Total Data Value for a Quarter', async () => {
-      setupAllure('timescaleDBCheckTotalDataValueForQuarter');
-      const quarter = '2024-Q1';
-      const totalValue = await Timescale.getTotalDataValueForQuarter(quarter);
-      expect(totalValue).toBeGreaterThan(1000);
+    setupAllure('timescaleDBCheckTotalDataValueForQuarter');
+    const quarter = '2024-Q1';
+    const totalValue = await Timescale.getTotalDataValueForQuarter(quarter);
+    expect(totalValue).toBeGreaterThan(1000);
   });
 
   test('Check Data Consistency Across Periods', async () => {
@@ -76,10 +76,10 @@ test.describe('TimescaleDB | DB', () => {
   });
 
   test('Validate Data Range', async () => {
-      setupAllure('timescaleDBValidateDataRange');
-      const { min, max } = await Timescale.getFinancialDataRange();
-      expect(min).toBeGreaterThanOrEqual(0);
-      expect(max).toBeLessThanOrEqual(100000);
+    setupAllure('timescaleDBValidateDataRange');
+    const { min, max } = await Timescale.getFinancialDataRange();
+    expect(min).toBeGreaterThanOrEqual(0);
+    expect(max).toBeLessThanOrEqual(100000);
   });
 
   test('Check Duplicate Entries', async () => {
@@ -89,19 +89,19 @@ test.describe('TimescaleDB | DB', () => {
   });
 
   test('[TimescaleDB][DB][DataValidation][Regression] Validate Financial Data Against Expected Ranges per Subject', async () => {
-      setupAllure('timescaleDBValidateDataRangesPerSubject');
-      const subjects = ['GDP', 'Inflation', 'Employment'];
-      for (const subject of subjects) {
-          const { min, max } = await Timescale.getDataRangeForSubject(subject);
-          expect(min).toBeGreaterThanOrEqual(0);
-          expect(max).toBeLessThanOrEqual(1000000);
-      }
+    setupAllure('timescaleDBValidateDataRangesPerSubject');
+    const subjects = ['GDP', 'Inflation', 'Employment'];
+    for (const subject of subjects) {
+        const { min, max } = await Timescale.getDataRangeForSubject(subject);
+        expect(min).toBeGreaterThanOrEqual(0);
+        expect(max).toBeLessThanOrEqual(1000000);
+    }
   });
 
   test('Check for Outliers in Data Values', async () => {
-      setupAllure('timescaleDBCheckOutliers');
-      const outlierCount = await Timescale.detectOutliers();
-      expect(outlierCount).toBeLessThanOrEqual(2);
+    setupAllure('timescaleDBCheckOutliers');
+    const outlierCount = await Timescale.detectOutliers();
+    expect(outlierCount).toBeLessThanOrEqual(2);
   });
 
   test('Verify Consistent Financial Data Trend', async () => {
