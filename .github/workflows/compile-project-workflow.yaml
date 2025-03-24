@@ -45,6 +45,10 @@ jobs:
         id: install_dependencies
         run: npm install
 
+      - name: 'Install dependencies'
+        id: audit_fix
+        run: npm audit fix
+
       - name: 'Compile TypeScript'
         id: build
         run: npm run build
