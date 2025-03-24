@@ -1,0 +1,32 @@
+name: VeriFlow | Delete Runs
+
+permissions:
+  actions: write
+
+on:
+  workflow_dispatch:
+
+jobs:
+  delete-failed-runs:
+    runs-on: ubuntu-latest
+    name: 'VeriFlow | Delete Runs 🧹'
+
+    steps:
+      - name: 🛠️ Install GitHub CLI and jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+          sudo apt update
+          sudo apt install gh -y
+
+      - name: 🔐 Authenticate with GitHub CLI using GITHUB_TOKEN
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: 🧹 Delete all failed workflow runs
+        run: |
+          echo "🔍 Fetching failed workflow runs..."
+          gh run list --limit 1000 --repo ta543/Veriflow --json databaseId,conclusion | \
+          jq -r '.[] | select(.conclusion == "failure") | .databaseId' | \
+          xargs -n1 -I {} sh -c "yes | gh run delete {} --repo ta543/Veriflow"

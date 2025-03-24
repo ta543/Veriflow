@@ -166,6 +166,13 @@ export async function notifySlackWithResults(allureReportUrl: string) {
             },
             {
                 type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: "<!here>"
+                }
+            },    
+            {
+                type: "section",
                 fields: [
                     { type: "mrkdwn", text: `📅 *Date:* ${formattedDate}` },
                     { type: "mrkdwn", text: `🌍 *Environment:* ${envConfig.environment}` },
