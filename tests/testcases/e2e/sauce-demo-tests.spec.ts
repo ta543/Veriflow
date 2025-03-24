@@ -3,7 +3,7 @@
  * This test suite validates navigation and functionality on saucedemo.com
  */
 
-import { test } from '@PageSetup';
+import { test } from 'test-setup/page-setup';
 import { setupAllure } from "@AllureMetaData";
 import * as LoginPage from '@SauceDemoLoginPage';
 import * as MiniCartPage from '@SauceDemoMiniCartPage';

@@ -3,7 +3,7 @@
  * This test suite validates the presence, structure, and basic integrity of financial data on TimescaleDB.
  */
 
-import { test, expect } from '@PageSetup';
+import { test, expect } from 'test-setup/page-setup';
 import { setupAllure } from "@AllureMetaData";
 import { withSteps } from '@StepsUtils';
 import DBManager from '@DBManager';

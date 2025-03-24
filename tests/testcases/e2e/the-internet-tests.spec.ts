@@ -3,7 +3,7 @@
  * This test suite validates navigation and functionality on the-internet.herokuapp.com
  */
 
-import { test } from '@PageSetup';
+import { test } from 'test-setup/page-setup';
 import { setupAllure } from '@AllureMetaData';import * as HomePage from '@TheInternetHomePage';
 import * as DropdownPage from '@TheInternetDropdownPage';
 import * as LoginPage from '@TheInternetLoginPage';

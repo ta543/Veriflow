@@ -3,7 +3,7 @@
  * This test suite validates navigation and functionality on practice-automation.com
  */
 
-import { test } from '@PageSetup';
+import { test } from 'test-setup/page-setup';
 import { setupAllure } from "@AllureMetaData";
 import * as HomePage from '@PracticeAutomationHomePage';
 import * as FormFieldsPage from '@PracticeAutomationFormFieldsPage';
