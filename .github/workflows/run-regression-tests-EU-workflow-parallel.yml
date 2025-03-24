@@ -64,8 +64,6 @@ jobs:
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
         run: |
           mkdir -p test-results/
-          
-          TEST_GROUP=$(echo "${{ github.event.inputs.testGroup }}" | tr '[:upper:]' '[:lower:]')
       
           if [ "$TEST_GROUP" = "REGRESSION" ]; then
             GREP="--grep '\\[Regression\\]'"
