@@ -10,7 +10,6 @@
 import { getLocatorByRole, getLocatorByText } from '@LocatorUtils';
 
 const keyPressInput = () => getLocatorByRole('textbox');
-const resultText = () => getLocatorByText('You entered: W');
 const targetElement = () => getLocatorByRole('textbox');
 
 export async function clickOnTargetElement() {
