@@ -1,0 +1,4 @@
+Owner: Tobias Andersen - [tobias@tobiasa.com]
+TMS Link: TEST-001
+Description: Verify that selecting an option in the dropdown properly updates the selected attribute.
+Tags: Dropdown

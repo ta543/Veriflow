@@ -3,8 +3,7 @@ import path from 'path';
 import fetch from 'node-fetch';
 import { spawn } from 'child_process';
 import { getCurrentEnvConfig } from '@AllureEnvConfig';
-import { testMetadata } from 'setup/test-metadata';
-
+import { testMetadata } from '@TestMetadata';
 const envConfig = getCurrentEnvConfig();
 
 export function getAllureReportUrl(): Promise<string> {

@@ -4,8 +4,7 @@
  */
 
 import { test } from '@PageSetup';
-import { setupAllure } from 'setup/setupAllure';
-import * as HomePage from '@AutomatioExerciseHomePage';
+import { setupAllure } from '@AllureMetaData';import * as HomePage from '@AutomatioExerciseHomePage';
 import * as ProductsPage from '@AutomatioExerciseProductsPage';
 import * as CartPage from '@AutomatioExerciseCartPage';
 import * as ContactUsPage from '@AutomatioExerciseContactUsPage';

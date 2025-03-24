@@ -1,0 +1,4 @@
+Owner: Tobias Andersen - [tobias@tobiasa.com]
+TMS Link: AE-001
+Description: Verify that the Test Cases page is accessible from the homepage.
+Tags: Navigation, Test Cases

@@ -4,8 +4,7 @@
  */
 
 import { test } from '@PageSetup';
-import { setupAllure } from 'setup/setupAllure';
-import * as HomePage from '@TheInternetHomePage';
+import { setupAllure } from '@AllureMetaData';import * as HomePage from '@TheInternetHomePage';
 import * as DropdownPage from '@TheInternetDropdownPage';
 import * as LoginPage from '@TheInternetLoginPage';
 import * as CheckboxPage from '@TheInternetCheckboxPage';

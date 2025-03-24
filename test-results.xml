@@ -1,22 +1,2 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="12.874403000000001">
-<testsuite name="db/timescaledb-tests.spec.ts" timestamp="2025-03-23T23:43:54.164Z" hostname="Chrome" tests="1" failures="0" skipped="0" time="0.612" errors="0">
-<testcase name="TimescaleDB | DB › Check Total Data Value for a Quarter" classname="db/timescaledb-tests.spec.ts" time="0.612">
-<system-out>
-<![CDATA[Connecting to timescale DB at localhost:5432
-✅ Updated environment.properties:
-Environment=UAT
-Release=LATEST
-Platform=LOCAL
-Language=ENGLISH
-Browser=Chrome
-Suite=TimescaleDB | DB
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-818a3-al-Data-Value-for-a-Quarter-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-818a3-al-Data-Value-for-a-Quarter-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-</testsuite>
+<testsuites id="" name="" tests="0" failures="0" skipped="0" errors="0" time="0.7385780000000013">
 </testsuites>

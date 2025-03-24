@@ -8,7 +8,7 @@
  */
 
 import { exec } from 'child_process';
-import DBManager from 'managers/db-manager';
+import DBManager from '@DBManager';
 
 const MAIN_DB = 'veriflow_timescale';
 const TEST_DB_1 = 'veriflow_test_1';

@@ -4,7 +4,7 @@
  */
 
 import { test } from '@PageSetup';
-import { setupAllure } from "setup/setupAllure";
+import { setupAllure } from "@AllureMetaData";
 import * as LoginPage from '@SauceDemoLoginPage';
 import * as MiniCartPage from '@SauceDemoMiniCartPage';
 import * as ProductsPage from '@SauceDemoProductsPage';

@@ -5,4 +5,4 @@
 *                   @circlek-global/gmbat-developers
 
 # These owners will be the owners for github workflows.
-.github/workflows/* @circlek-global/gmbat-workflows-admins @circlek-global/arp-workflows-admins
+.github/workflows/*

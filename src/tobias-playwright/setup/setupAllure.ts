@@ -1,6 +1,6 @@
 import { allure } from 'allure-playwright';
 import { test } from '@playwright/test';
-import { testMetadata } from 'setup/test-metadata';
+import { testMetadata } from '@TestMetadata';
 
 export function setupAllure(testId: keyof typeof testMetadata) {
     const details = testMetadata[testId];

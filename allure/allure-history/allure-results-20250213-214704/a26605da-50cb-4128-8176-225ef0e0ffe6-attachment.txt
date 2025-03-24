@@ -1,0 +1,4 @@
+Owner: Tobias Andersen - [tobias@tobiasa.com]
+TMS Link: AE-004
+Description: Validate that a user can successfully log in with valid credentials.
+Tags: Login, Authentication

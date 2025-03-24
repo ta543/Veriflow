@@ -4,7 +4,7 @@
  */
 
 import { test } from '@PageSetup';
-import { setupAllure } from "setup/setupAllure";
+import { setupAllure } from "@AllureMetaData";
 import * as HomePage from '@ExpandTestingHomePage';
 import * as LoginPage from '@ExpandTestingLoginPage';
 import * as FormFieldsPage from '@ExpandTestingFormFieldsPage';
