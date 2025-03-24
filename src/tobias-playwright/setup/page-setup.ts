@@ -15,8 +15,8 @@ type Fixtures = {
 };
 
 const test = base.extend<Fixtures>({
-  Timescale: async ({}, use, testInfo) => {
-    const wrapped = withSteps(TimescaleDBPage, testInfo.step, 'Timescale');
+  Timescale: async ({}, use) => {
+    const wrapped = withSteps(TimescaleDBPage, test.step, 'Timescale');
     await use(wrapped);
   }
 });

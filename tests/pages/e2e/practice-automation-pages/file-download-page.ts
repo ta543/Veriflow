@@ -3,7 +3,8 @@
  * This test suite validates file downloads on practice-automation.com
  */
 
-import { click, fill, wait } from '@ActionUtils';
+import { click, fill } from '@ActionUtils';
+import { wait } from '@PageUtils';
 import { expectElementToBeVisible } from '@AssertUtils';
 import { getLocator, getLocatorByRole } from '@LocatorUtils';
 

@@ -1,64 +1,21 @@
-<testsuites id="" name="" tests="3" failures="0" skipped="0" errors="0" time="17.826798">
-<testsuite name="db/timescaledb-tests.spec.ts" timestamp="2025-03-23T22:05:14.064Z" hostname="Chrome" tests="1" failures="0" skipped="0" time="0.618" errors="0">
-<testcase name="TimescaleDB | DB › [TimescaleDB][DB][DataValidation][Regression] Validate Financial Data Against Expected Ranges per Subject" classname="db/timescaledb-tests.spec.ts" time="0.618">
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="12.874403000000001">
+<testsuite name="db/timescaledb-tests.spec.ts" timestamp="2025-03-23T23:43:54.164Z" hostname="Chrome" tests="1" failures="0" skipped="0" time="0.612" errors="0">
+<testcase name="TimescaleDB | DB › Check Total Data Value for a Quarter" classname="db/timescaledb-tests.spec.ts" time="0.612">
 <system-out>
-<![CDATA[✅ Updated environment.properties:
+<![CDATA[Connecting to timescale DB at localhost:5432
+✅ Updated environment.properties:
 Environment=UAT
 Release=LATEST
 Platform=LOCAL
 Language=ENGLISH
 Browser=Chrome
 Suite=TimescaleDB | DB
-[step] Timescale.getDataRangeForSubject("GDP")
-[step:pass] Timescale.getDataRangeForSubject("GDP")
-[step] Timescale.getDataRangeForSubject("Inflation")
-[step:pass] Timescale.getDataRangeForSubject("Inflation")
-[step] Timescale.getDataRangeForSubject("Employment")
-[step:pass] Timescale.getDataRangeForSubject("Employment")
 ]]>
 </system-out>
 <system-err>
 <![CDATA[
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-c2d5d-Expected-Ranges-per-Subject-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/db-timescaledb-tests-Times-c2d5d-Expected-Ranges-per-Subject-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-</testsuite>
-<testsuite name="e2e/expandtesting-tests.spec.ts" timestamp="2025-03-23T22:05:14.064Z" hostname="Chrome" tests="1" failures="0" skipped="0" time="4.507" errors="0">
-<testcase name="ExpandTesting | E2E › [Regression] Web Inputs Test" classname="e2e/expandtesting-tests.spec.ts" time="4.507">
-<system-out>
-<![CDATA[✅ Updated environment.properties:
-Environment=UAT
-Release=LATEST
-Platform=LOCAL
-Language=ENGLISH
-Browser=Chrome
-Suite=ALL
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-expandtesting-tests-Ex-ba2cc--Regression-Web-Inputs-Test-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-expandtesting-tests-Ex-ba2cc--Regression-Web-Inputs-Test-Chrome/video.webm is missing]]>
-</system-err>
-</testcase>
-</testsuite>
-<testsuite name="e2e/practise-automation-tests.spec.ts" timestamp="2025-03-23T22:05:14.064Z" hostname="Chrome" tests="1" failures="0" skipped="0" time="5.608" errors="0">
-<testcase name="Practice Automation | E2E › [Regression] Download file test" classname="e2e/practise-automation-tests.spec.ts" time="5.608">
-<system-out>
-<![CDATA[✅ Updated environment.properties:
-Environment=UAT
-Release=LATEST
-Platform=LOCAL
-Language=ENGLISH
-Browser=Chrome
-Suite=ALL
-]]>
-</system-out>
-<system-err>
-<![CDATA[
-Warning: attachment allure/allure-results/e2e-practise-automation-te-1a7d7-gression-Download-file-test-Chrome/test-finished-1.png is missing
-Warning: attachment allure/allure-results/e2e-practise-automation-te-1a7d7-gression-Download-file-test-Chrome/video.webm is missing]]>
+Warning: attachment allure/allure-results/db-timescaledb-tests-Times-818a3-al-Data-Value-for-a-Quarter-Chrome/test-finished-1.png is missing
+Warning: attachment allure/allure-results/db-timescaledb-tests-Times-818a3-al-Data-Value-for-a-Quarter-Chrome/video.webm is missing]]>
 </system-err>
 </testcase>
 </testsuite>

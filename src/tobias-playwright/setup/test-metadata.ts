@@ -1,4 +1,18 @@
-export const testMetadata = {
+export type TestMeta = {
+  owner: string;
+  tms: string;
+  description: string;
+  tags: string[];
+  severity: string;
+  suite: string;
+  feature: string;
+  story: string;
+  displayname?: string;
+  parameter?: string;
+  skipReason?: string;
+};
+
+export const testMetadata: Record<string, TestMeta> = {
   keyPressTest: {
     owner: 'Tobias Andersen - [tobias@tobiasa.com]',
     tms: 'TEST-005',

@@ -11,9 +11,9 @@
 import { selectByIndex } from '@ActionUtils';
 import { gotoURL } from '@PageUtils';
 import { expectPageToHaveURL } from '@AssertUtils';
-import { getLocatorByXPath } from '@LocatorUtils';
+import { getLocatorByRole } from '@LocatorUtils';
 
-const dropdownSelect = () => getLocatorByXPath('//*[@id="dropdown"]');
+const dropdownSelect = () => getLocatorByRole('combobox', { name: '' });
 
 export async function navigateToDropdownPage() {
   await gotoURL('https://the-internet.herokuapp.com/dropdown');

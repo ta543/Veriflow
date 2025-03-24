@@ -16,8 +16,7 @@ import * as ProductsPage from '@SauceDemoProductsPage';
 */
 test.describe.configure({ mode: 'parallel' });
 
-test.beforeEach('Navigating to Home Page', async ({ page }) => {
-  setPage(page);
+test.beforeEach('Navigating to Home Page', async () => {
   await LoginPage.navigateToSauceDemoLoginPage();
 });
 

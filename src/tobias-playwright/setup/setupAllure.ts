@@ -8,8 +8,15 @@ export function setupAllure(testId: keyof typeof testMetadata) {
     allure.label('owner', details.owner);
     allure.tms(details.tms, `https://veriflowqa.atlassian.net/browse/${details.tms}`);
     allure.description(details.description);
-    allure.displayName(details.displayname);
-    allure.parameter(details.parameter);
+
+    if (details.displayname) {
+        allure.displayName(details.displayname);
+    }
+
+    if (details.parameter) {
+    allure.parameter('parameter', details.parameter);
+    }
+        
     allure.severity(details.severity.toUpperCase());
     details.tags.forEach(tag => allure.tag(tag));
 
@@ -19,7 +26,6 @@ export function setupAllure(testId: keyof typeof testMetadata) {
 
     allure.attachment('Test Metadata', JSON.stringify(details, null, 2), 'application/json');
 
-    // 💥 Skip the test with reason, if specified
     if (details.skipReason) {
         test.skip(true, details.skipReason);
     }

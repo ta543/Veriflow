@@ -7,7 +7,7 @@
  * VeriFlow Test Automation - The Internet | LoginPage
  */
 
-import { getLocatorByRole, getLocatorByText, getLocatorByXPath } from '@LocatorUtils';
+import { getLocatorByRole, getLocatorByText } from '@LocatorUtils';
 import { click } from '@ActionUtils';
 import { FormFieldsCredentials } from '../../../testdata/testdata/the-internet-test-data';
 import { expectElementToBeVisible, expectElementToContainText } from '@AssertUtils';
@@ -18,9 +18,8 @@ const loginButton = () => getLocatorByRole('button', { name: 'Login' });
 const logoutButton = () => getLocatorByText('Logout', { exact: true });
 const successLoginMessage = () => getLocatorByText('You logged into a secure area!');
 const successLogoutMessage = () => getLocatorByText('You logged out of the secure area!');
-const loginPageHeader = () => getLocatorByXPath("//h2[normalize-space()='Login Page']");
+const loginPageHeader = () => getLocatorByRole('heading', { name: 'Login Page' });
 const errorMessage = `//*[contains(@class,'error-message')]`;
-// const logoutMessage = () => getLocatorByXPath('//div[@id="flash"]');
 
 export async function loginSuccessfully() {
   await usernameInput().fill(FormFieldsCredentials.username);
@@ -29,7 +28,7 @@ export async function loginSuccessfully() {
 }
 
 export async function isLoginSuccessful(): Promise<boolean> {
-  return await successMessage().isVisible();
+  return await successLoginMessage().isVisible();
 }
 
 export async function verifyErrorMessageForFailureLogin() {
@@ -43,15 +42,6 @@ export async function logout() {
 export async function verifyLoginPageIsDisplayed() {
   await loginPageHeader().waitFor({ state: 'visible', timeout: 5000 });
 }
-
-// export async function isLogoutSuccessful(): Promise<boolean> {
-//   const isMessageVisible = await logoutMessage().isVisible();
-//   if (!isMessageVisible) {
-//     return false;
-//   }
-//   const messageText = await logoutMessage().textContent();
-//   return messageText?.includes('You logged out of the secure area!') || false;
-// }
 
 export async function verifySuccessfulLogin() {
     await expectElementToContainText(successLoginMessage(), 'You logged into a secure area!');

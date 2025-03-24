@@ -7,7 +7,7 @@ import { test, expect } from '@PageSetup';
 import { setupAllure } from "@AllureMetaData";
 import { withSteps } from '@StepsUtils';
 import DBManager from '@DBManager';
-import * as TimescaleDBPage from '@TimescaleDBPage';
+import TimescaleDBPage from '@TimescaleDBPage';
 
 /*
  To run the tests in parallel, you can utilize the test.describe.configure() method to set the mode to 'parallel'.
@@ -26,7 +26,7 @@ test.afterAll(async () => {
 
 test.describe('TimescaleDB | DB', () => {
   let Timescale: typeof TimescaleDBPage;
-  test.beforeEach(async ({}, testInfo) => {
+  test.beforeEach(async () => {
     Timescale = withSteps(TimescaleDBPage, test.step, 'Timescale');
   });
   test('Verify Data Import', async () => {  

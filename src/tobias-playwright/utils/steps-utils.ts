@@ -1,35 +1,35 @@
+type StepFn = (title: string, body: () => any) => Promise<any>;
 
 export function withSteps<T extends object>(
   obj: T,
-  stepFn: (title: string, body: () => any) => Promise<any>,
+  stepOrLabel: StepFn | string,
   namePrefix?: string
 ): T {
-  return new Proxy(obj, {
-    get(target, prop, receiver) {
-      const original = Reflect.get(target, prop, receiver);
-
-      if (typeof original === 'function') {
-        return async (...args: any[]) => {
-          const label = `${namePrefix || target.constructor.name}.${String(prop)}(${args.map(a => JSON.stringify(a)).join(', ')})`;
-          
-          // ✅ Print step label to stdout
-          console.log(`[step] ${label}`);
-
+  const stepFn: StepFn =
+    typeof stepOrLabel === 'function'
+      ? stepOrLabel
+      : async (title, body) => {
+          console.log(`[step] ${title}`);
           try {
-            const result = await stepFn(label, async () => {
-              return await original.apply(target, args);
-            });
-            console.log(`[step:pass] ${label}`);
+            const result = await body();
+            console.log(`[step:pass] ${title}`);
             return result;
           } catch (err) {
-            console.log(`[step:fail] ${label}`);
+            console.log(`[step:fail] ${title}`);
             throw err;
           }
         };
-      }
 
+  return new Proxy(obj, {
+    get(target, prop, receiver) {
+      const original = Reflect.get(target, prop, receiver);
+      if (typeof original === 'function') {
+        return async (...args: any[]) => {
+          const label = `${namePrefix || target.constructor.name}.${String(prop)}(${args.map(a => JSON.stringify(a)).join(', ')})`;
+          return stepFn(label, async () => original.apply(target, args));
+        };
+      }
       return original;
-    }
+    },
   });
 }
-

@@ -115,7 +115,6 @@ export async function notifySlackWithResults(allureReportUrl: string) {
     const failed = summary.statistic.failed;
     const broken = summary.statistic.broken;
     const executed = summary.statistic.total;
-    const duration = Math.floor(summary.time.duration / 1000) + 's';
 
     const now = new Date();
 
@@ -147,9 +146,6 @@ export async function notifySlackWithResults(allureReportUrl: string) {
     };
 
     const formattedDate = now.toLocaleString('en-GB', options);
-    
-    const startedAt = new Intl.DateTimeFormat('en-GB', options).format(now);
-    const finishedAt = startedAt;
 
     const statusEmoji = failed > 0 ? ':x:' : ':white_check_mark:';
     const statusText = failed > 0 ? 'FAILED' : 'PASSED';

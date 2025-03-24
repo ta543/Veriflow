@@ -6,11 +6,11 @@
  */
 
 import { Locator } from '@playwright/test';
-import { getPage } from '@PageUtils';
-import { NavigationOptions, TimeoutOption } from 'setup/optional-parameter-types';
+import { wait } from '@PageUtils';
+import { LocatorWaitOptions, TimeoutOption } from '../types/optional-parameter-types';
 import { getAllLocators, getLocator } from '@LocatorUtils';
-import { INSTANT_TIMEOUT, SMALL_TIMEOUT } from '@TIMEOUT';
-import { waitForPageLoadState } from '@ActionUtils';
+import { SMALL_TIMEOUT } from '@TIMEOUT';
+import { test } from '@playwright/test';
 
 /**
  * 1. Retreiving Data: Use these functions to retrieve text, values, and counts from web elements.
@@ -26,7 +26,7 @@ import { waitForPageLoadState } from '@ActionUtils';
  */
 export async function getText(input: string | Locator, options?: TimeoutOption): Promise<string> {
   const locator = getLocator(input);
-  return await locator.innerText(options);
+  return (await locator.innerText(options)).trim();
 }
 
 /**
@@ -34,9 +34,10 @@ export async function getText(input: string | Locator, options?: TimeoutOption):
  * @param {string | Locator} input - The input to create the Locator from.
  * @returns {Promise<Array<string>>} - The inner text of all Locator objects.
  */
-export async function getAllTexts(input: string | Locator): Promise<Array<string>> {
+export async function getAllTexts(input: string | Locator, options?: LocatorWaitOptions): Promise<Array<string>> {
+  await waitForFirstElementToBeAttached(input, options);
   const locator = getLocator(input);
-  return await locator.allInnerTexts();
+  return (await locator.allInnerTexts()).map(text => text.trim());
 }
 
 /**
@@ -47,7 +48,7 @@ export async function getAllTexts(input: string | Locator): Promise<Array<string
  */
 export async function getInputValue(input: string | Locator, options?: TimeoutOption): Promise<string> {
   const locator = getLocator(input);
-  return await locator.inputValue(options);
+  return (await locator.inputValue(options)).trim();
 }
 
 /**
@@ -74,31 +75,7 @@ export async function getAttribute(
   options?: TimeoutOption,
 ): Promise<null | string> {
   const locator = getLocator(input);
-  return await locator.getAttribute(attributeName, options);
-}
-
-/**
- * Saves the storage state of the page.
- * @param {string} [path] - Optional path to save the storage state to.
- * @returns {Promise<void>}
- */
-export async function saveStorageState(path?: string): Promise<void> {
-  await getPage().context().storageState({ path: path });
-}
-
-/**
- * Returns the URL of the page.
- * @param {NavigationOptions} [options] - Optional navigation options.
- * @returns {Promise<string>} - The URL of the page.
- */
-export async function getURL(options: NavigationOptions = { waitUntil: 'load' }): Promise<string> {
-  try {
-    await waitForPageLoadState(options);
-    return getPage().url();
-  } catch (error) {
-    console.log(`getURL- ${error instanceof Error ? error.message : String(error)}`);
-    return '';
-  }
+  return (await locator.getAttribute(attributeName, options))?.trim() || null;
 }
 
 /**
@@ -107,12 +84,9 @@ export async function getURL(options: NavigationOptions = { waitUntil: 'load' })
  * @param {TimeoutOption} [options] - Optional timeout options.
  * @returns {Promise<number>} - The count of the Locator objects.
  */
-export async function getLocatorCount(input: string | Locator, options?: TimeoutOption): Promise<number> {
-  const timeoutInMs = options?.timeout || INSTANT_TIMEOUT;
+export async function getLocatorCount(input: string | Locator, options?: LocatorWaitOptions): Promise<number> {
   try {
-    if (await isElementAttached(input, { timeout: timeoutInMs })) {
-      return (await getAllLocators(input)).length;
-    }
+    return (await getAllLocators(input, options)).length;
   } catch (error) {
     console.log(`getLocatorCount- ${error instanceof Error ? error.message : String(error)}`);
   }
@@ -204,4 +178,108 @@ export async function isElementChecked(input: string | Locator, options?: Timeou
     console.log(`isElementChecked- ${error instanceof Error ? error.message : String(error)}`);
   }
   return false;
+}
+
+/**
+ * Waits for an element to be stable on the page.
+ * @param input - The element or locator to wait for.
+ * @param options - Optional timeout options.
+ * @returns A promise that resolves to a boolean indicating if the element is stable.
+ */
+export async function waitForElementToBeStable(input: string | Locator, options?: TimeoutOption): Promise<boolean> {
+  let result = false;
+  await test.step('waitForElementToBeStable', async () => {
+    const locator = getLocator(input);
+    const maxWaitTime = options?.timeout || SMALL_TIMEOUT;
+    let stableCounter = 0;
+
+    const initialBoundingBox = await locator.boundingBox();
+    let lastX: number | null = initialBoundingBox?.x || null;
+    let lastY: number | null = initialBoundingBox?.y || null;
+
+    const startTime = Date.now();
+    await wait(200);
+
+    while (Date.now() - startTime < maxWaitTime) {
+      const { x, y } = (await locator.boundingBox()) || { x: null, y: null };
+
+      if (x === lastX && y === lastY) {
+        stableCounter++;
+        if (stableCounter >= 3) {
+          result = true;
+          break;
+        }
+        await wait(100);
+      } else {
+        // stableCounter = 0;
+        await wait(200);
+      }
+
+      lastX = x;
+      lastY = y;
+    }
+  });
+  return result;
+}
+
+/**
+ * Waits for an element to be visible on the page.
+ * @param input - The element or locator to wait for.
+ * @param options - Optional timeout options.
+ * @returns A promise that resolves when the element is visible.
+ */
+export async function waitForElementToBeVisible(input: string | Locator, options?: TimeoutOption): Promise<void> {
+  const locator = getLocator(input);
+  await locator.waitFor({ state: 'visible', timeout: options?.timeout || SMALL_TIMEOUT });
+}
+
+/**
+ * Waits for an element to be hidden on the page or detached from the DOM.
+ * @param input - The element or locator to wait for.
+ * @param options - Optional timeout options.
+ * @returns A promise that resolves when the element is hidden.
+ */
+export async function waitForElementToBeHidden(input: string | Locator, options?: TimeoutOption): Promise<void> {
+  const locator = getLocator(input);
+  await locator.waitFor({ state: 'hidden', timeout: options?.timeout || SMALL_TIMEOUT });
+}
+
+/**
+ * Waits for an element to be attached to the DOM.
+ * @param input - The element or locator to wait for.
+ * @param options - Optional timeout options.
+ * @returns A promise that resolves when the element is attached to the DOM.
+ */
+export async function waitForElementToBeAttached(input: string | Locator, options?: TimeoutOption): Promise<void> {
+  const locator = getLocator(input);
+  await locator.waitFor({ state: 'attached', timeout: options?.timeout || SMALL_TIMEOUT });
+}
+
+/**
+ * Ensures that the first element of the locator is attached to the DOM if the waitForLocator option is true.
+ * @param {string | Locator} input - The input to create the Locator from. It can be a string or a Locator.
+ * @param {LocatorWaitOptions} [options] - Optional parameters for Locator waiting options.
+ * @returns {Promise<void>} - A promise that resolves when the element is attached or immediately if waitForLocator is false.
+ */
+export async function waitForFirstElementToBeAttached(
+  input: string | Locator,
+  options?: LocatorWaitOptions,
+): Promise<void> {
+  const locator = getLocator(input);
+  const waitForLocator = options?.waitForLocator ?? true;
+  // If waitForLocator is true, wait for the element to be attached before returning the locators
+  if (waitForLocator) {
+    await waitForElementToBeAttached(locator.first(), options);
+  }
+}
+
+/**
+ * Waits for an element to be detached from the DOM.
+ * @param input - The element or locator to wait for.
+ * @param options - Optional timeout options.
+ * @returns A promise that resolves when the element is detached from the DOM.
+ */
+export async function waitForElementToBeDetached(input: string | Locator, options?: TimeoutOption): Promise<void> {
+  const locator = getLocator(input);
+  await locator.waitFor({ state: 'detached', timeout: options?.timeout || SMALL_TIMEOUT });
 }

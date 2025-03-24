@@ -11,7 +11,7 @@ type DBConfig = { host: string; port: number; database: string; user: string; pa
 
 class DBManager {
     private static pgClient: PGClient | null = null;
-    private static connectedDB: SupportedDBs | null = null;
+    private static connectedDBType: SupportedDBs | null = null;
 
     /**
      * Connects to a PostgreSQL or TimescaleDB instance.
@@ -19,14 +19,18 @@ class DBManager {
      * @param config - The database configuration.
      */
     static async connect(dbType: SupportedDBs, config: DBConfig) {
+        console.log(`Connecting to ${dbType} DB at ${config.host}:${config.port}`);
         if (this.pgClient) {
             await this.disconnect();
         }
-
         this.pgClient = new PGClient(config);
         await this.pgClient.connect();
-        this.connectedDB = dbType;
+        this.connectedDBType = dbType;
     }
+
+    static getConnectedDBType(): SupportedDBs | null {
+        return this.connectedDBType;
+    }      
 
     /**
      * Disconnects from the currently active database connection.
@@ -36,7 +40,6 @@ class DBManager {
             await this.pgClient.end();
             this.pgClient = null;
         }
-        this.connectedDB = null;
     }
 
     /**
