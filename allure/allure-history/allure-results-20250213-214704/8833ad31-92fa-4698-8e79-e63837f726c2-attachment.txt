@@ -1,0 +1,4 @@
+Owner: Tobias Andersen - [tobias@tobiasa.com]
+TMS Link: AE-005
+Description: Validate that a user can successfully log out after logging in.
+Tags: Logout, Authentication

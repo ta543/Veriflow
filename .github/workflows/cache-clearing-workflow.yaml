@@ -23,5 +23,5 @@ jobs:
       - name: 'Clear GitHub Actions caches'
         run: |
           gh auth login --with-token <<< "${{ secrets.PERSONAL_GITHUB_KEY }}"
-          gh cache delete --all --repo circlek-global/gmbat-tests-eu-mobile-automation
+          gh cache delete --all --repo Veriflow
         shell: bash

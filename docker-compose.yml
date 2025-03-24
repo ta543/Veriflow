@@ -1,0 +1,59 @@
+services:
+  veriflow_timescale:
+    image: timescale/timescaledb:latest-pg15
+    container_name: veriflow_timescale
+    environment:
+      POSTGRES_DB: veriflow_timescale
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - veriflow_timescale_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  veriflow_test_1:
+    image: timescale/timescaledb:latest-pg15
+    container_name: veriflow_test_1
+    environment:
+      POSTGRES_DB: veriflow_test_1
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5433:5432"
+    volumes:
+      - veriflow_test_1_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  veriflow_test_2:
+    image: timescale/timescaledb:latest-pg15
+    container_name: veriflow_test_2
+    environment:
+      POSTGRES_DB: veriflow_test_2
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5434:5432"
+    volumes:
+      - veriflow_test_2_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  veriflow_timescale_data:
+  veriflow_test_1_data:
+  veriflow_test_2_data:

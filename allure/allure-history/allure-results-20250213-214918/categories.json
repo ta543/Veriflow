@@ -1,0 +1,23 @@
+[
+    {
+      "name": "Product defects",
+      "matchedStatuses": ["failed"],
+      "messageRegex": ".*Product Bug.*"
+    },
+    {
+      "name": "Test defects",
+      "matchedStatuses": ["broken"],
+      "messageRegex": ".*Assertion Error.*"
+    },
+    {
+      "name": "Test issues",
+      "matchedStatuses": ["failed"],
+      "traceRegex": ".*TimeoutError.*"
+    },
+    {
+      "name": "Flaky Tests",
+      "matchedStatuses": ["failed"],
+      "messageRegex": ".*Flaky Test.*"
+    }
+  ]
+  q

@@ -1,8 +1,8 @@
 # These owners will be the default owners for everything in
 # the repo. Unless a later match takes precedence,
-# @circlek-global/gmbat-developers will be requested for
+# @veriflow-qa will be requested for
 # review when someone opens a pull request.
-*                   @circlek-global/gmbat-developers
+*                   @veriflow-q
 
 # These owners will be the owners for github workflows.
-.github/workflows/* @circlek-global/gmbat-workflows-admins @circlek-global/arp-workflows-admins
+.github/workflows/*

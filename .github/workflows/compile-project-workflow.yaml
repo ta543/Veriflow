@@ -1,4 +1,4 @@
-name: Veriflow | Compile
+name: VeriFlow | Compile
 
 permissions:
   contents: write
@@ -9,7 +9,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: false
 
-run-name: '👷🚧[#${{ github.run_number }}][Veriflow Compile] PR: "${{ github.event.pull_request.title }}"'
+run-name: '👷🚧[#${{ github.run_number }}][VeriFlow Compile] PR: "${{ github.event.pull_request.title }}"'
 
 on:
   pull_request:
@@ -23,7 +23,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: 'Veriflow | Compile 🛠️'
+    name: 'VeriFlow | Compile 🛠️'
 
     steps:
       - name: 'Checkout code'
@@ -44,6 +44,10 @@ jobs:
       - name: 'Install dependencies'
         id: install_dependencies
         run: npm install
+
+      - name: 'Install dependencies'
+        id: audit_fix
+        run: npm audit fix
 
       - name: 'Compile TypeScript'
         id: build

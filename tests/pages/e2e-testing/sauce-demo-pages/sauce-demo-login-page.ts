@@ -7,7 +7,8 @@
  * VeriFlow Test Automation - Sauce Demo | SauceDemoLoginPage
  */
 
-import { click, clickAndNavigate, fill, gotoURL } from '@ActionUtils';
+import { click, clickAndNavigate, fill } from '@ActionUtils';
+import { gotoURL } from '@PageUtils';
 import { failureLoginCredentials, successLoginCredentials } from '@TestDataSauceDemo';
 import { expectElementToBeVisible } from '@AssertUtils';
 import { getLocator, getLocatorByPlaceholder, getLocatorByRole } from '@LocatorUtils';

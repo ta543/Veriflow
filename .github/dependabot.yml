@@ -7,13 +7,13 @@ updates:
       interval: 'daily'
     open-pull-requests-limit: 5
     commit-message:
-      prefix: '[NGRPRG-🤖] Dependencies update'
+      prefix: '[VF-🤖] Dependencies update'
     reviewers:
-      - 'kamil-nowocin'
+      - 'ta543'
 
   - package-ecosystem: 'github-actions'
     directory: "/"
     schedule:
       interval: 'daily'
     reviewers:
-      - 'kamil-nowocin'
+      - 'ta543'

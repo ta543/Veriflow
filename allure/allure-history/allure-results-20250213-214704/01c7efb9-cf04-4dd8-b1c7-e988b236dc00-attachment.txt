@@ -1,0 +1,4 @@
+Owner: Tobias Andersen - [tobias@tobiasa.com]
+TMS Link: PA-003
+Description: Verify that popups can be opened and closed correctly.
+Tags: Popups, UI

@@ -3,25 +3,32 @@
  * This test suite validates navigation and functionality on practice-automation.com
  */
 
-import { test } from '@PageSetup';
+import { test } from 'test-setup/page-setup';
 import { setupAllure } from "@AllureMetaData";
-import * as HomePage from '../../pages/e2e-testing/practice-automation-pages/home-page';
-import * as FormFieldsPage from '../../pages/e2e-testing/practice-automation-pages/form-fields-page';
-import * as PopupsPage from '../../pages/e2e-testing/practice-automation-pages/popups-page';
-import * as FileUploadPage from '../../pages/e2e-testing/practice-automation-pages/file-upload-page';
-import * as FileDownloadPage from '../../pages/e2e-testing/practice-automation-pages/file-download-page';
-import * as BrokenLinksPage from '../../pages/e2e-testing/practice-automation-pages/broken-links-page';
+import * as HomePage from '@PracticeAutomationHomePage';
+import * as FormFieldsPage from '@PracticeAutomationFormFieldsPage';
+import * as PopupsPage from '@PracticeAutomationPopUpsPage';
+import * as FileUploadPage from '@PracticeAutomationFileUploadPage';
+import * as FileDownloadPage from '@PracticeAutomationFileDownloadPage';
+import * as BrokenLinksPage from '@PracticeAutomationBrokenLinksPage';
 
-test.describe('Practice Automation App Tests', () => {
+/*
+ To run the tests in parallel, you can utilize the test.describe.configure() method to set the mode to 'parallel'.
+ By default, the tests will run sequentially when fullyParallel: false is set in playwright.config.
+ The tests will not be skipped upon encountering a failure except when the mode is set to 'serial'.
+*/
+test.describe.configure({ mode: 'parallel' });
 
-  test('Navigate to Form Fields page', async () => {
+test.describe('Practice Automation | E2E', () => {
+  
+  test('[PracticeAutomation][E2E][Regression] Navigate to Form Fields page', async () => {
     setupAllure('practiceAutomationFormFieldsNavigationTest');
     await HomePage.navigateToHomePage();
     await HomePage.clickFormFieldsLink();
     await FormFieldsPage.verifyFormFieldsPageURL();
   });
 
-  test('Fill and submit form test', async () => {
+  test('[PracticeAutomation][E2E][Regression] Fill and submit form test', async () => {
     setupAllure('practiceAutomationFormSubmissionTest');
     await FormFieldsPage.navigateToFormFieldsPage();
     await FormFieldsPage.fillForm();
@@ -32,7 +39,7 @@ test.describe('Practice Automation App Tests', () => {
     }
   });
 
-  test('Handle popups test', async () => {
+  test('[PracticeAutomation][E2E][Regression] Handle popups test', async () => {
     setupAllure('practiceAutomationPopupsTest');
     await HomePage.navigateToHomePage();
     await HomePage.clickPopupsLink();
@@ -52,7 +59,7 @@ test.describe('Practice Automation App Tests', () => {
     await PopupsPage.verifyTooltipText();
   });
 
-  test('Upload file test', async () => {
+  test('[PracticeAutomation][E2E][Regression] Upload file test', async () => {
     setupAllure('practiceAutomationFileUploadTest');
     await HomePage.navigateToHomePage();
     await HomePage.clickFileUploadLink();
@@ -61,7 +68,7 @@ test.describe('Practice Automation App Tests', () => {
     await FileUploadPage.verifyFileUploadSuccess();
   });
 
-  test('Download file test', async () => {
+  test('[PracticeAutomation][E2E][Regression] Download file test', async () => {
     setupAllure('practiceAutomationFileDownloadTest');
     await HomePage.navigateToHomePage();
     await HomePage.clickFileDownloadLink();
@@ -69,7 +76,7 @@ test.describe('Practice Automation App Tests', () => {
     await FileDownloadPage.downloadFile();
   });
 
-  test('Verify broken links', async () => {
+  test('[PracticeAutomation][E2E][Regression] Verify broken links', async () => {
     setupAllure('practiceAutomationBrokenLinksTest');
     await HomePage.navigateToHomePage();
     await HomePage.clickBrokenLinksLink();

@@ -6,7 +6,22 @@
 
 </div>
 
-Veriflow is a **Playwright TypeScript Framework** that is **versatile, scalable, and efficient** for automation testing designed to streamline **web (desktop & mobile), API, and Electron testing**. Built on [**Playwright**](https://playwright.dev/) and [**TypeScript**](https://www.typescriptlang.org/), it provides a **robust** and **high-performance** testing environment for QA professionals, developers, and business analysts.
+Veriflow is a **Playwright TypeScript Framework** that is **versatile, scalable, and efficient** for automation testing designed to streamline **web (desktop & mobile), API, and Electron testing**. Built on [**Playwright**](https://playwright.dev/) and [**TypeScript**](https://www.typescriptlang.org/), it provides a **robust** and **high-performance** testing environment.
+
+## Jira
+🔹 **[Jira](https://tobiasa-team.atlassian.net/jira/software/projects/VF/boards/1)**
+
+## Allure
+🔹 **[Allure]()**
+
+
+
+slack
+https://join.slack.com/t/veriflowqa/shared_invite/zt-327ia0snn-zizIw6njKC6X3cJTQaCZBg
+
+## Databases Tested On
+1. 🔹 **[TimescaleDB](https://www.timescale.com/)**
+2. 🔹 **[MongoDB](/)**
 
 ## Websites Tested On
 1. 🔹 **[Automation Exercise](https://www.automationexercise.com/signup)**

@@ -8,18 +8,16 @@
  * VeriFlow Test Automation - The Internet | CheckboxPage
  */
 
-import { click } from '@ActionUtils';
-import { getLocatorByXPath } from '@LocatorUtils';
+import { getLocatorByRole } from '@LocatorUtils';
 
-const checkbox1 = () => getLocatorByXPath("//form[@id='checkboxes']/input[1]");
-const checkbox2 = () => getLocatorByXPath("//form[@id='checkboxes']/input[2]");
+const checkbox = (index: number) => getLocatorByRole('checkbox').nth(index - 1);
 
 export async function toggleCheckbox(index: number) {
-  const checkbox = index === 1 ? checkbox1() : checkbox2();
-  await click(checkbox);
+  const cb = checkbox(index);
+  await cb.click();
 }
 
 export async function isCheckboxChecked(index: number): Promise<boolean> {
-  const checkbox = index === 1 ? checkbox1() : checkbox2();
-  return await checkbox.isChecked();
+  const cb = checkbox(index);
+  return await cb.isChecked();
 }

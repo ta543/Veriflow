@@ -1,73 +1,101 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    // Language and Environment
     "target": "es6",
-    "outDir": "dist",
-    "strict": true,
-    "sourceMap": true,
-    "strictNullChecks": true,
+
+    // Modules
+    "module": "commonjs",
+    "baseUrl": ".",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "paths": {
+      // ✅ Utils
+      "@PageUtils": ["src/tobias-playwright/utils/page-utils"],
+      "@AssertUtils": ["src/tobias-playwright/utils/assert-utils"],
+      "@ElementUtils": ["src/tobias-playwright/utils/element-utils"],
+      "@ActionUtils": ["src/tobias-playwright/utils/action-utils"],
+      "@APIUtils": ["src/tobias-playwright/utils/api-utils"],
+      "@LocatorUtils": ["src/tobias-playwright/utils/locator-utils"],
+      "@StepsUtils": ["src/tobias-playwright/utils/steps-utils"],
+      "@TestFixtures": ["src/tobias-playwright/utils/test-fixtures"],
+      // ✅ Constants
+      "@TIMEOUT": ["src/tobias-playwright/constants/timeouts"],
+      "@LOADSTATE": ["src/tobias-playwright/constants/loadstate"],
+      // ✅ Managers
+      "@SlackManager": ["src/tobias-playwright/managers/slack-manager"],
+      "@DBManager": ["src/tobias-playwright/managers/db-manager"],
+      // ✅ Setup
+      "@PageSetup": ["src/tobias-playwright/setup/page-setup"],
+      "@TestMetadata": ["src/tobias-playwright/setup/test-metadata"],
+      "@AllureMetaData": ["src/tobias-playwright/setup/setupAllure"],
+      "@AllureEnvConfig": ["allure/config/env-config"],
+      // ✅ Test Data
+      "@TestDataSauceDemo": ["tests/testdata/testdata/sauce-demo-test-data"],
+      "@TestDataTheInternet": ["tests/testdata/testdata/the-internet-test-data"],
+      "@TestDataAutomationExercise": ["tests/testdata/testdata/automation-exercise-testdata"],
+      "@ExpandTestingTestData": ["tests/testdata/testdata/practice-expandtesting-testdata"],
+      "@TestDataPractiseAutomationFormFields": ["tests/testdata/testdata/practise-automation-form-fields-test-data"],
+      // ✅ API Helpers
+      "@AutomationExerciseAPI": ["src/tobias-playwright/api-helpers/automation-exercise-api-helper"],
+      // ✅ Pages - The Internet | E2E
+      "@TheInternetHomePage": ["tests/pages/e2e/the-internet-pages/home-page"],
+      "@TheInternetDropdownPage": ["tests/pages/e2e/the-internet-pages/dropdown-page"],
+      "@TheInternetLoginPage": ["tests/pages/e2e/the-internet-pages/login-page"],
+      "@TheInternetCheckboxPage": ["tests/pages/e2e/the-internet-pages/checkbox-page"],
+      "@TheInternetKeypressPage": ["tests/pages/e2e/the-internet-pages/keypress-page"],
+      // ✅ Pages - Practice Automation | E2E
+      "@PracticeAutomationHomePage": ["tests/pages/e2e/practice-automation-pages/home-page"],
+      "@PracticeAutomationBrokenLinksPage": ["tests/pages/e2e/practice-automation-pages/broken-links-page"],
+      "@PracticeAutomationFileDownloadPage": ["tests/pages/e2e/practice-automation-pages/file-download-page"],
+      "@PracticeAutomationFileUploadPage": ["tests/pages/e2e/practice-automation-pages/file-upload-page"],
+      "@PracticeAutomationFormFieldsPage": ["tests/pages/e2e/practice-automation-pages/form-fields-page"],
+      "@PracticeAutomationPopUpsPage": ["tests/pages/e2e/practice-automation-pages/popups-page"],
+      // ✅ Pages - Automation Exercise | E2E
+      "@AutomatioExerciseHomePage": ["tests/pages/e2e/automation-exercise-pages/home-page"],
+      "@AutomatioExerciseProductsPage": ["tests/pages/e2e/automation-exercise-pages/products-page"],
+      "@AutomatioExerciseCartPage": ["tests/pages/e2e/automation-exercise-pages/cart-page"],
+      "@AutomatioExerciseContactUsPage": ["tests/pages/e2e/automation-exercise-pages/contact-us-page"],
+      // ✅ Pages - ExpandTesting | E2E
+      "@ExpandTestingHomePage": ["tests/pages/e2e/expandtesting-pages/home-page"],
+      "@ExpandTestingLoginPage": ["tests/pages/e2e/expandtesting-pages/login-page"],
+      "@ExpandTestingRegisterPage": ["tests/pages/e2e/expandtesting-pages/register-page"],
+      "@ExpandTestingFormFieldsPage": ["tests/pages/e2e/expandtesting-pages/form-fields-page"],
+      // ✅ Pages - Sauce Demo | E2E
+      "@SauceDemoLoginPage": ["tests/pages/e2e/sauce-demo-pages/sauce-demo-login-page"],
+      "@SauceDemoMiniCartPage": ["tests/pages/e2e/sauce-demo-pages/sauce-demo-mini-cart"],
+      "@SauceDemoProductsPage": ["tests/pages/e2e/sauce-demo-pages/sauce-demo-products-page"],
+      // ✅ Pages - TimescaleDB | DB
+      "@TimescaleDBPage": ["tests/pages/db/timescaledb-page"],
+    },
+    
+    // Emit
+    "outDir": "dist",
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": true, // Generates declaration files (.d.ts)
+    "declarationMap": true, // Generates a sourcemap for each corresponding '.d.ts' file for easy debugging using the original source code
     "importHelpers": true,
+
+    // Interop Constraints
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+
+    // Type Checking
+    "strict": true,
+    "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
-    "baseUrl": "src/tobias-playwright",
-    "paths": {
-      // Utils
-      "@PageSetup": ["./setup/page-setup"],
-      "@PageUtils": ["./utils/page-utils"],
-      "@TimeoutConstants": ["./utils/timeout-constants"],
-      "@AssertUtils": ["./utils/assert-utils"],
-      "@ElementUtils": ["./utils/element-utils"],
-      "@ActionUtils": ["./utils/action-utils"],
-      "@APIUtils": ["./utils/api-utils"],
-      "@LocatorUtils": ["./utils/locator-utils"],
-      // Test Data
-      "@TestMetadata": ["./utils/test-metadata"],
-      "@AllureMetaData": ["./utils/setupAllure"],
-      "@TestDataSauceDemo": ["../../tests/testdata/sauce-demo-test-data"],
-      "@TestDataTheInternet": ["../../tests/testdata/the-internet-test-data"],
-      "@TestDataAutomationExercise": ["../../tests/testdata/automation-exercise-testdata"],
-      "@TestDataPractiseAutomationFormFields": ["../../tests/testdata/practise-automation-form-fields-test-data"],
-      // Pages - The Internet
-      "@TheInternetHomePage": ["../../tests/pages/e2e-testing/the-internet-pages/home-page"],
-      "@TheInternetLoginPage": ["../../tests/pages/e2e-testing/the-internet-pages/login-page"],
-      "@TheInternetDropdownPage": ["../../tests/pages/e2e-testing/the-internet-pages/dropdown-page"],
-      "@TheInternetCheckboxPage": ["../../tests/pages/e2e-testing/the-internet-pages/checkbox-page"],
-      "@TheInternetKeypressPage": ["../../tests/pages/e2e-testing/the-internet-pages/keypress-page"],
-      // Pages - Practice Automation
-      "@PracticeAutomationHomePage": ["../../tests/pages/e2e-testing/practice-automation-pages/home-page"],
-      "@PracticeAutomationBrokenLinksPage": ["../../tests/pages/e2e-testing/practice-automation-pages/broken-links-page"],
-      "@PracticeAutomationFileDownloadPage": ["../../tests/pages/e2e-testing/practice-automation-pages/file-download-page"],
-      "@PracticeAutomationFileUploadPage": ["../../tests/pages/e2e-testing/practice-automation-pages/file-upload-page"],
-      "@PracticeAutomationFormFieldsPage": ["../../tests/pages/e2e-testing/practice-automation-pages/form-fields-page"],
-      "@PracticeAutomationPopUpsPage": ["../../tests/pages/e2e-testing/practice-automation-pages/popups-page"],
-      // Pages - Automation Exercise
-      "@AutomationExerciseHomePage": ["../../tests/pages/e2e-testing/automation-exercise-pages/home-page"],
-      "@AutomationExerciseCartPage": ["../../tests/pages/e2e-testing/automation-exercise-pages/cart-page"],
-      "@AutomationExerciseContactUsPage": ["../../tests/pages/e2e-testing/automation-exercise-pages/contact-us-page"],
-      "@AutomationExerciseLoginPage": ["../../tests/pages/e2e-testing/automation-exercise-pages/login-page"],
-      "@AutomationExerciseProductsPage": ["../../tests/pages/e2e-testing/automation-exercise-pages/products-page"],
-      // Pages - Sauce Demo
-      "@SauceDemoLoginPage": ["../../tests/pages/e2e-testing/sauce-demo-pages/sauce-demo-login-page"],
-      "@SauceDemoMiniCartPage": ["../../tests/pages/e2e-testing/sauce-demo-pages/sauce-demo-mini-cart"],
-      "@SauceDemoProductsPage": ["../../tests/pages/e2e-testing/sauce-demo-pages/sauce-demo-products-page"],
-      // API Helpers
-      "@AutomationExerciseAPI": ["./api-helpers/automation-exercise-api-helper"]
-    },
-    "declaration": false, // No need to generate declaration files (.d.ts) for a test project
-    "downlevelIteration": true, // Enables support for iterating on objects like `Map` and `Set` in older environments
-    "experimentalDecorators": true, // Enables experimental support for ES decorators
     "noImplicitOverride": true, // Ensures that overriding methods in a subclass are marked with the 'override' keyword
     "noImplicitReturns": true, // Ensures that all code paths in a function explicitly return a value
-    "typeRoots": ["node_modules/@types"] // Specifies the location of type declaration files
+    "typeRoots": ["node_modules/@types"], // Specifies the location of type declaration files
+
+    // Completeness
+    "skipLibCheck": true // Skip type checking of all declaration files (*.d.ts) for faster compilation times
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts", "playwright.config.ts"],
+  "include": ["src/**/*.ts", "tests/**/*.ts", "test-setup/**/*.ts", "playwright.config.ts", ".eslintrc.js"],
   "exclude": ["node_modules"]
 }

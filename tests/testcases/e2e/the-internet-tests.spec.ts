@@ -3,18 +3,28 @@
  * This test suite validates navigation and functionality on the-internet.herokuapp.com
  */
 
-import { test } from '@PageSetup';
+import { test } from 'test-setup/page-setup';
 import { setupAllure } from '@AllureMetaData';
-import * as HomePage from '../../pages/e2e-testing/the-internet-pages/home-page';
-import * as DropdownPage from '../../pages/e2e-testing/the-internet-pages/dropdown-page';
-import * as LoginPage from '../../pages/e2e-testing/the-internet-pages/login-page';
-import * as CheckboxPage from '../../pages/e2e-testing/the-internet-pages/checkbox-page';
-import * as KeypressPage from '../../pages/e2e-testing/the-internet-pages/keypress-page';
+import * as HomePage from '@TheInternetHomePage';
+import * as DropdownPage from '@TheInternetDropdownPage';
+import * as LoginPage from '@TheInternetLoginPage';
+import * as CheckboxPage from '@TheInternetCheckboxPage';
+import * as KeypressPage from '@TheInternetKeypressPage';
 
-test.describe('The Internet App Tests', () => {
-  test('Dropdown test', async () => {
+/*
+ To run the tests in parallel, you can utilize the test.describe.configure() method to set the mode to 'parallel'.
+ By default, the tests will run sequentially when fullyParallel: false is set in playwright.config.
+ The tests will not be skipped upon encountering a failure except when the mode is set to 'serial'.
+*/
+test.describe.configure({ mode: 'parallel' });
+
+test.beforeEach('Navigating to Home Page', async () => {
+  await HomePage.navigateToHomePage();
+});
+
+test.describe('The Internet | E2E', () => {
+  test('[TheInternet][E2E][Regression] Dropdown test', async () => {
     setupAllure('dropdownTest');
-    await HomePage.navigateToHomePage();
     await HomePage.clickDropdownLink();
     await DropdownPage.navigateToDropdownPage();
     await DropdownPage.verifyDropdownPageURL();
@@ -26,36 +36,24 @@ test.describe('The Internet App Tests', () => {
     console.assert(isSelectedOption3, 'Dropdown selection failed for option 3');
   });
 
-  test('Login test - successful login', async () => {
+  test('[TheInternet][E2E][Regression] Success Login', async () => {
     setupAllure('loginTest');
-    await HomePage.navigateToHomePage();
     await HomePage.clickLoginPageLink();
     await LoginPage.verifyLoginPageIsDisplayed();
     await LoginPage.loginSuccessfully();
-    const isAuthenticated = await LoginPage.isLoginSuccessful();
-    console.assert(isAuthenticated, 'Login failed: User was not authenticated successfully');
-    if (!isAuthenticated) {
-      throw new Error('Login failed: Expected the user to be authenticated, but it was not.');
-    }
+    await LoginPage.verifySuccessfulLogin();
   });
 
-  test('Logout test - successful logout', async () => {
+  test('Success Logout', async () => {
     setupAllure('logoutTest');
-    await HomePage.navigateToHomePage();
     await HomePage.clickLoginPageLink();
     await LoginPage.loginSuccessfully();
     await LoginPage.logout();
-    const isLoggedOut = await LoginPage.isLogoutSuccessful();
-    console.assert(isLoggedOut, 'Logout failed: User is still logged in');
-    if (!isLoggedOut) {
-      throw new Error('Logout failed: Expected the user to be logged out, but they were not.');
-    }
-    await LoginPage.verifyLoginPageIsDisplayed();
+    await LoginPage.verifySuccessfulLogout();
   });
 
-  test('Checkbox test', async () => {
+  test('[TheInternet][E2E][Regression] Checkbox test', async () => {
     setupAllure('checkboxTest');
-    await HomePage.navigateToHomePage();
     await HomePage.clickCheckboxesPageLink();
 
     await CheckboxPage.toggleCheckbox(1);
@@ -72,15 +70,14 @@ test.describe('The Internet App Tests', () => {
     }
   });
 
-  test('Key presses test', async () => {
+  test('[TheInternet][E2E][Regression] Key presses test', async () => {
     setupAllure('keyPressTest');
-    await HomePage.navigateToHomePage();
     await HomePage.clickKeyPressesPageLink();
     await KeypressPage.clickOnTargetElement();
     await KeypressPage.checkThatKeyPressInputIsDisplayed();
     await KeypressPage.sendKey('W');
     const resultW = await KeypressPage.getLastKeyPressed();
-    console.assert(resultW?.includes('You entered: W'), `Expected "You entered: W", but got "${resultW}"`);
+    console.assert(resultW?.includes('You entered: W'), `Expected "You entered: W", but got "${resultW}"`); 
     await KeypressPage.sendKey('A');
     const resultA = await KeypressPage.getLastKeyPressed();
     console.assert(resultA?.includes('You entered: A'), `Expected "You entered: A", but got "${resultA}"`);

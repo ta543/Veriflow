@@ -4,8 +4,7 @@
  */
 
 import { test, expect, request as playwrightRequest, APIRequestContext } from '@playwright/test';
-import { setupAllure } from '@AllureMetaData';
-import { initializeAPI } from '@AutomationExerciseAPI';
+import { setupAllure } from '@AllureMetaData';import { initializeAPI } from '@AutomationExerciseAPI';
 import { APIUtils } from '@APIUtils';
 import * as API from '@AutomationExerciseAPI';
 
@@ -20,9 +19,9 @@ test.afterAll(async () => {
   await apiRequest.dispose();
 }); 
 
-test.describe('Automation Exercise API Tests', () => {
-  
-  test('Get All Products List', async () => {
+test.describe('Automation Exercise | API', () => {
+
+  test('[AutomationExercise][API][Regression] Get All Products List', async () => {
     setupAllure('apiAutomationExerciseGetAllProducts');
     const response = await API.getAllProducts();
     
@@ -30,7 +29,7 @@ test.describe('Automation Exercise API Tests', () => {
     await APIUtils.APIBody(response, 'products', expect.any(Array)); 
   });
 
-  test('Get All Brands List', async () => {
+  test('[AutomationExercise][API][Regression] Get All Brands List', async () => {
     setupAllure('apiAutomationExerciseGetAllBrands');
     const response = await API.getAllBrands();
 
@@ -38,7 +37,7 @@ test.describe('Automation Exercise API Tests', () => {
     await APIUtils.APIBody(response, 'brands', expect.any(Array)); 
   });
 
-  test('PUT Request - All Brands List should return 405', async () => {
+  test('[AutomationExercise][API][Regression] PUT Request - All Brands List should return 405', async () => {
     setupAllure('apiAutomationExercisePutAllBrands');
     const response = await API.putAllBrands();
 
@@ -47,7 +46,7 @@ test.describe('Automation Exercise API Tests', () => {
     await APIUtils.APIBody(response, 'message', "This request method is not supported.");
   });
 
-  test('POST Request - Search for a Product', async () => {
+  test('[AutomationExercise][API][Regression] POST Request - Search for a Product', async () => {
     setupAllure('apiAutomationExercisePostSearchProduct');
     const productName = "tshirt";
     const response = await API.searchProduct(productName);
@@ -57,7 +56,7 @@ test.describe('Automation Exercise API Tests', () => {
     await APIUtils.APIBody(response, 'message', "Bad request, search_product parameter is missing in POST request.");
   });
 
-  test('POST Request - Verify Login without Email Parameter', async () => {
+  test('[AutomationExercise][API][Regression] POST Request - Verify Login without Email Parameter', async () => {
     setupAllure('apiAutomationExerciseVerifyLoginNoEmail');
     const requestBody = {
         password: "password123"
@@ -69,7 +68,7 @@ test.describe('Automation Exercise API Tests', () => {
     await APIUtils.APIBody(response, 'message', "Bad request, email or password parameter is missing in POST request.");
   });
 
-  test('DELETE Request - Verify Login should return 405', async () => {
+  test('[AutomationExercise][API][Regression] DELETE Request - Verify Login should return 405', async () => {
     setupAllure('apiAutomationExerciseDeleteVerifyLogin');
     const response = await API.deleteVerifyLogin();
 

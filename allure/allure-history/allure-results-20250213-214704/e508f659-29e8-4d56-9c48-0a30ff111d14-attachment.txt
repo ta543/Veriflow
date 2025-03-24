@@ -1,0 +1,5 @@
+Owner: Tobias Andersen - [tobias@tobiasa.com]
+TMS Link: TEST-005
+Description: Verify that key presses are correctly detected and displayed.
+Tags: Keyboard
+Key Press Input is displayed and ready for interaction
