@@ -1,4 +1,4 @@
-name: GMAP Mobile | Generate Playwright Documentation
+name: VeriFlow Mobile | Generate Playwright Documentation
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}

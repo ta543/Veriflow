@@ -1,5 +1,11 @@
 name: VeriFlow | Delete Runs
 
+run-name: '🗑️[#${{ github.run_number }}][VeriFlow Cleanup] Manual Run by ${{ github.actor }}'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 permissions:
   actions: write
 
@@ -9,7 +15,7 @@ on:
 jobs:
   delete-failed-runs:
     runs-on: ubuntu-latest
-    name: 'VeriFlow | Delete Runs 🧹'
+    name: 'VeriFlow | Delete Runs 🗑️'
 
     steps:
       - name: 🛠️ Install GitHub CLI and jq
@@ -24,7 +30,7 @@ jobs:
       - name: 🔐 Authenticate with GitHub CLI using GITHUB_TOKEN
         run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
-      - name: 🧹 Delete all failed workflow runs
+      - name: 🗑️ Delete all failed workflow runs
         run: |
           echo "🔍 Fetching failed workflow runs..."
           gh run list --limit 1000 --repo ta543/Veriflow --json databaseId,conclusion | \
