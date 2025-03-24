@@ -1,5 +1,4 @@
 node_modules/
-<<<<<<< HEAD
 dist/
 build/
 out/
@@ -30,16 +29,3 @@ package-lock.json
 .vscode/
 .idea/
 *.iml
-=======
-/test-results/
-/playwright-report/
-/playwright/.cache/
-.env
-.vscode
-.idea
-.DS_Store
-allure*
-
-# Playwright
-/blob-report/
->>>>>>> 123b506b8a72c0fa96073a8b882d639a13550deb

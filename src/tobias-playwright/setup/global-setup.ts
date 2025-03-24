@@ -9,7 +9,7 @@ import { execSync } from 'child_process';
 
 async function globalSetup() {
   console.log("🔄 Moving old Allure results to history...");
-  execSync("bash prepare-allure.sh", { stdio: "inherit" });
+  execSync("bash ./allure/scripts/prepare-allure.sh", { stdio: "inherit" });
 
   console.log("✅ Allure results cleaned. Ready for test execution.");
 }
