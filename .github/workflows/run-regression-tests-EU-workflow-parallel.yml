@@ -4,7 +4,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: false
 
-run-name: "🚀 Parallel Regression | Env: ${{ github.event.inputs.appEnvironment || 'UAT' }} | Threads: ${{ github.event.inputs.parallelRuns }}"
+run-name: "👷🚧 Parallel Regression | Env: ${{ github.event.inputs.appEnvironment || 'UAT' }} | Threads: ${{ github.event.inputs.parallelRuns }}"
 
 on:
   schedule:
@@ -26,23 +26,11 @@ on:
         options:
           - 'UAT'
           - 'QA'
-      browserConfig:
-        description: 'Select Platform'
-        required: true
-        type: choice
-        options:
-          - 'TimescaleDB'
-          - 'VeriFlow'
       parallelRuns:
         description: 'Number of Parallel Threads'
         required: true
-        default: '4'
+        default: '5'
         type: string
-      enableTestRetry:
-        description: 'Enable Test Retry for Failures'
-        required: true
-        default: false
-        type: boolean
       enableSlackReport:
         description: 'Enable Slack Notifications'
         required: true
@@ -52,16 +40,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: 'Run Playwright Regression Tests with Local TimescaleDB'
+    name: 'Run Playwright Regression Tests on BrowserStack'
 
     env:
-      PGUSER: admin
-      PGPASSWORD: admin
-      PGHOST: localhost
-      PGPORT: 5432
-      DATABASE_URL_1: postgres://admin:admin@localhost:5432/veriflow_timescale
-      DATABASE_URL_2: postgres://admin:admin@localhost:5433/veriflow_test_1
-      DATABASE_URL_3: postgres://admin:admin@localhost:5434/veriflow_test_2
+      BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+      BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
 
     steps:
       - name: 'Checkout Code'
@@ -75,35 +58,27 @@ jobs:
       - name: 'Install Dependencies'
         run: npm ci
 
-      - name: 'Install Playwright Browsers'
-        run: npx playwright install --with-deps
+      - name: Install BrowserStack CLI
+        run: npm install -g browserstack-playwright-cli
 
-      - name: 'Start TimescaleDB Instances with Docker Compose'
-        run: docker-compose up -d
-
-      - name: 'Wait for TimescaleDB to Become Healthy'
-        run: |
-          echo "Waiting for veriflow_timescale..."
-          docker exec veriflow_timescale bash -c "until pg_isready -U admin; do sleep 1; done"
-
-          echo "Waiting for veriflow_test_1..."
-          docker exec veriflow_test_1 bash -c "until pg_isready -U admin; do sleep 1; done"
-
-          echo "Waiting for veriflow_test_2..."
-          docker exec veriflow_test_2 bash -c "until pg_isready -U admin; do sleep 1; done"
-
-      - name: 'Run Playwright Tests Locally'
+      - name: 'Run Playwright Tests on BrowserStack'
         run: |
           mkdir -p test-results/
-          npx playwright test tests/testcases/api/ \
-            --grep '${{ github.event.inputs.testGroup }}' \
-            --project=${{ github.event.inputs.browserConfig }} \
-            --workers=${{ github.event.inputs.parallelRuns }} \
-            --retries=${{ github.event.inputs.enableTestRetry }}
+          
+          TEST_GROUP=$(echo "${{ github.event.inputs.testGroup }}" | tr '[:upper:]' '[:lower:]')
+
+          if [ "$TEST_GROUP" = "regression" ]; then
+            GREP="--grep '\\[Regression\\]'"
+          elif [ "$TEST_GROUP" = "smoke" ]; then
+            GREP="--grep '\\[Smoke\\]'"
+          else
+            GREP=""
+          fi
+
+          browserstack-playwright --config browserstack.yml $GREP $RETRY --parallels=${{ github.event.inputs.parallelRuns }}
 
       - name: 'Generate Allure Report'
         run: |
-          mkdir -p test-results/
           npx allure generate test-results/ --clean -o allure-report/
 
       - name: 'Upload Allure Report'
@@ -120,14 +95,13 @@ jobs:
           path: test-results/
           retention-days: 7
 
-
-
-
-
-
-
-
-
+      - name: 'Send Slack Report (optional)'
+        if: ${{ github.event.inputs.enableSlackReport == 'true' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_COLOR: '#00FF00'
+        with:
+          args: "✅ *Playwright Tests Completed* for *${{ github.event.inputs.testGroup }}* on *${{ github.event.inputs.appEnvironment }}* with *${{ github.event.inputs.parallelRuns }}* threads."
 
 
 
