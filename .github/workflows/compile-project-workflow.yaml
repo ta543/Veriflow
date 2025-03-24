@@ -68,6 +68,7 @@ jobs:
             echo -e "${YELLOW}✅ [PASSED]${RESET}"
           fi      
 
+
       - name: 'Apply Labels'
         if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' && always()
         uses: actions/github-script@v7
@@ -81,42 +82,54 @@ jobs:
             ];
 
             const resultLabel = process.env.result === 'success' ? 'build-success' : 'build-failure';
+            const removeLabel = resultLabel === 'build-success' ? 'build-failure' : 'build-success';
 
-            async function manageLabels(github, context, labels, resultLabel) {
-              const issue_number = context.payload.pull_request.number;
-              const { owner, repo } = context.repo;
+            const issue_number = context.payload.pull_request.number;
+            const { owner, repo } = context.repo;
 
-              for (const label of labels) {
-                try {
-                  await github.rest.issues.updateLabel({
+            for (const label of labels) {
+              try {
+                await github.rest.issues.updateLabel({
+                  owner,
+                  repo,
+                  name: label.name,
+                  color: label.color,
+                  description: label.description
+                });
+              } catch (error) {
+                if (error.status === 404) {
+                  await github.rest.issues.createLabel({
                     owner,
                     repo,
                     name: label.name,
                     color: label.color,
                     description: label.description
                   });
-                } catch (error) {
-                  if (error.status === 404) {
-                    await github.rest.issues.createLabel({
-                      owner,
-                      repo,
-                      name: label.name,
-                      color: label.color,
-                      description: label.description
-                    });
-                  }
                 }
               }
+            }
 
-              await github.rest.issues.addLabels({
+            // Remove the opposite result label, if it exists
+            try {
+              await github.rest.issues.removeLabel({
                 owner,
                 repo,
                 issue_number,
-                labels: [resultLabel]
+                name: removeLabel
               });
+            } catch (error) {
+              if (error.status !== 404) {
+                throw error;
+              }
             }
 
-            manageLabels(github, context, labels, resultLabel);
+            // Add the current result label
+            await github.rest.issues.addLabels({
+              owner,
+              repo,
+              issue_number,
+              labels: [resultLabel]
+            });
 
       - name: 'Post Comment on PR'
         if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' && always()
