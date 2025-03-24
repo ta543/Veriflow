@@ -11,7 +11,7 @@ import { execSync } from 'child_process';
 import { getAllureReportUrl, notifySlackWithResults } from '@SlackManager';
 
 async function globalTeardown() {
-    execSync("bash generate-allure-report.sh", { stdio: "inherit" });
+    execSync("bash ./allure/scripts/generate-allure-report.sh", { stdio: "inherit" });
     const reportUrl = await getAllureReportUrl();
     await notifySlackWithResults(reportUrl);
 }

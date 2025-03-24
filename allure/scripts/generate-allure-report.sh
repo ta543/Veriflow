@@ -47,4 +47,4 @@ done
 
 # ✅ Generate Allure report
 allure generate "$ALLURE_RESULTS" --clean --output "$ALLURE_REPORT"
-allure open "$ALLURE_REPORT"
+
