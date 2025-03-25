@@ -7,11 +7,11 @@
  * the last line of output from this function may be cleared by the line reporter.
  */
 
-import { getAllureReportUrl, notifySlackWithResults } from '../src/tobias-playwright/managers/slack-manager';
+// import { getAllureReportUrl, notifySlackWithResults } from '../src/tobias-playwright/managers/slack-manager';
 
 async function globalTeardown() {
-    const reportUrl = await getAllureReportUrl();
-    await notifySlackWithResults(reportUrl);
+    // const reportUrl = await getAllureReportUrl();
+    // await notifySlackWithResults(reportUrl);
 }
 
 export default globalTeardown;
