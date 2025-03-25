@@ -82,32 +82,26 @@ jobs:
         run: ./BrowserStackLocal --key ${{ secrets.BROWSERSTACK_ACCESS_KEY }} --local-identifier veriflow-ci &
         continue-on-error: false
 
-      - name: 🐘 Seed TimescaleDB with test data
+      - name: 🐘 Create test_user and import seed.sql
         run: |
-          echo "🔍 Checking if 🐘 TimescaleDB container is running..."
-          docker ps
-      
           echo "👤 Creating 'test_user' role if not exists..."
-          docker exec -i veriflow_timescale psql -U admin -d veriflow_timescale -c "
-          DO \$\$
-          BEGIN
-            IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = 'test_user') THEN
-              CREATE ROLE test_user LOGIN;
-              RAISE NOTICE '✅ Role test_user created!';
-            ELSE
-              RAISE NOTICE 'ℹ️ Role test_user already exists.';
-            END IF;
-          END
-          \$\$;
-          "
-      
+          docker exec veriflow_timescale \
+            psql -U admin -d veriflow_timescale \
+            -c "DO \$\$ BEGIN IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'test_user') THEN CREATE ROLE test_user LOGIN PASSWORD 'test_password'; END IF; END \$\$;"
+
           echo "📦 Copying seed.sql into the TimescaleDB container..."
           docker cp tests/testdata/db-data/seed.sql veriflow_timescale:/seed.sql
-      
+
           echo "🚀 Importing seed.sql into TimescaleDB..."
-          docker exec -i veriflow_timescale psql -U admin -d veriflow_timescale -f /seed.sql
-      
-          echo "✅ Database seeding complete! 🧪 Ready for Playwright tests."
+          docker exec -i veriflow_timescale \
+            psql -U admin -d veriflow_timescale -f /seed.sql
+
+      - name: 🧩 Enable TimescaleDB Extension
+        run: |
+          echo "🧬 Creating TimescaleDB extension inside veriflow_timescale..."
+          docker exec -i veriflow_timescale \
+            psql -U admin -d veriflow_timescale \
+            -c "CREATE EXTENSION IF NOT EXISTS timescaledb;"
       
       - name: 🧪 Run Playwright Tests on BrowserStack
         run: |
