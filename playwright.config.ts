@@ -106,7 +106,6 @@ export default defineConfig({
    * See https://playwright.dev/docs/test-configuration#projects
    */
   projects: [  
-  
     {
       name: 'BrowserStack',
       use: {

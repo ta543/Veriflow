@@ -49,7 +49,7 @@
     "winston": "^3.10.0"
   },
   "scripts": {
-    "Testcase": "npx playwright test tests/testcases/db/timescaledb-tests.spec.ts --grep='Verify Data Import'",
+    "Testcase": "npx playwright test tests/testcases/db/timescaledb-tests.spec.ts --grep='Verify Data Import' && allure/scripts/generate-allure-report.sh",
     "Suite": "npx playwright test tests/testcases/db/timescaledb-tests.spec.ts",
     "All": "npx playwright test",
     "Regression": "npx playwright test --grep '\\[Regression\\]' --workers=10",
