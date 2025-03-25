@@ -50,9 +50,9 @@
   },
   "scripts": {
     "Testcase": "npx playwright test tests/testcases/db/timescaledb-tests.spec.ts --grep='Verify Data Import' && allure/scripts/generate-allure-report.sh",
-    "Suite": "npx playwright test tests/testcases/db/timescaledb-tests.spec.ts",
-    "All": "npx playwright test",
-    "Regression": "npx playwright test --grep '\\[Regression\\]' --workers=10",
+    "Suite": "npx playwright test tests/testcases/db/timescaledb-tests.spec.ts && allure/scripts/generate-allure-report.sh",
+    "All": "npx playwright test && allure/scripts/generate-allure-report.sh",
+    "Regression": "npx playwright test --grep '\\[Regression\\]' --workers=10 && allure/scripts/generate-allure-report.sh",
     "Lint": "npx eslint 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts'",
     "Lint:fix": "npx eslint 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts' --fix",
     "Format": "prettier --write 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts' '**/*.json' '**/*.md' '!package-lock.json' '!dist/**/*' '!build/**/*'",

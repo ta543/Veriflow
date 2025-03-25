@@ -72,6 +72,16 @@ jobs:
             docker exec $container bash -c "until pg_isready -U admin; do sleep 1; done"
           done
 
+      - name: 🧪🔄 Seed TimescaleDB with Test Data
+        run: |
+          echo "📦 Copying seed.sql into the TimescaleDB container..."
+          docker cp tests/testdata/db-data/seed.sql veriflow_timescale:/seed.sql
+      
+          echo "🚀 Importing data into 🐘 TimescaleDB..."
+          docker exec -i veriflow_timescale psql -U admin -d veriflow_timescale -f /seed.sql
+      
+          echo "✅ Data import completed! 🎉 TimescaleDB is ready for tests."
+        
       - name: 📡 Download BrowserStack Local Binary
         run: |
           curl -L "https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip" -o bslocal.zip
