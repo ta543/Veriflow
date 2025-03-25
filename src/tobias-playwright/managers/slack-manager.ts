@@ -8,7 +8,7 @@ const envConfig = getCurrentEnvConfig();
 
 export function getAllureReportUrl(): Promise<string> {
     return new Promise((resolve, reject) => {
-        const allureProcess = spawn("allure", ["serve", "allure/allure-results"]);
+        const allureProcess = spawn("allure", ["serve", "allure-results"]);
         allureProcess.stdout.on('data', (data) => {
             const output = data.toString();
             process.stdout.write(output);
@@ -38,7 +38,7 @@ export function getAllureReportUrl(): Promise<string> {
 }
 
 function calculateTrend(currentPassed: number, currentTotal: number): string {
-    const historyPath = path.resolve('allure/allure-history/last-summary.json');
+    const historyPath = path.resolve('allure-history/last-summary.json');
 
     if (!fs.existsSync(historyPath)) {
         fs.writeFileSync(historyPath, JSON.stringify({ passed: currentPassed, total: currentTotal }, null, 2));
@@ -62,7 +62,7 @@ function calculateTrend(currentPassed: number, currentTotal: number): string {
 }
 
 function getFailedTests() {
-    const dataDir = path.resolve('allure/allure-results');
+    const dataDir = path.resolve('allure-results');
     if (!fs.existsSync(dataDir)) {
         return [];
     }
@@ -86,7 +86,7 @@ function getFailedTests() {
                         title: `[${testMetadata[testId].tms}] ${testResult.name}`,
                         status: "failed",
                         tmsId: testMetadata[testId].tms,
-                        tmsUrl: `https://tobiasa-team.atlassian.net/browse/${testMetadata[testId].tms}`
+                        tmsUrl: `https://veriflowqa.atlassian.net/browse/${testMetadata[testId].tms}`
                     });
                 }
             }
@@ -106,7 +106,7 @@ export async function notifySlackWithResults(allureReportUrl: string) {
         throw new Error('SLACK_BOT_TOKEN or SLACK_CHANNEL_ID is missing!');
     }
 
-    const summaryPath = path.resolve('allure/allure-report/widgets/summary.json');
+    const summaryPath = path.resolve('allure-report/widgets/summary.json');
     const summary = JSON.parse(fs.readFileSync(summaryPath, 'utf8'));
 
     const passed = summary.statistic.passed;

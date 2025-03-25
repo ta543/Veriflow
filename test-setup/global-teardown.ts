@@ -7,11 +7,9 @@
  * the last line of output from this function may be cleared by the line reporter.
  */
 
-import { execSync } from 'child_process';
-import { getAllureReportUrl, notifySlackWithResults } from '@SlackManager';
+import { getAllureReportUrl, notifySlackWithResults } from '../src/tobias-playwright/managers/slack-manager';
 
 async function globalTeardown() {
-    execSync("bash ./allure/scripts/generate-allure-report.sh", { stdio: "inherit" });
     const reportUrl = await getAllureReportUrl();
     await notifySlackWithResults(reportUrl);
 }
