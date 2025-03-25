@@ -97,7 +97,7 @@ jobs:
           fi
 
           echo "🧪 Running Playwright tests with: $GREP"
-          npx playwright test $GREP \
+          npx playwright test tests/testcases/ $GREP \
             --project=BrowserStack \
             --workers=${{ github.event.inputs.parallelRuns }}
 
