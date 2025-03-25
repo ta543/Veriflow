@@ -97,9 +97,16 @@ jobs:
           fi
 
           echo "🧪 Running Playwright tests with: $GREP"
-          npx playwright test tests/testcases/ $GREP \
-            --project=BrowserStack \
-            --workers=${{ github.event.inputs.parallelRuns }}
+
+          COMMAND="npx playwright test tests/testcases/ \
+          --project=BrowserStack \
+          --workers=${{ github.event.inputs.parallelRuns }} \
+          $GREP"
+    
+          echo "🧪 Running Playwright command:"
+          echo "$COMMAND"
+          
+          eval $COMMAND    
 
       - name: 📊 Generate Allure Report
         run: npx allure generate test-results/ --clean -o allure-report/
