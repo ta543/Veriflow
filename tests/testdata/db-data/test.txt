@@ -1,5 +1,11 @@
 docker exec -t timescaledb pg_dump -U admin -d admin | tee /Volumes/chappy/chappy/Coding/Projects/work/personal/QA/Veriflow-playwright/tests/testdata/db-data/timescaledb.sql
 docker cp /Volumes/chappy/chappy/Coding/Projects/work/personal/QA/Veriflow-playwright/tests/testdata/db-data/timescaledb.sql timescaledb:/tmp/timescaledb.sql
 
+
+/tests/testdata/db-data
+
+
+
+
 // Login
 docker exec -it veriflow_timescale psql -U admin -d testdb
