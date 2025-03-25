@@ -82,16 +82,33 @@ jobs:
         run: ./BrowserStackLocal --key ${{ secrets.BROWSERSTACK_ACCESS_KEY }} --local-identifier veriflow-ci &
         continue-on-error: false
 
-      - name: 🧪🔄 Seed TimescaleDB with Test Data
+      - name: 🐘 Seed TimescaleDB with test data
         run: |
+          echo "🔍 Checking if 🐘 TimescaleDB container is running..."
+          docker ps
+      
+          echo "👤 Creating 'test_user' role if not exists..."
+          docker exec -i veriflow_timescale psql -U admin -d veriflow_timescale -c "
+          DO \$\$
+          BEGIN
+            IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = 'test_user') THEN
+              CREATE ROLE test_user LOGIN;
+              RAISE NOTICE '✅ Role test_user created!';
+            ELSE
+              RAISE NOTICE 'ℹ️ Role test_user already exists.';
+            END IF;
+          END
+          \$\$;
+          "
+      
           echo "📦 Copying seed.sql into the TimescaleDB container..."
           docker cp tests/testdata/db-data/seed.sql veriflow_timescale:/seed.sql
       
-          echo "🚀 Importing data into 🐘 TimescaleDB..."
+          echo "🚀 Importing seed.sql into TimescaleDB..."
           docker exec -i veriflow_timescale psql -U admin -d veriflow_timescale -f /seed.sql
       
-          echo "✅ Data import completed! 🎉 TimescaleDB is ready for tests."
-
+          echo "✅ Database seeding complete! 🧪 Ready for Playwright tests."
+      
       - name: 🧪 Run Playwright Tests on BrowserStack
         run: |
           mkdir -p test-results/
