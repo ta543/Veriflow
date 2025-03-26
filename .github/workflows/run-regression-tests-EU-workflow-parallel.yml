@@ -1,10 +1,10 @@
-name: VeriFlow | Regression Tests [BrowserStack]
+name: VeriFlow | Regression Tests [Multiple Threads]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: false
 
-run-name: "👷🚧 Parallel Regression | Env: ${{ github.event.inputs.appEnvironment || 'UAT' }} | Threads: ${{ github.event.inputs.parallelRuns }}"
+run-name: "👷🚧 Regression Tests | Env: ${{ github.event.inputs.appEnvironment || 'UAT' }} | Threads: ${{ github.event.inputs.parallelRuns }}"
 
 on:
   workflow_dispatch:
@@ -102,6 +102,21 @@ jobs:
           docker exec -i veriflow_timescale \
             psql -U admin -d veriflow_timescale \
             -c "CREATE EXTENSION IF NOT EXISTS timescaledb;"
+
+      - name: 📸 Create TimescaleDB Snapshot (once after seeding)
+        if: ${{ github.event.inputs.testGroup == 'REGRESSION' }}
+        run: |
+          docker exec veriflow_timescale \
+            pg_dump -U admin -Fc veriflow_timescale -f /veriflow_snapshot.dump
+          docker cp veriflow_timescale:/veriflow_snapshot.dump ./tests/testdata/
+
+      - name: 🔁 Restore TimescaleDB from Snapshot
+        if: ${{ github.event.inputs.testGroup == 'REGRESSION' }}
+        run: |
+          echo "Restoring TimescaleDB snapshot into veriflow_timescale..."
+          docker cp ./tests/testdata/veriflow_snapshot.dump veriflow_timescale:/snapshot.dump
+          docker exec veriflow_timescale \
+            bash -c "pg_restore -U admin -d veriflow_timescale --clean --if-exists /snapshot.dump"
       
       - name: 🧪 Run Playwright Tests on BrowserStack
         run: |

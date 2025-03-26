@@ -7,11 +7,24 @@
  * the last line of output from this function may be cleared by the line reporter.
  */
 
-// import { getAllureReportUrl, notifySlackWithResults } from '../src/tobias-playwright/managers/slack-manager';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import path from 'path';
+import { getAllureReportUrl, notifySlackWithResults } from '../src/tobias-playwright/managers/slack-manager';
+
+const execAsync = promisify(exec);
 
 async function globalTeardown() {
-    // const reportUrl = await getAllureReportUrl();
-    // await notifySlackWithResults(reportUrl);
-}
+    const prepareAllure = path.resolve(__dirname, '../allure/scripts/prepare-allure.sh');
+    const generateAllureReport = path.resolve(__dirname, '../allure/scripts/generate-allure-report.sh');
+    const generateAllureMetadata = path.resolve(__dirname, '../allure/scripts/generate-metadata.sh');
+  
+    await execAsync(`bash ${generateAllureReport}`);
+    await execAsync(`bash ${generateAllureMetadata}`);
+    await execAsync(`bash ${prepareAllure}`);
+  
+    const reportUrl = await getAllureReportUrl();
+    await notifySlackWithResults(reportUrl);
+  }
 
 export default globalTeardown;

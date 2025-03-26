@@ -50,7 +50,7 @@ export default defineConfig({
    * The number of worker threads to use for running tests. This is set to a different value on CI.
    * See https://playwright.dev/docs/api/class-testconfig#testconfig-workers
    */
-  workers: process.env.CI ? 3 : 6,
+  workers: process.env.CI ? 1 : 10,
   /*  Note: Add allure-playwright report */
   /**
    * The reporter to use. This can be set to use a different value on CI.

@@ -353,4 +353,86 @@ export default class TimescaleDBPage {
 
         return result.rows;
     }
+
+    static async detect7DayRevenueAnomalies(): Promise<any[]> {
+        await DBManager.getPGClient().query(`
+            CREATE TABLE IF NOT EXISTS financial_analytics (
+                id SERIAL PRIMARY KEY,
+                company TEXT,
+                timestamp TIMESTAMPTZ NOT NULL,
+                revenue NUMERIC
+            );
+        `);
+    
+        await DBManager.getPGClient().query(`
+            DELETE FROM financial_analytics;
+            INSERT INTO financial_analytics (company, timestamp, revenue)
+            SELECT 
+                'VeriTech',
+                NOW() - (INTERVAL '1 day' * i),
+                CASE 
+                    WHEN i = 4 THEN 99999  -- simulate anomaly spike
+                    ELSE 1000 + trunc(random() * 50)
+                END
+            FROM generate_series(0, 14) AS s(i);
+        `);
+    
+        const result = await DBManager.getPGClient().query(`
+            SELECT 
+                timestamp,
+                revenue,
+                AVG(revenue) OVER (
+                    ORDER BY timestamp 
+                    ROWS BETWEEN 3 PRECEDING AND 3 FOLLOWING
+                ) AS moving_avg,
+                CASE 
+                    WHEN revenue > 1.5 * AVG(revenue) OVER (
+                        ORDER BY timestamp 
+                        ROWS BETWEEN 3 PRECEDING AND 3 FOLLOWING
+                    ) THEN 'ANOMALY'
+                    ELSE 'NORMAL'
+                END AS status
+            FROM financial_analytics
+            ORDER BY timestamp DESC;
+        `);
+    
+        return result.rows;
+    }
+
+    static async detectHighCPUAnomaly(serverId: string): Promise<any[]> {
+        await DBManager.getPGClient().query(`
+            CREATE TABLE IF NOT EXISTS server_metrics (
+                time TIMESTAMPTZ NOT NULL,
+                server_id TEXT NOT NULL,
+                cpu_usage NUMERIC,
+                memory_usage NUMERIC
+            );
+        `);
+    
+        // Clear old data and insert new simulated CPU data
+        await DBManager.getPGClient().query(`
+            DELETE FROM server_metrics WHERE server_id = $1;
+            INSERT INTO server_metrics (time, server_id, cpu_usage, memory_usage)
+            VALUES 
+                (NOW() - INTERVAL '5 min', $1, 40, 2048),
+                (NOW() - INTERVAL '4 min', $1, 43, 2072),
+                (NOW() - INTERVAL '3 min', $1, 93, 2100), -- simulate anomaly
+                (NOW() - INTERVAL '2 min', $1, 45, 2050),
+                (NOW() - INTERVAL '1 min', $1, 42, 2035);
+        `, [serverId]);
+    
+        const result = await DBManager.getPGClient().query(`
+            SELECT time_bucket('1 minute', time) AS bucket,
+                server_id,
+                AVG(cpu_usage) AS avg_cpu,
+                MAX(cpu_usage) AS max_cpu
+            FROM server_metrics
+            WHERE time > NOW() - INTERVAL '10 minutes'
+            AND server_id = $1
+            GROUP BY bucket, server_id
+            ORDER BY bucket;
+        `, [serverId]);
+    
+        return result.rows;
+    }
 }
