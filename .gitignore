@@ -22,10 +22,7 @@ coverage/
 test-results/
 playwright-report/
 playwright/.cache/
-allure
-**/allure-results/
-**/allure-history/
-**/allure-report/
+/allure/
 .env
 .env.local
 .env.*.local

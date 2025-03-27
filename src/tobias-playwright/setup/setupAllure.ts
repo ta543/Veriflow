@@ -20,6 +20,8 @@ export function setupAllure(testId: keyof typeof testMetadata) {
     allure.severity(details.severity.toUpperCase());
     details.tags.forEach(tag => allure.tag(tag));
 
+
+    if (details.parentSuite) allure.parentSuite(details.parentSuite);
     if (details.suite) allure.suite(details.suite);
     if (details.feature) allure.feature(details.feature);
     if (details.story) allure.story(details.story);

@@ -5,6 +5,7 @@ export type TestMeta = {
   tags: string[];
   severity: string;
   suite: string;
+  parentSuite: string;
   feature: string;
   story: string;
   displayname?: string;
@@ -580,7 +581,59 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'CRITICAL',
     suite: 'TimescaleDB | DB',
     feature: '[TIMESCALEDB][DB] Cluster Resilience',
-    // skipReason: '⚠️ Temporarily disabled due to container startup flakiness on CI',
     story: 'Ensure the system can monitor and confirm the availability of a peer database after restart.'
+    // skipReason: '⚠️ Temporarily disabled due to container startup flakiness on CI',
   },
+
+  adminerLoginTimescaleDBMain: {
+    owner: 'Tobias Andersen - [tobias@tobiasa.com]',
+    tms: 'VF-101',
+    displayname: '[ADMINER][Onboarding] Login with Main TimescaleDB',
+    description: 'Login on Adminer UI with primary TimescaleDB credentials for veriflowtimescale.',
+    tags: ['Adminer', 'UI', 'TimescaleDB', 'Onboarding', 'Smoke'],
+    severity: 'CRITICAL',
+    parentSuite: 'VeriFlow Web Regression',
+    suite: 'Adminer | Onboarding',
+    feature: 'VeriFlow Web Regression',
+    story: 'Ensure login works with main database credentials.'
+  },
+
+  adminerLoginTimescaleDBTest1: {
+    owner: 'Tobias Andersen - [tobias@tobiasa.com]',
+    tms: 'VF-102',
+    displayname: '[ADMINER][Onboarding] Login with Test1 TimescaleDB',
+    description: 'Login on Adminer UI with credentials for the first test TimescaleDB instance.',
+    tags: ['Adminer', 'TimescaleDB', 'Onboarding', 'Regression', 'Test1'],
+    severity: 'CRITICAL',
+    parentSuite: 'VeriFlow Web Regression',
+    suite: '[ADMINER][Onboarding]',
+    feature: '[ADMINER][Onboarding] Test DB 1 Access',
+    story: 'Ensure login works with test1 database credentials.'
+  },
+
+  adminerLoginTimescaleDBTest2: {
+    owner: 'Tobias Andersen - [tobias@tobiasa.com]',
+    tms: 'VF-103',
+    displayname: '[Onboarding] Login with Test2 TimescaleDB',
+    description: 'Login on Adminer UI with credentials for the second test TimescaleDB instance.',
+    tags: ['Adminer', 'TimescaleDB', 'Onboarding', 'Regression', 'Test2'],
+    severity: 'CRITICAL',
+    parentSuite: 'VeriFlow Web Regression',
+    suite: '[ADMINER][INTERFACE]',
+    feature: '[ADMINER] Interface',
+    story: 'Ensure login works with test2 database credentials.'
+  },
+
+  adminerOpenSQLQuerier: {
+    owner: 'Tobias Andersen - [tobias@tobiasa.com]',
+    tms: 'VF-104',
+    displayname: '[Interface] Open SQL Querier',
+    description: 'Open the SQL command interface in Adminer after logging into TimescaleDB.',
+    tags: ['Adminer', 'UI', 'SQL', 'Interface', 'Smoke'],
+    severity: 'CRITICAL',
+    parentSuite: 'VeriFlow Web Smoke',
+    suite: '[ADMINER][INTERFACE]',
+    feature: '[ADMINER] Interface',
+    story: 'Ensure users can access and interact with the SQL query editor.'
+  }
 };
