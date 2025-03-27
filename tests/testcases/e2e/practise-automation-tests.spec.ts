@@ -64,7 +64,7 @@ test.describe('Practice Automation | E2E', () => {
     await HomePage.navigateToHomePage();
     await HomePage.clickFileUploadLink();
     await FileUploadPage.verifyFileUploadPageURL();
-    await FileUploadPage.uploadFile('tests/test-files/sample.txt');
+    await FileUploadPage.uploadFile('tests/testdata/test-files/sample.txt');
     await FileUploadPage.verifyFileUploadSuccess();
   });
 

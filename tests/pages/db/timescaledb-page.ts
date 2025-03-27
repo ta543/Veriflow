@@ -400,6 +400,7 @@ export default class TimescaleDBPage {
     }
 
     static async detectHighCPUAnomaly(serverId: string): Promise<any[]> {
+        // Ensure the table exists
         await DBManager.getPGClient().query(`
             CREATE TABLE IF NOT EXISTS server_metrics (
                 time TIMESTAMPTZ NOT NULL,
@@ -409,9 +410,13 @@ export default class TimescaleDBPage {
             );
         `);
     
-        // Clear old data and insert new simulated CPU data
+        // Delete old data
         await DBManager.getPGClient().query(`
             DELETE FROM server_metrics WHERE server_id = $1;
+        `, [serverId]);
+    
+        // Insert new simulated data (with one anomaly at 93%)
+        await DBManager.getPGClient().query(`
             INSERT INTO server_metrics (time, server_id, cpu_usage, memory_usage)
             VALUES 
                 (NOW() - INTERVAL '5 min', $1, 40, 2048),
@@ -421,14 +426,15 @@ export default class TimescaleDBPage {
                 (NOW() - INTERVAL '1 min', $1, 42, 2035);
         `, [serverId]);
     
+        // Query for anomaly detection
         const result = await DBManager.getPGClient().query(`
             SELECT time_bucket('1 minute', time) AS bucket,
-                server_id,
-                AVG(cpu_usage) AS avg_cpu,
-                MAX(cpu_usage) AS max_cpu
+                   server_id,
+                   AVG(cpu_usage) AS avg_cpu,
+                   MAX(cpu_usage) AS max_cpu
             FROM server_metrics
             WHERE time > NOW() - INTERVAL '10 minutes'
-            AND server_id = $1
+              AND server_id = $1
             GROUP BY bucket, server_id
             ORDER BY bucket;
         `, [serverId]);

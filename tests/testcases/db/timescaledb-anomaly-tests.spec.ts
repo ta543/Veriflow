@@ -30,11 +30,11 @@ test.describe('TimescaleDB | DB', () => {
     Timescale = withSteps(TimescaleDBPage, test.step, 'Timescale');
   });
     
-const servers = ['server-001', 'server-002', 'server-003'];
+const servers = ['server-001', 'server-002', 'server-003', 'server-004', 'server-005'];
 
 for (const serverId of servers) {
     test(`[TimescaleDB][DB][Anomaly][Regression] Detect high CPU usage anomaly for ${serverId}`, async () => {
-        setupAllure(`detectHighCPUAnomaly-${serverId}`);
+        setupAllure(`detectHighCPUAnomaly`);
         
         await Timescale.connectToDatabase('veriflow_timescale', 'timescale');
         const rows = await Timescale.detectHighCPUAnomaly(serverId);
@@ -49,7 +49,7 @@ for (const serverId of servers) {
   
     
   test('[TimescaleDB][DB][Regression] 7-Day Revenue Anomaly Detection', async () => {
-    setupAllure('7DayRevenueAnomaly');
+    setupAllure('revenueAnomalyDetection7Day');
         
     await Timescale.connectToDatabase('veriflow_timescale', 'timescale');
     const rows = await Timescale.detect7DayRevenueAnomalies();
