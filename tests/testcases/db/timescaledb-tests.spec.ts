@@ -139,24 +139,24 @@ test.describe('TimescaleDB | DB', () => {
     expect(parseInt(rowCount3.rows[0].count, 10)).toBe(parseInt(rowCount1.rows[0].count, 10));
   });
 
-  test('[TimescaleDB][DB][Regression] Restart Test DB and Validate from Peer', async () => {
+  test('[TimescaleDB][DB][Restart][Regression] Restart Test DB and Validate from Peer', async () => {
     setupAllure('timescaleDBRestartAndVerifyFromPeer');
     const containerToRestart = 'veriflow_test_1';
     const startTimeBefore = await Timescale.execInContainer(
       '',
       `docker inspect -f '{{.State.StartedAt}}' ${containerToRestart}`
     );
-    // console.log(`[Before Restart] Container started at: ${startTimeBefore}`);
+    console.log(`[Before Restart] Container started at: ${startTimeBefore}`);
     await Timescale.execInContainer('', `docker restart ${containerToRestart}`);
     await new Promise((res) => setTimeout(res, 5000));
     const startTimeAfter = await Timescale.execInContainer(
       '',
       `docker inspect -f '{{.State.StartedAt}}' ${containerToRestart}`
     );
-    // console.log(`[After Restart] Container started at: ${startTimeAfter}`);
+    console.log(`[After Restart] Container started at: ${startTimeAfter}`);
     expect(startTimeAfter).not.toBe(startTimeBefore);
     const isRunning = await Timescale.isContainerRunning(containerToRestart);
-    // console.log(`[Running Status] Container is running: ${isRunning}`);
+    console.log(`[Running Status] Container is running: ${isRunning}`);
     expect(isRunning).toBeTruthy();
   });
 });

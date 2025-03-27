@@ -22,6 +22,7 @@ test.beforeEach('Navigating to Home Page', async () => {
 });
 
 test.describe('ExpandTesting | E2E', () => {
+  
   test('[ExpandTesting][E2E][Regression] Web Inputs Test', async () => {
     setupAllure('expandTestingWebInputsTest');
     await HomePage.navigateToWebInputPage();

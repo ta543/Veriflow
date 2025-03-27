@@ -186,15 +186,34 @@ export async function blockAds(page: Page): Promise<void> {
     'ad.doubleclick.net',
     'static.doubleclick.net',
     'tpc.googlesyndication.com',
-    'googleads.g.doubleclick.net'
+    'googleads.g.doubleclick.net',
   ];
 
-  await page.route('**/*', (route) => {
-    const url = route.request().url();
-    if (blockedDomains.some(domain => url.includes(domain))) {
-      return route.abort();
+  await page.route('**/*', async (route) => {
+    try {
+      const request = route.request();
+      const url = request.url();
+      const method = request.method();
+
+      if (!url || url.startsWith('data:') || !method) {
+        return route.continue();
+      }
+
+      if (blockedDomains.some(domain => url.includes(domain))) {
+        return route.abort();
+      }
+
+      return route.continue({
+        url,
+        method,
+        headers: request.headers(),
+        postData: request.postData() || undefined,
+      });
+
+    } catch (err) {
+      console.error('[ROUTE][ERROR]', err);
+      return route.continue();
     }
-    return route.continue();
   });
 }
 

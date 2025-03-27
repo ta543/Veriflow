@@ -6,6 +6,11 @@ out/
 *.log
 *.swp
 *.swo
+*.png
+*.webm
+*.txt
+*.zip
+*.strings
 *.tmp
 *.bak
 Thumbs.db
@@ -17,9 +22,7 @@ coverage/
 test-results/
 playwright-report/
 playwright/.cache/
-**/allure-results/
-**/allure-history/
-**/allure-report/
+/allure/
 .env
 .env.local
 .env.*.local

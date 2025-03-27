@@ -50,7 +50,7 @@ export default defineConfig({
    * The number of worker threads to use for running tests. This is set to a different value on CI.
    * See https://playwright.dev/docs/api/class-testconfig#testconfig-workers
    */
-  workers: process.env.CI ? 3 : 6,
+  workers: process.env.CI ? 1 : 10,
   /*  Note: Add allure-playwright report */
   /**
    * The reporter to use. This can be set to use a different value on CI.
@@ -106,23 +106,24 @@ export default defineConfig({
    * See https://playwright.dev/docs/test-configuration#projects
    */
   projects: [  
-    {
-      name: 'BrowserStack',
-      use: {
-        browserName: 'chromium',
-        connectOptions: {
-          wsEndpoint: `wss://cdp.browserstack.com/playwright?caps=` + encodeURIComponent(JSON.stringify({
-            browser: 'chrome',
-            os: 'osx',
-            os_version: 'catalina',
-            name: 'Playwright Tests',
-            build: process.env.GITHUB_RUN_ID || 'Local Build',
-            'browserstack.username': process.env.BROWSERSTACK_USERNAME,
-            'browserstack.accessKey': process.env.BROWSERSTACK_ACCESS_KEY,
-          })),
-        },
-      }
-    },
+  
+    // {
+    //   name: 'BrowserStack',
+    //   use: {
+    //     browserName: 'chromium',
+    //     connectOptions: {
+    //       wsEndpoint: `wss://cdp.browserstack.com/playwright?caps=` + encodeURIComponent(JSON.stringify({
+    //         browser: 'chrome',
+    //         os: 'osx',
+    //         os_version: 'catalina',
+    //         name: 'Playwright Tests',
+    //         build: process.env.GITHUB_RUN_ID || 'Local Build',
+    //         'browserstack.username': process.env.BROWSERSTACK_USERNAME,
+    //         'browserstack.accessKey': process.env.BROWSERSTACK_ACCESS_KEY,
+    //       })),
+    //     },
+    //   }
+    // },
     
     {
       name: 'Chrome',

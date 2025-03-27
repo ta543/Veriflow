@@ -1,39 +1,56 @@
-# #!/bin/bash
+#!/bin/bash
 
-# # ✅ Set the correct base directory for Allure reports
-# BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# Get absolute paths
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+ALLURE_REPORT="$PROJECT_ROOT/allure/allure-report"
+ALLURE_METADATA="$PROJECT_ROOT/allure/metadata"
+SUMMARY_JSON="$ALLURE_REPORT/widgets/summary.json"
+LAST_SUMMARY_JSON="$ALLURE_METADATA/last-summary.json"
+ALLURE_RESULTS="$PROJECT_ROOT/allure/allure-results"
+METADATA_WIDGETS="$PROJECT_ROOT/allure/metadata/widgets"
+REPORT_WIDGETS="$PROJECT_ROOT/allure/allure-results/widgets"
 
-# # Paths for Allure results and history
-# ALLURE_DIR="$BASE_DIR/allure"
-# ALLURE_RESULTS="$ALLURE_DIR/allure/allure-results"
-# ALLURE_HISTORY="$ALLURE_DIR/allure/allure-history"
-# ROOT_ALLURE_RESULTS="$BASE_DIR/allure/allure-results"
+# Create metadata folder if it doesn't exist
+mkdir -p "$ALLURE_METADATA"
 
-# # ✅ Ensure Allure history folder exists
-# mkdir -p "$ALLURE_HISTORY"
+# Copy essential folders and files
+for item in data export history plugin widgets index.html app.js styles.css favicon.ico; do
+  if [ -e "$ALLURE_REPORT/$item" ]; then
+    echo "✅ Backing up $item"
+    cp -r "$ALLURE_REPORT/$item" "$ALLURE_METADATA/"
+  else
+    echo "⚠️ Missing $item in $ALLURE_REPORT"
+  fi
+done
 
-# # ✅ Archive old allure-results into history
-# if [ "$(ls -A "$ALLURE_RESULTS" 2>/dev/null)" ]; then
-#     TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-#     mv "$ALLURE_RESULTS" "$ALLURE_HISTORY/allure-results-$TIMESTAMP"
-#     # echo "✅ Archived previous allure-results as allure-results-$TIMESTAMP"
-# fi
+mkdir -p "$ALLURE_RESULTS/history"
 
-# # ✅ Create a fresh allure-results folder only if it does not exist
-# if [ ! -d "$ALLURE_RESULTS" ]; then
-#     mkdir -p "$ALLURE_RESULTS"
-#     # echo "✅ Created fresh allure-results directory."
-# fi
+if [ -d "$ALLURE_METADATA/history" ]; then
+  cp -R "$ALLURE_METADATA/history/"* "$ALLURE_RESULTS/history/"
+  echo "✅ History copied"
+else
+  echo "⚠️ No history folder found in metadata"
+fi
 
-# # ✅ Ensure trend files exist inside allure-history
-# # echo "📊 Moving history to allure-results for trend tracking..."
-# for file in history-trend.json history.json duration-trend.json retry-trend.json; do
-#     if [ ! -f "$ALLURE_HISTORY/$file" ]; then
-#         # echo "🛠️ Creating missing trend file: $file"
-#         touch "$ALLURE_HISTORY/$file"
-#     fi
-#     cp "$ALLURE_HISTORY/$file" "$ALLURE_RESULTS/" 2>/dev/null
-# done
 
-# rm -rf updated-metadata.json
-# rm -rf test-results.xml
+cat > "$ALLURE_METADATA/widgets/executor.json" <<EOL
+{
+  "name": "custom",
+  "type": "github",
+  "url": "",
+  "buildOrder": 1,
+  "buildName": "",
+  "buildUrl": "",
+  "reportUrl": "",
+  "executor": "playwright"
+}
+EOL
+
+cp -R "$ALLURE_METADATA/widgets/"* "$ALLURE_RESULTS" 2>/dev/null || echo "⚠️ Failed to copy some widget files"
+
+
+
+
+
+
+

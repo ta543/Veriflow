@@ -5,6 +5,7 @@ export type TestMeta = {
   tags: string[];
   severity: string;
   suite: string;
+  parentSuite: string;
   feature: string;
   story: string;
   displayname?: string;
@@ -21,6 +22,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'UI Tests',
     feature: 'Keyboard Interaction',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User can press and detect keys',
   },
 
@@ -32,6 +34,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'UI Tests',
     feature: 'Dropdown Functionality',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User selects a dropdown option',
   },
 
@@ -43,6 +46,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Authentication Tests',
     feature: 'Login Flow',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User logs in with valid credentials',
   },
 
@@ -54,6 +58,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Authentication Tests',
     feature: 'Logout Flow',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User logs out successfully',
   },
 
@@ -65,6 +70,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'UI Tests',
     feature: 'Checkboxes',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User interacts with checkboxes',
   },
 
@@ -76,6 +82,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'SauceDemo Tests',
     feature: 'User Authentication',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User logs in successfully',
   },
 
@@ -87,6 +94,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'SauceDemo Tests',
     feature: 'Shopping Cart',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User adds a product to the cart',
   },
 
@@ -98,6 +106,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'SauceDemo Tests',
     feature: 'User Authentication',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User enters incorrect credentials and fails to log in',
   },
 
@@ -109,6 +118,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Automation Exercise - Navigation',
     feature: 'Test Cases Page Navigation',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User accesses the Test Cases page from the homepage',
   },
 
@@ -120,6 +130,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Automation Exercise - Products',
     feature: 'Product Search',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User searches for a product using the search bar',
   },
 
@@ -131,6 +142,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Automation Exercise - Cart',
     feature: 'Add to Cart',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User adds a product to the cart and verifies its presence',
   },
 
@@ -142,6 +154,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Automation Exercise - Authentication',
     feature: 'User Login',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User logs in with valid credentials and accesses account dashboard',
   },
 
@@ -153,6 +166,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Automation Exercise - Authentication',
     feature: 'User Logout',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User logs out successfully and is redirected to login page',
   },
 
@@ -164,6 +178,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Automation Exercise - Forms',
     feature: 'Contact Us Form',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User fills and submits the contact form successfully',
   },
 
@@ -175,6 +190,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Practice Automation - Navigation',
     feature: 'Form Fields Navigation',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User navigates to the Form Fields page',
   },
 
@@ -186,6 +202,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Practice Automation - Forms',
     feature: 'Form Submission',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User fills out and submits a form successfully',
   },
 
@@ -197,6 +214,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Practice Automation - UI',
     feature: 'Popup Handling',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User interacts with popups and closes them successfully',
   },
 
@@ -208,6 +226,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Practice Automation - File Handling',
     feature: 'File Upload',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User uploads a file and verifies success message',
   },
 
@@ -219,6 +238,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Practice Automation - File Handling',
     feature: 'File Download',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User downloads a file from the File Download page',
   },
 
@@ -230,6 +250,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Practice Automation - Validation',
     feature: 'Broken Links Verification',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User checks for broken links and verifies their status',
   },
 
@@ -241,6 +262,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Automation Exercise - API',
     feature: 'Product API',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User retrieves a list of all products via API',
   },
 
@@ -252,6 +274,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Automation Exercise - API',
     feature: 'Brand API',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User retrieves a list of all brands via API',
   },
 
@@ -263,6 +286,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Automation Exercise - API',
     feature: 'Brand API',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User attempts to send an unsupported PUT request to the brands API',
   },
 
@@ -274,6 +298,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Automation Exercise - API',
     feature: 'Product Search API',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User searches for a product using the API and retrieves relevant results',
   },
 
@@ -285,6 +310,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Automation Exercise - API',
     feature: 'Login API',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User attempts to log in without providing an email parameter'
   },
 
@@ -296,6 +322,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'Automation Exercise - API',
     feature: 'Login API',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User attempts to send an unsupported DELETE request to the verify login endpoint'
   },
 
@@ -307,6 +334,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'ExpandTesting - Web',
     feature: 'Form Fields',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User fills in number, text, password, and date fields, and submits the form successfully'
   },
 
@@ -318,6 +346,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'CRITICAL',
     suite: 'ExpandTesting - Web',
     feature: '[EXPANDTESTING][E2E] Onboarding',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User accesses the login page, provides valid credentials, and verifies successful login message'
   },
 
@@ -329,6 +358,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'ExpandTesting - Web',
     feature: '[EXPANDTESTING][E2E] Onboarding',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'User attempts to register with invalid credentials and sees an error message'
   },
 
@@ -340,6 +370,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Import',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Verify the financial data table contains at least one row after import.'
   },
 
@@ -351,6 +382,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Schema Validation',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Ensure all expected columns exist in the financial data table.'
   },
 
@@ -362,6 +394,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Validation',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Ensure the first row of the financial data table has correct values for key fields.'
   },
 
@@ -373,6 +406,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Analytics',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Compute the average data value to ensure proper financial calculations.'
   },
 
@@ -384,6 +418,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Quarterly Reports',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Ensure the financial data is correctly aggregated for quarterly reporting.'
   },
 
@@ -395,6 +430,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'MEDIUM',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Completeness',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Identify missing months in a financial time series.'
   },
 
@@ -407,6 +443,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Analysis',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Verify that financial data values follow a reasonable trend over time.'
   },
 
@@ -417,6 +454,7 @@ export const testMetadata: Record<string, TestMeta> = {
     tags: ['TimescaleDB', 'Database', 'FinancialData', 'Consistency'],
     severity: 'CRITICAL',
     suite: 'TimescaleDB - Financial Data',
+    parentSuite: 'VeriFlow Web Regression',
     feature: '[TIMESCALEDB][DB] Data Consistency',
     story: 'Ensure there are no unexplained inconsistencies in financial records.'
   },
@@ -429,6 +467,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Validation',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Ensure that financial data values are within expected minimum and maximum thresholds.'
   },
 
@@ -440,6 +479,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'CRITICAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Integrity',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Ensure that no duplicate records exist in the financial data table.'
   },
 
@@ -451,6 +491,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'MEDIUM',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Retention',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Ensure that financial data is retained for a predefined period.'
   },
 
@@ -462,6 +503,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'CRITICAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Validation',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Ensure financial data values per subject do not exceed predefined thresholds.'
   },
 
@@ -473,6 +515,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'CRITICAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Completeness',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Ensure that no expected time periods are missing in the financial data records.'
   },
 
@@ -484,6 +527,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'CRITICAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Integrity',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Ensure all financial data records align with an authoritative reference dataset.'
   },
 
@@ -495,6 +539,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'MEDIUM',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Quality',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Ensure that outlier financial data values are detected and reviewed.'
   },
 
@@ -508,6 +553,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'CRITICAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Integrity',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Ensure financial data is complete for all periods across all series.'
   },
 
@@ -520,6 +566,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'MEDIUM',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Analysis',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Identify whether financial data trends are stable or have unexpected fluctuations.'
   },
 
@@ -532,6 +579,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'CRITICAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Quality',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Ensure that unexpected large spikes in financial data are detected and investigated.'
   },
 
@@ -544,6 +592,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'NORMAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Performance',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Monitor and validate database query response times to prevent slow performance.'
   },
 
@@ -556,6 +605,7 @@ export const testMetadata: Record<string, TestMeta> = {
     severity: 'CRITICAL',
     suite: 'TimescaleDB - Financial Data',
     feature: '[TIMESCALEDB][DB] Data Validation',
+    parentSuite: 'VeriFlow Web Regression',
     story: 'Ensure financial data does not contain orphaned series_reference values.'
   },
 
@@ -567,6 +617,7 @@ export const testMetadata: Record<string, TestMeta> = {
     tags: ['TimescaleDB', 'Database', 'Failover'],
     severity: 'CRITICAL',
     suite: 'TimescaleDB - Financial Data',
+    parentSuite: 'VeriFlow Web Regression',
     feature: '[TIMESCALEDB][DB] Test DB Initialization and Switching',
     story: 'Validate dynamic creation and switching of multiple TimescaleDB test instances based on a template.'
   },
@@ -579,8 +630,99 @@ export const testMetadata: Record<string, TestMeta> = {
     tags: ['TimescaleDB', 'DB', 'Failover', 'HealthCheck', 'Container'],
     severity: 'CRITICAL',
     suite: 'TimescaleDB | DB',
+    parentSuite: 'VeriFlow Web Regression',
     feature: '[TIMESCALEDB][DB] Cluster Resilience',
-    // skipReason: '⚠️ Temporarily disabled due to container startup flakiness on CI',
     story: 'Ensure the system can monitor and confirm the availability of a peer database after restart.'
+    // skipReason: '⚠️ Temporarily disabled due to container startup flakiness on CI',
   },
+
+  adminerLoginTimescaleDBMain: {
+    owner: 'Tobias Andersen - [tobias@tobiasa.com]',
+    tms: 'VF-101',
+    displayname: '[ADMINER][Onboarding] Login with Main TimescaleDB',
+    description: 'Login on Adminer UI with primary TimescaleDB credentials for veriflowtimescale.',
+    tags: ['Adminer', 'UI', 'TimescaleDB', 'Onboarding', 'Smoke'],
+    severity: 'CRITICAL',
+    parentSuite: 'VeriFlow Web Regression',
+    suite: 'Adminer | Onboarding',
+    feature: 'VeriFlow Web Regression',
+    story: 'Ensure login works with main database credentials.'
+  },
+
+  adminerLoginTimescaleDBTest1: {
+    owner: 'Tobias Andersen - [tobias@tobiasa.com]',
+    tms: 'VF-102',
+    displayname: '[ADMINER][Onboarding] Login with Test1 TimescaleDB',
+    description: 'Login on Adminer UI with credentials for the first test TimescaleDB instance.',
+    tags: ['Adminer', 'TimescaleDB', 'Onboarding', 'Regression', 'Test1'],
+    severity: 'CRITICAL',
+    parentSuite: 'VeriFlow Web Regression',
+    suite: '[ADMINER][Onboarding]',
+    feature: '[ADMINER][Onboarding] Test DB 1 Access',
+    story: 'Ensure login works with test1 database credentials.'
+  },
+
+  adminerLoginTimescaleDBTest2: {
+    owner: 'Tobias Andersen - [tobias@tobiasa.com]',
+    tms: 'VF-103',
+    displayname: '[Onboarding] Login with Test2 TimescaleDB',
+    description: 'Login on Adminer UI with credentials for the second test TimescaleDB instance.',
+    tags: ['Adminer', 'TimescaleDB', 'Onboarding', 'Regression', 'Test2'],
+    severity: 'CRITICAL',
+    parentSuite: 'VeriFlow Web Regression',
+    suite: '[ADMINER][INTERFACE]',
+    feature: '[ADMINER] Interface',
+    story: 'Ensure login works with test2 database credentials.'
+  },
+
+  adminerOpenSQLQuerier: {
+    owner: 'Tobias Andersen - [tobias@tobiasa.com]',
+    tms: 'VF-104',
+    displayname: '[Interface] Open SQL Querier',
+    description: 'Open the SQL command interface in Adminer after logging into TimescaleDB.',
+    tags: ['Adminer', 'UI', 'SQL', 'Interface', 'Smoke'],
+    severity: 'CRITICAL',
+    parentSuite: 'VeriFlow Web Smoke',
+    suite: '[ADMINER][INTERFACE]',
+    feature: '[ADMINER] Interface',
+    story: 'Ensure users can access and interact with the SQL query editor.'
+  },
+
+  detectHighCPUAnomaly: {
+    owner: 'Tobias Andersen - [tobias@tobiasa.com]',
+    tms: 'VF-35',
+    displayname: '[Anomaly Detection] High CPU Usage for Specific Server',
+    description: 'Detects anomalies in CPU usage by querying TimescaleDB for metrics and verifying if max CPU exceeds 90%.',
+    tags: ['TimescaleDB', 'DB', 'Anomaly', 'CPU', 'Regression'],
+    severity: 'CRITICAL',
+    suite: 'TimescaleDB | DB',
+    parentSuite: 'VeriFlow Web Regression',
+    feature: '[TIMESCALEDB][DB] Anomaly Detection',
+    story: 'Ensure high CPU usage anomalies are detected accurately across monitored servers.'
+  },
+  
+  revenueAnomalyDetection7Day: {
+    owner: 'Tobias Andersen - [tobias@tobiasa.com]',
+    tms: 'VF-36',
+    displayname: '[Anomaly Detection] 7-Day Revenue Spike Detection',
+    description: 'Runs anomaly detection logic on 7-day revenue trends in TimescaleDB and ensures anomalies are identified.',
+    tags: ['TimescaleDB', 'DB', 'Anomaly', 'Revenue', 'Regression'],
+    severity: 'MEDIUM',
+    suite: 'TimescaleDB | DB',
+    parentSuite: 'VeriFlow Web Regression',
+    feature: '[TIMESCALEDB][DB] Anomaly Detection',
+    story: 'Verify that anomalous patterns in revenue over a 7-day window are correctly flagged.'
+  },
+  
+
+
+
+
+
+
+
+
+
+
+
 };

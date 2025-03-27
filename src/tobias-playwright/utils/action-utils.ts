@@ -64,6 +64,16 @@ export async function click(input: string | Locator, options?: ClickOptions): Pr
 }
 
 /**
+ * Selects an option in a <select> dropdown.
+ * @param {string | Locator} input - The dropdown element.
+ * @param {string} value - The option value to select.
+ */
+export async function select(input: string | Locator, value: string): Promise<void> {
+  const locator = await getLocatorWithStableAndVisibleOptions(input);
+  await locator.selectOption(value);
+}
+
+/**
  * Clicks on a specified element and waits for navigation.
  * @param {string | Locator} input - The element to click on.
  * @param {ClickOptions} options - The click options.

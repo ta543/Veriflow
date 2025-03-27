@@ -66,6 +66,8 @@
       "@SauceDemoProductsPage": ["tests/pages/e2e/sauce-demo-pages/sauce-demo-products-page"],
       // ✅ Pages - TimescaleDB | DB
       "@TimescaleDBPage": ["tests/pages/db/timescaledb-page"],
+      // ✅ Pages - TimescaleDB | DB
+      "@AdminerLoginPage": ["tests/pages/db/adminer-login-page"],
     },
     
     // Emit

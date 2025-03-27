@@ -49,10 +49,10 @@
     "winston": "^3.10.0"
   },
   "scripts": {
-    "Testcase": "npx playwright test tests/testcases/db/timescaledb-tests.spec.ts --grep='Verify Data Import' && allure/scripts/generate-allure-report.sh",
-    "Suite": "npx playwright test tests/testcases/db/timescaledb-tests.spec.ts && allure/scripts/generate-allure-report.sh",
-    "All": "npx playwright test && allure/scripts/generate-allure-report.sh",
-    "Regression": "npx playwright test --grep '\\[Regression\\]' --workers=10 && allure/scripts/generate-allure-report.sh",
+    "Testcase": "npx playwright test tests/testcases/e2e/expandtesting-tests.spec.ts --grep='Web Inputs Test'",
+    "Suite": "npx playwright test tests/testcases/db/timescaledb-tests.spec.ts",
+    "All": "npx playwright test",
+    "Regression": "npx playwright test --grep '\\[Regression\\]' --workers=10",
     "Lint": "npx eslint 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts'",
     "Lint:fix": "npx eslint 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts' --fix",
     "Format": "prettier --write 'tests/**/*.ts' 'src/**/*.ts' 'playwright.config.ts' '**/*.json' '**/*.md' '!package-lock.json' '!dist/**/*' '!build/**/*'",
@@ -85,6 +85,7 @@
     "@typescript-eslint/eslint-plugin": "^8.27.0",
     "@typescript-eslint/parser": "^8.27.0",
     "allure-playwright": "^3.1.0",
+    "browserstack-local": "^1.5.6",
     "dotenv": "^16.4.7",
     "eslint": "^9.23.0",
     "eslint-plugin-playwright": "^2.2.0",

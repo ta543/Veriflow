@@ -24,12 +24,13 @@ const test = base.extend<Fixtures>({
 test.beforeEach(async ({ page }, testInfo) => {
   setPage(page);
   const currentEnv = getCurrentEnvConfig();
-
   if (currentEnv.suite === 'ALL') {
     setDynamicSuite(deriveSuiteNameFromFilePath(testInfo.file));
   }
 
-  await blockAds(page);
+  if (testInfo.project.name !== 'BrowserStack') {
+    await blockAds(page);
+  }
 });
 
 function deriveSuiteNameFromFilePath(filePath: string): string {
