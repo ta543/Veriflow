@@ -46,7 +46,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: 'Run Playwright Tests via BrowserStack Local Tunnel'
+    name: 'VeriFlow | Regression Tests [Multiple Threads]'
 
     env:
       BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
@@ -90,41 +90,63 @@ jobs:
         run: ./BrowserStackLocal --key ${{ secrets.BROWSERSTACK_ACCESS_KEY }} --local-identifier veriflow-ci &
         continue-on-error: false
 
-      - name: 🐘 Create test_user and import seed.sql
+      - name: 🧬 Ensure TimescaleDB extension
         run: |
-          echo "👤 Creating 'test_user' role if not exists..."
+          echo "🧬 Creating TimescaleDB extension..."
+          docker exec veriflow_timescale \
+            psql -U admin -d veriflow_timescale \
+            -c "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;"
+
+      - name: 👤 Create test_user
+        run: |
+          echo "👤 Creating 'test_user' if not exists..."
           docker exec veriflow_timescale \
             psql -U admin -d veriflow_timescale \
             -c "DO \$\$ BEGIN IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'test_user') THEN CREATE ROLE test_user LOGIN PASSWORD 'test_password'; END IF; END \$\$;"
 
-          echo "📦 Copying seed.sql into the TimescaleDB container..."
+      - name: 📦 Import seed.sql into TimescaleDB
+        if: ${{ github.event.inputs.testGroup != 'REGRESSION' }}
+        run: |
+          echo "📦 Copying and importing seed.sql..."
           docker cp tests/testdata/db-data/seed.sql veriflow_timescale:/seed.sql
-
-          echo "🚀 Importing seed.sql into TimescaleDB..."
           docker exec -i veriflow_timescale \
             psql -U admin -d veriflow_timescale -f /seed.sql
-
-      - name: 🧩 Enable TimescaleDB Extension
-        run: |
-          echo "🧬 Creating TimescaleDB extension inside veriflow_timescale..."
-          docker exec -i veriflow_timescale \
-            psql -U admin -d veriflow_timescale \
-            -c "CREATE EXTENSION IF NOT EXISTS timescaledb;"
 
       - name: 📸 Create TimescaleDB Snapshot (once after seeding)
         if: ${{ github.event.inputs.testGroup == 'REGRESSION' }}
         run: |
+          echo "📸 Creating snapshot after seeding..."
           docker exec veriflow_timescale \
             pg_dump -U admin -Fc veriflow_timescale -f /veriflow_snapshot.dump
           docker cp veriflow_timescale:/veriflow_snapshot.dump ./tests/testdata/
 
-      - name: 🔁 Restore TimescaleDB from Snapshot
+      - name: 🔁 Recreate DB and Restore TimescaleDB from Snapshot
         if: ${{ github.event.inputs.testGroup == 'REGRESSION' }}
         run: |
-          echo "Restoring TimescaleDB snapshot into veriflow_timescale..."
-          docker cp ./tests/testdata/veriflow_snapshot.dump veriflow_timescale:/snapshot.dump
+          echo "🧨 Dropping and recreating the database..."
           docker exec veriflow_timescale \
-            bash -c "pg_restore -U admin -d veriflow_timescale --clean --if-exists /snapshot.dump"
+            psql -U admin -d postgres -c "DROP DATABASE IF EXISTS veriflow_timescale;"
+          docker exec veriflow_timescale \
+            psql -U admin -d postgres -c "CREATE DATABASE veriflow_timescale;"
+
+          echo "🧬 Recreating TimescaleDB extension..."
+          docker exec veriflow_timescale \
+            psql -U admin -d veriflow_timescale \
+            -c "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;"
+
+          echo "📥 Copying snapshot into container..."
+          docker cp ./tests/testdata/veriflow_snapshot.dump veriflow_timescale:/snapshot.dump
+
+          echo "♻️ Restoring TimescaleDB snapshot..."
+          docker exec veriflow_timescale \
+            pg_restore -U admin -d veriflow_timescale --clean --if-exists /snapshot.dump
+
+      - name: 👤 Recreate test_user role (post-restore, if needed)
+        if: ${{ github.event.inputs.testGroup == 'REGRESSION' }}
+        run: |
+          docker exec veriflow_timescale \
+            psql -U admin -d veriflow_timescale \
+            -c "DO \$\$ BEGIN IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'test_user') THEN CREATE ROLE test_user LOGIN PASSWORD 'test_password'; END IF; END \$\$;"
       
       - name: 🧪 Run Playwright Tests on BrowserStack
         run: |
