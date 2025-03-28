@@ -189,8 +189,7 @@ jobs:
           --workers=${{ github.event.inputs.parallelRuns }} \
           $GREP"
     
-          echo "🧪 Running Playwright command:"
-          echo "$COMMAND"
+          echo "🧪 Running Playwright command: "echo "$COMMAND"
           
           eval $COMMAND    
 
