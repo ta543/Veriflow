@@ -129,11 +129,6 @@ jobs:
           docker exec veriflow_timescale \
             psql -U admin -d postgres -c "CREATE DATABASE veriflow_timescale;"
 
-          echo "🧬 Recreating TimescaleDB extension..."
-          docker exec veriflow_timescale \
-            psql -U admin -d veriflow_timescale \
-            -c "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;"
-
           echo "📥 Copying snapshot into container..."
           docker cp ./tests/testdata/veriflow_snapshot.dump veriflow_timescale:/snapshot.dump
 
