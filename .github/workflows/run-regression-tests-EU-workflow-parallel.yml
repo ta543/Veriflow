@@ -220,41 +220,141 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v4
         with:
-          ref: master
+          ref: main
 
-      - name: Download Allure results artifact
+      - name: "Download Allure Report results artifact"
         uses: actions/download-artifact@v4
         with:
           name: allure-results
           path: allure-results
 
-      - name: Checkout gh-pages branch
+      - name: "Load Allure Report history"
+        if: github.ref == 'refs/heads/master' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         uses: actions/checkout@v4
+        continue-on-error: true
         with:
           ref: gh-pages
           path: gh-pages
 
-      - name: Generate Allure report
+      - name: "Build Allure Report"
+        if: github.ref == 'refs/heads/master' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         uses: simple-elf/allure-report-action@master
         with:
           gh_pages: gh-pages
-          allure_history: gh-pages/last-history
+          allure_history: allure-history
           allure_results: allure-results
           keep_reports: 50
 
-      - name: Create versioned folder for this run
-        run: |
-          mkdir -p gh-pages/${{ github.run_number }}
-          cp -r gh-pages/last-history/* gh-pages/${{ github.run_number }}
-
-      - name: Create index.html redirect to latest run
-        run: |
-          echo "<!DOCTYPE html><html><head><meta http-equiv='refresh' content='0; url=${{ github.run_number }}/' /></head><body></body></html>" > gh-pages/index.html
-
-      - name: Publish to GitHub Pages
+      - name: "Publish Allure Report"
+        if: github.ref == 'refs/heads/master' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: gh-pages
           publish_branch: gh-pages
+          publish_dir: allure-history
           commit_message: "🤖Automated deployment of Allure Report | ${{ github.run_number }}"
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+      # - name: Download Allure results artifact
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: allure-results
+      #     path: allure-results
+
+      # - name: Checkout gh-pages branch
+      #   uses: actions/checkout@v4
+      #   with:
+      #     ref: gh-pages
+      #     path: gh-pages
+
+      # - name: Generate Allure report
+      #   uses: simple-elf/allure-report-action@master
+      #   with:
+      #     gh_pages: gh-pages
+      #     allure_history: gh-pages/last-history
+      #     allure_results: allure-results
+      #     keep_reports: 50
+
+      # - name: Create versioned folder for this run
+      #   run: |
+      #     mkdir -p gh-pages/${{ github.run_number }}
+      #     cp -r gh-pages/last-history/* gh-pages/${{ github.run_number }}
+
+      # - name: Create index.html redirect to latest run
+      #   run: |
+      #     echo "<!DOCTYPE html><html><head><meta http-equiv='refresh' content='0; url=${{ github.run_number }}/' /></head><body></body></html>" > gh-pages/index.html
+
+      # - name: Publish to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v4
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: gh-pages
+      #     publish_branch: gh-pages
+      #     commit_message: "🤖Automated deployment of Allure Report | ${{ github.run_number }}"
+
+
+
+
+
+      # - name: "Download Allure Report results artifact"
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: allure-results
+      #     path: allure-results
+
+      # - name: "Load Allure Report history"
+      #   if: github.ref == 'refs/heads/master' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+      #   uses: actions/checkout@v4
+      #   continue-on-error: true
+      #   with:
+      #     ref: gh-pages
+      #     path: gh-pages
+
+      # - name: "Build Allure Report"
+      #   if: github.ref == 'refs/heads/master' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+      #   uses: simple-elf/allure-report-action@master
+      #   with:
+      #     gh_pages: gh-pages
+      #     allure_history: allure-history
+      #     allure_results: allure-results
+      #     keep_reports: 50
+
+      # - name: "Publish Allure Report"
+      #   if: github.ref == 'refs/heads/master' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+      #   uses: peaceiris/actions-gh-pages@v4
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_branch: gh-pages
+      #     publish_dir: allure-history
+      #     commit_message: "🤖Automated deployment of Allure Report | ${{ github.run_number }}"
+
+
+
+
+
+
