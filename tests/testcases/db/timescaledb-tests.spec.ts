@@ -16,8 +16,38 @@ import TimescaleDBPage from '@TimescaleDBPage';
 */
 test.describe.configure({ mode: 'parallel' });
 
+let Timescale: typeof TimescaleDBPage;
+
 test.beforeAll(async () => {
   await TimescaleDBPage.connectToDatabase('veriflow_timescale', 'timescale');
+});
+
+test.beforeEach(async ({ page }, testInfo) => {
+  Timescale = withSteps(TimescaleDBPage, test.step, 'Timescale');
+
+  await page.evaluate((_name) => {
+    // @ts-ignore
+    window.browserstack_executor = {
+      action: 'setSessionName',
+      arguments: {
+        name: _name,
+      },
+    };
+  }, testInfo.title);
+});
+
+test.afterEach(async ({ page }, testInfo) => {
+  // ✅ Set pass/fail status in BrowserStack dashboard
+  await page.evaluate((_status) => {
+    // @ts-ignore
+    window.browserstack_executor = {
+      action: 'setSessionStatus',
+      arguments: {
+        status: _status,
+        reason: _status === 'passed' ? 'All assertions passed' : 'One or more assertions failed',
+      },
+    };
+  }, testInfo.status);
 });
 
 test.afterAll(async () => {
@@ -25,10 +55,6 @@ test.afterAll(async () => {
 });
 
 test.describe('TimescaleDB | DB', () => {
-  let Timescale: typeof TimescaleDBPage;
-  test.beforeEach(async () => {
-    Timescale = withSteps(TimescaleDBPage, test.step, 'Timescale');
-  });
   
   test('[TimescaleDB][DB][Regression] Verify Data Import', async () => {  
     setupAllure('timescaleDBVerifyDataImport');
@@ -158,5 +184,31 @@ test.describe('TimescaleDB | DB', () => {
     const isRunning = await Timescale.isContainerRunning(containerToRestart);
     console.log(`[Running Status] Container is running: ${isRunning}`);
     expect(isRunning).toBeTruthy();
+  });
+
+  const servers = ['server-001', 'server-002', 'server-003', 'server-004', 'server-005'];
+  for (const serverId of servers) {
+    test(`[TimescaleDB][DB][Anomaly][Regression] Detect high CPU usage anomaly for ${serverId}`, async () => {
+      setupAllure(`detectHighCPUAnomaly`);
+    
+      await Timescale.connectToDatabase('veriflow_timescale', 'timescale');
+      const rows = await Timescale.detectHighCPUAnomaly(serverId);
+
+      const anomalyDetected = rows.some(r => parseFloat(r.max_cpu) > 90);
+      expect(anomalyDetected).toBeTruthy();
+
+      console.log(`🔍 Aggregated CPU metrics for ${serverId}:`);
+      console.table(rows);
+    });
+  }
+  test('[TimescaleDB][DB][Regression] 7-Day Revenue Anomaly Detection', async () => {
+    setupAllure('revenueAnomalyDetection7Day');
+        
+    await Timescale.connectToDatabase('veriflow_timescale', 'timescale');
+    const rows = await Timescale.detect7DayRevenueAnomalies();
+    const anomalies = rows.filter(row => row.status === 'ANOMALY');
+
+    console.table(rows);
+    expect(anomalies.length).toBeGreaterThanOrEqual(1);
   });
 });

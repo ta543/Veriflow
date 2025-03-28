@@ -15,11 +15,35 @@ import * as AdminerPage from '@AdminerLoginPage';
 */
 test.describe.configure({ mode: 'parallel' });
 
+let Adminer: typeof AdminerPage;
+test.beforeEach(async ({ page }, testInfo) => {
+  Adminer = withSteps(AdminerPage, test.step, 'Adminer');
+  await page.evaluate((_name) => {
+    // @ts-ignore
+    window.browserstack_executor = {
+      action: 'setSessionName',
+      arguments: {
+        name: _name,
+      },
+    };
+  }, testInfo.title);  
+});
+
+test.afterEach(async ({ page }, testInfo) => {
+// ✅ Set pass/fail status in BrowserStack dashboard
+await page.evaluate((_status) => {
+  // @ts-ignore
+  window.browserstack_executor = {
+    action: 'setSessionStatus',
+    arguments: {
+      status: _status,
+      reason: _status === 'passed' ? 'All assertions passed' : 'One or more assertions failed',
+    },
+  };
+}, testInfo.status);
+});
+
 test.describe('Adminer', () => {
-  let Adminer: typeof AdminerPage;
-  test.beforeEach(async () => {
-    Adminer = withSteps(AdminerPage, test.step, 'Adminer');
-  });
 
   test('[Adminer][Onboarding][Smoke] Login on Adminer with Main TimescaleDB Credentials', async () => {
     setupAllure('adminerLoginTimescaleDBMain');
