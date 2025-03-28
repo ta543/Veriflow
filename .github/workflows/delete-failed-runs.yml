@@ -40,7 +40,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "🔍 Fetching failed and cancelled workflow runs..."
+          echo "🔍 Fetching failed workflow runs..."
           gh run list --limit 1000 --repo ta543/Veriflow --json databaseId,conclusion | \
-          jq -r '.[] | select(.conclusion == "failure" or .conclusion == "cancelled") | .databaseId' | \
+          jq -r '.[] | select(.conclusion == "failure") | .databaseId' | \
+          xargs -n1 -I {} gh run delete {} --repo ta543/Veriflow --confirm
+
+          echo "🔍 Fetching cancelled workflow runs..."
+          gh run list --limit 1000 --repo ta543/Veriflow --json databaseId,conclusion | \
+          jq -r '.[] | select(.conclusion == "cancelled") | .databaseId' | \
           xargs -n1 -I {} gh run delete {} --repo ta543/Veriflow --confirm
