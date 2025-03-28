@@ -1,0 +1,99 @@
+<div>POST to https://api.uat.circlek.com/eu/customer/identity/v2/registration/finalize</div>
+
+    <h4>Body</h4>
+    <div>
+    <pre class="preformated-text">
+{
+    &quot;userId&quot;: &quot;00uae9ir0uV3QU9u30x7&quot;,
+    &quot;otp&quot;: &quot;000000&quot;,
+    &quot;acceptedTerms&quot;: [
+        {
+            &quot;codeName&quot;: &quot;terms_gmap&quot;,
+            &quot;countryCode&quot;: &quot;se&quot;,
+            &quot;version&quot;: 178
+        },
+        {
+            &quot;codeName&quot;: &quot;terms_extra&quot;,
+            &quot;countryCode&quot;: &quot;se&quot;,
+            &quot;version&quot;: 56
+        }
+    ],
+    &quot;marketingPrefs&quot;: [
+        {
+            &quot;prefName&quot;: &quot;marketing_email&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        },
+        {
+            &quot;prefName&quot;: &quot;marketing_push&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        },
+        {
+            &quot;prefName&quot;: &quot;marketing_sms&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        },
+        {
+            &quot;prefName&quot;: &quot;marketing_survey&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        }
+    ],
+    &quot;loyalty&quot;: {
+        &quot;payload&quot;: {
+            &quot;enrollmentChannel&quot;: &quot;MOBILE&quot;
+        },
+        &quot;programName&quot;: &quot;EXTRA&quot;
+    }
+}    </pre>
+    </div>
+
+    <h4>Headers</h4>
+    <div>
+            <div>Accept: */*</div>
+            <div>Content-Type: application/json</div>
+    </div>
+
+
+
+    <h4>Curl</h4>
+    <div>
+        curl -v -X POST &#39;https://api.uat.circlek.com/eu/customer/identity/v2/registration/finalize&#39; -H &#39;Accept: */*&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;userId&quot;: &quot;00uae9ir0uV3QU9u30x7&quot;,
+    &quot;otp&quot;: &quot;000000&quot;,
+    &quot;acceptedTerms&quot;: [
+        {
+            &quot;codeName&quot;: &quot;terms_gmap&quot;,
+            &quot;countryCode&quot;: &quot;se&quot;,
+            &quot;version&quot;: 178
+        },
+        {
+            &quot;codeName&quot;: &quot;terms_extra&quot;,
+            &quot;countryCode&quot;: &quot;se&quot;,
+            &quot;version&quot;: 56
+        }
+    ],
+    &quot;marketingPrefs&quot;: [
+        {
+            &quot;prefName&quot;: &quot;marketing_email&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        },
+        {
+            &quot;prefName&quot;: &quot;marketing_push&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        },
+        {
+            &quot;prefName&quot;: &quot;marketing_sms&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        },
+        {
+            &quot;prefName&quot;: &quot;marketing_survey&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        }
+    ],
+    &quot;loyalty&quot;: {
+        &quot;payload&quot;: {
+            &quot;enrollmentChannel&quot;: &quot;MOBILE&quot;
+        },
+        &quot;programName&quot;: &quot;EXTRA&quot;
+    }
+}&#39;
+    </div>
+

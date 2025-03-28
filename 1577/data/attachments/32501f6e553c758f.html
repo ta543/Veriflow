@@ -1,0 +1,119 @@
+<div>POST to https://api.uat.circlek.com/eu/customer/identity/v2/registration/finalize</div>
+
+    <h4>Body</h4>
+    <div>
+    <pre class="preformated-text">
+{
+    &quot;userId&quot;: &quot;00uae9h0ea80pmsqh0x7&quot;,
+    &quot;otp&quot;: &quot;000000&quot;,
+    &quot;acceptedTerms&quot;: [
+        {
+            &quot;codeName&quot;: &quot;terms_forecourt&quot;,
+            &quot;countryCode&quot;: &quot;se&quot;,
+            &quot;version&quot;: 172
+        },
+        {
+            &quot;codeName&quot;: &quot;terms_ingo&quot;,
+            &quot;countryCode&quot;: &quot;se&quot;,
+            &quot;version&quot;: 241
+        },
+        {
+            &quot;codeName&quot;: &quot;terms_of_use_ingo&quot;,
+            &quot;countryCode&quot;: &quot;se&quot;,
+            &quot;version&quot;: 242
+        },
+        {
+            &quot;codeName&quot;: &quot;privacy_statement_ingo&quot;,
+            &quot;countryCode&quot;: &quot;se&quot;,
+            &quot;version&quot;: 244
+        }
+    ],
+    &quot;marketingPrefs&quot;: [
+        {
+            &quot;prefName&quot;: &quot;marketing_email_ingo&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        },
+        {
+            &quot;prefName&quot;: &quot;marketing_push_ingo&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        },
+        {
+            &quot;prefName&quot;: &quot;marketing_sms_ingo&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        },
+        {
+            &quot;prefName&quot;: &quot;marketing_survey_ingo&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        }
+    ],
+    &quot;loyalty&quot;: {
+        &quot;payload&quot;: {
+            &quot;enrollmentChannel&quot;: &quot;MOBILE&quot;
+        },
+        &quot;programName&quot;: &quot;INGO&quot;
+    }
+}    </pre>
+    </div>
+
+    <h4>Headers</h4>
+    <div>
+            <div>Accept: */*</div>
+            <div>Content-Type: application/json</div>
+    </div>
+
+
+
+    <h4>Curl</h4>
+    <div>
+        curl -v -X POST &#39;https://api.uat.circlek.com/eu/customer/identity/v2/registration/finalize&#39; -H &#39;Accept: */*&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;userId&quot;: &quot;00uae9h0ea80pmsqh0x7&quot;,
+    &quot;otp&quot;: &quot;000000&quot;,
+    &quot;acceptedTerms&quot;: [
+        {
+            &quot;codeName&quot;: &quot;terms_forecourt&quot;,
+            &quot;countryCode&quot;: &quot;se&quot;,
+            &quot;version&quot;: 172
+        },
+        {
+            &quot;codeName&quot;: &quot;terms_ingo&quot;,
+            &quot;countryCode&quot;: &quot;se&quot;,
+            &quot;version&quot;: 241
+        },
+        {
+            &quot;codeName&quot;: &quot;terms_of_use_ingo&quot;,
+            &quot;countryCode&quot;: &quot;se&quot;,
+            &quot;version&quot;: 242
+        },
+        {
+            &quot;codeName&quot;: &quot;privacy_statement_ingo&quot;,
+            &quot;countryCode&quot;: &quot;se&quot;,
+            &quot;version&quot;: 244
+        }
+    ],
+    &quot;marketingPrefs&quot;: [
+        {
+            &quot;prefName&quot;: &quot;marketing_email_ingo&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        },
+        {
+            &quot;prefName&quot;: &quot;marketing_push_ingo&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        },
+        {
+            &quot;prefName&quot;: &quot;marketing_sms_ingo&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        },
+        {
+            &quot;prefName&quot;: &quot;marketing_survey_ingo&quot;,
+            &quot;status&quot;: &quot;ACCEPTED&quot;
+        }
+    ],
+    &quot;loyalty&quot;: {
+        &quot;payload&quot;: {
+            &quot;enrollmentChannel&quot;: &quot;MOBILE&quot;
+        },
+        &quot;programName&quot;: &quot;INGO&quot;
+    }
+}&#39;
+    </div>
+

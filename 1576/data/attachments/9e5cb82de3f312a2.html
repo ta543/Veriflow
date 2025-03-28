@@ -1,0 +1,47 @@
+<div>POST to https://api.uat.circlek.com/eu/ngrp-carwash-eu/v1/subscription/create</div>
+
+    <h4>Body</h4>
+    <div>
+    <pre class="preformated-text">
+{
+    &quot;cardToken&quot;: &quot;HZJJB7DFFT6TD3V5&quot;,
+    &quot;pspSelector&quot;: &quot;ADYEN&quot;,
+    &quot;registrationNumber&quot;: &quot;SE29T6N5&quot;,
+    &quot;region&quot;: &quot;SE&quot;,
+    &quot;returnUrl&quot;: &quot;foo/bar/&quot;,
+    &quot;subscriptionPlan&quot;: {
+        &quot;currency&quot;: &quot;SEK&quot;,
+        &quot;id&quot;: &quot;118506&quot;,
+        &quot;price&quot;: &quot;299.00&quot;
+    }
+}    </pre>
+    </div>
+
+    <h4>Headers</h4>
+    <div>
+            <div>Accept: */*</div>
+            <div>X-App-Name: GMAP_B2C</div>
+            <div>X-App-Platform: IOS</div>
+            <div>X-Mobile-Device-Id: zxMfF01w</div>
+            <div>X-App-Version: null</div>
+            <div>Content-Type: application/json</div>
+    </div>
+
+
+
+    <h4>Curl</h4>
+    <div>
+        curl -v -X POST &#39;https://api.uat.circlek.com/eu/ngrp-carwash-eu/v1/subscription/create&#39; -H &#39;Accept: */*&#39; -H &#39;X-App-Name: GMAP_B2C&#39; -H &#39;X-App-Platform: IOS&#39; -H &#39;X-Mobile-Device-Id: zxMfF01w&#39; -H &#39;X-App-Version: null&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;cardToken&quot;: &quot;HZJJB7DFFT6TD3V5&quot;,
+    &quot;pspSelector&quot;: &quot;ADYEN&quot;,
+    &quot;registrationNumber&quot;: &quot;SE29T6N5&quot;,
+    &quot;region&quot;: &quot;SE&quot;,
+    &quot;returnUrl&quot;: &quot;foo/bar/&quot;,
+    &quot;subscriptionPlan&quot;: {
+        &quot;currency&quot;: &quot;SEK&quot;,
+        &quot;id&quot;: &quot;118506&quot;,
+        &quot;price&quot;: &quot;299.00&quot;
+    }
+}&#39;
+    </div>
+

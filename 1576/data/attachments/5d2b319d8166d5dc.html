@@ -1,0 +1,35 @@
+<div>POST to https://api.uat.circlek.com/eu/customer/identity/v2/registration</div>
+
+    <h4>Body</h4>
+    <div>
+    <pre class="preformated-text">
+{
+    &quot;email&quot;: &quot;janusz.nowicki@ddovxgu.com&quot;,
+    &quot;password&quot;: &quot;#Test123&quot;,
+    &quot;phoneNumber&quot;: &quot;+48781297000&quot;,
+    &quot;firstName&quot;: &quot;Janusz&quot;,
+    &quot;lastName&quot;: &quot;Nowicki&quot;,
+    &quot;countryCode&quot;: &quot;no&quot;
+}    </pre>
+    </div>
+
+    <h4>Headers</h4>
+    <div>
+            <div>Accept: */*</div>
+            <div>Content-Type: application/json</div>
+    </div>
+
+
+
+    <h4>Curl</h4>
+    <div>
+        curl -v -X POST &#39;https://api.uat.circlek.com/eu/customer/identity/v2/registration&#39; -H &#39;Accept: */*&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;email&quot;: &quot;janusz.nowicki@ddovxgu.com&quot;,
+    &quot;password&quot;: &quot;#Test123&quot;,
+    &quot;phoneNumber&quot;: &quot;+48781297000&quot;,
+    &quot;firstName&quot;: &quot;Janusz&quot;,
+    &quot;lastName&quot;: &quot;Nowicki&quot;,
+    &quot;countryCode&quot;: &quot;no&quot;
+}&#39;
+    </div>
+
