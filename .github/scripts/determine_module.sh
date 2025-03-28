@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash ##
 
 # This script is intended to be used in GitHub Actions workflow.
 # It sets environment variables based on the type of event that triggered the workflow - `schedule` or `workflow_dispatch`
