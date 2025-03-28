@@ -125,14 +125,18 @@ jobs:
           docker cp ./tests/testdata/veriflow_snapshot.dump veriflow_timescale:/snapshot.dump
           docker exec veriflow_timescale \
             bash -c "pg_restore -U admin -d veriflow_timescale --clean --if-exists /snapshot.dump"
-
-      - name: 🕒 Log Workflow Start Time in CET
-        run: |
-          echo "🕒 Workflow triggered at:"
-          TZ="Europe/Stockholm" date +"%Y-%m-%d %H:%M:%S %Z"      
       
       - name: 🧪 Run Playwright Tests on BrowserStack
         run: |
+          echo "🕒 Workflow triggered at:"
+          TZ="Europe/Stockholm" date +"%Y-%m-%d %H:%M:%S %Z"      
+          echo "🔧 Selected Workflow Inputs:"
+          echo "🌍 Environment:         ${{ github.event.inputs.appEnvironment }}"
+          echo "🧪 Test Group:          ${{ github.event.inputs.testGroup }}"
+          echo "🧭 Browser:             ${{ github.event.inputs.browserConfig }}"
+          echo "🧵 Parallel Threads:    ${{ github.event.inputs.parallelRuns }}"
+          echo "🔔 Slack Reporting:     ${{ github.event.inputs.enableSlackReport }}"
+    
           mkdir -p test-results/
 
           TEST_GROUP=$(echo "${{ github.event.inputs.testGroup }}" | tr '[:upper:]' '[:lower:]')
@@ -222,9 +226,3 @@ jobs:
           publish_dir: gh-pages
           publish_branch: gh-pages
           commit_message: "🤖Automated deployment of Allure Report | ${{ github.run_number }}"
-
-
-
-
-
-
