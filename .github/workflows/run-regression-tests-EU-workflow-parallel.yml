@@ -82,16 +82,20 @@ jobs:
 
       - name: 🕓 Wait for Adminer to become ready
         run: |
-          echo "⏳ Waiting for Adminer on port 8081..."
+          echo "⏳ Waiting for Adminer to be reachable at http://localhost:8081 ..."
           for i in {1..30}; do
             if curl -s http://localhost:8081 > /dev/null; then
-              echo "✅ Adminer is up!"
-              break
+              echo "✅ Adminer is up and running!"
+              exit 0
             fi
-            echo "⌛ Still waiting for Adminer..."
+            echo "⌛ Adminer not ready yet... retrying in 2s [$i/30]"
             sleep 2
-          done          
-        
+          done
+      
+          echo "❌ Adminer did not become ready in time!" >&2
+          docker logs $(docker ps -q --filter "ancestor=adminer") || true
+          exit 1
+                  
       - name: 📡 Download BrowserStack Local Binary
         run: |
           curl -L "https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip" -o bslocal.zip
@@ -157,8 +161,7 @@ jobs:
       
       - name: 🧪 Run Playwright Tests on BrowserStack
         run: |
-          echo "🕒 Workflow triggered at:"
-          TZ="Europe/Stockholm" date +"%Y-%m-%d %H:%M:%S %Z"      
+          echo "🕒 Workflow triggered at:"TZ="Europe/Stockholm" date +"%Y-%m-%d %H:%M:%S %Z"      
           echo "🔧 Selected Workflow Inputs:"
           echo "🌍 Environment:         ${{ github.event.inputs.appEnvironment }}"
           echo "🧪 Test Group:          ${{ github.event.inputs.testGroup }}"
@@ -177,8 +180,6 @@ jobs:
           else
             GREP=""
           fi
-
-          echo "🧪 Running Playwright tests with: $GREP"
 
           COMMAND="npx playwright test tests/testcases/ \
           --project=BrowserStack \
