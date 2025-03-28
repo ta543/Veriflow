@@ -19,6 +19,32 @@ import * as BrokenLinksPage from '@PracticeAutomationBrokenLinksPage';
 */
 test.describe.configure({ mode: 'parallel' });
 
+test.beforeEach(async ({ page }, testInfo) => {
+  await page.evaluate((_name) => {
+    // @ts-ignore
+    window.browserstack_executor = {
+      action: 'setSessionName',
+      arguments: {
+        name: _name,
+      },
+    };
+  }, testInfo.title);
+});
+
+test.afterEach(async ({ page }, testInfo) => {
+  // ✅ Set pass/fail status in BrowserStack dashboard
+  await page.evaluate((_status) => {
+    // @ts-ignore
+    window.browserstack_executor = {
+      action: 'setSessionStatus',
+      arguments: {
+        status: _status,
+        reason: _status === 'passed' ? 'All assertions passed' : 'One or more assertions failed',
+      },
+    };
+  }, testInfo.status);
+});
+
 test.describe('Practice Automation | E2E', () => {
   
   test('[PracticeAutomation][E2E][Regression] Navigate to Form Fields page', async () => {

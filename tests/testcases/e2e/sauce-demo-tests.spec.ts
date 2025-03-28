@@ -16,8 +16,31 @@ import * as ProductsPage from '@SauceDemoProductsPage';
 */
 test.describe.configure({ mode: 'parallel' });
 
-test.beforeEach('Navigating to Home Page', async () => {
+test.beforeEach('Navigating to Home Page', async ({ page }, testInfo) => {
   await LoginPage.navigateToSauceDemoLoginPage();
+  await page.evaluate((_name) => {
+    // @ts-ignore
+    window.browserstack_executor = {
+      action: 'setSessionName',
+      arguments: {
+        name: _name,
+      },
+    };
+  }, testInfo.title);
+});
+
+test.afterEach(async ({ page }, testInfo) => {
+  // ✅ Set pass/fail status in BrowserStack dashboard
+  await page.evaluate((_status) => {
+    // @ts-ignore
+    window.browserstack_executor = {
+      action: 'setSessionStatus',
+      arguments: {
+        status: _status,
+        reason: _status === 'passed' ? 'All assertions passed' : 'One or more assertions failed',
+      },
+    };
+  }, testInfo.status);
 });
 
 test.describe('SauceDemo | E2E', () => {

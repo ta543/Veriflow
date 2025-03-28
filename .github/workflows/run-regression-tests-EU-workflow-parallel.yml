@@ -179,32 +179,52 @@ jobs:
   publish-report:
     needs: test
     runs-on: ubuntu-latest
-    name: '📤 Publish Allure Report to GitHub Pages'
+    name: "Generate Allure Report📊"
     steps:
-      - name: 📥 Checkout source
+      - name: Checkout main branch
         uses: actions/checkout@v4
+        with:
+          ref: master
 
-      - name: 📥 Download Allure Report artifact
+      - name: Download Allure results artifact
         uses: actions/download-artifact@v4
         with:
-          name: allure-report
-          path: allure-report/
+          name: allure-results
+          path: allure-results
 
-      - name: 🚀 Deploy Allure Report to gh-pages
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Generate Allure report
+        uses: simple-elf/allure-report-action@master
+        with:
+          gh_pages: gh-pages
+          allure_history: gh-pages/last-history
+          allure_results: allure-results
+          keep_reports: 50
+
+      - name: Create versioned folder for this run
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          mkdir -p gh-pages/${{ github.run_number }}
+          cp -r gh-pages/last-history/* gh-pages/${{ github.run_number }}
 
-          git clone --depth 1 --branch gh-pages https://github.com/${{ github.repository }} gh-pages-temp
+      - name: Create index.html redirect to latest run
+        run: |
+          echo "<!DOCTYPE html><html><head><meta http-equiv='refresh' content='0; url=${{ github.run_number }}/' /></head><body></body></html>" > gh-pages/index.html
 
-          rm -rf gh-pages-temp/*
-          cp -r allure-report/* gh-pages-temp/
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: gh-pages
+          publish_branch: gh-pages
+          commit_message: "🤖Automated deployment of Allure Report | ${{ github.run_number }}"
 
-          touch gh-pages-temp/.nojekyll
-          echo "www.tobiasa.com" > gh-pages-temp/CNAME
 
-          cd gh-pages-temp
-          git add .
-          git commit -m "📊 Update Allure report for run ${{ github.run_number }}" || echo "Nothing to commit"
-          git push origin gh-pages
-    
+
+
+
+
