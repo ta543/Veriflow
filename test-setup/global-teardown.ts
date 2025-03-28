@@ -23,7 +23,13 @@ async function globalTeardown() {
     await execAsync(`bash ${generateAllureMetadata}`);
     await execAsync(`bash ${prepareAllure}`);
   
-    const reportUrl = await getAllureReportUrl();
+    // const reportUrl = await getAllureReportUrl();
+  // await notifySlackWithResults(reportUrl);
+  
+    const cliArgs = process.argv.slice(2);
+    const reportUrlFromCI = cliArgs[0];
+    
+    const reportUrl = reportUrlFromCI || await getAllureReportUrl();
     await notifySlackWithResults(reportUrl);
   }
 
