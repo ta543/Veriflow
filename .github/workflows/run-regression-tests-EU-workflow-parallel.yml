@@ -4,7 +4,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: false
 
-run-name: "👷🚧 Regression Tests ${{ github.run_number }} | Env: ${{ github.event.inputs.appEnvironment || 'UAT' }} | Threads: ${{ github.event.inputs.parallelRuns }}"
+run-name: "👷🚧 Regression Tests [#${{ github.run_number }}] | Env: ${{ github.event.inputs.appEnvironment || 'UAT' }} | Threads: ${{ github.event.inputs.parallelRuns }}"
 
 on:
   workflow_dispatch:
