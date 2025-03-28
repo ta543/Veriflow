@@ -46,7 +46,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: 'Run Playwright Tests via BrowserStack Local Tunnel'
+    name: 'VeriFlow | Regression Tests [Multiple Threads]'
 
     env:
       BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
