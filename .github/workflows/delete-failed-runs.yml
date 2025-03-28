@@ -11,6 +11,8 @@ permissions:
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'  # Runs at 4 AM CET / 3 AM UTC every day  
 
 jobs:
   delete-failed-and-cancelled-runs:

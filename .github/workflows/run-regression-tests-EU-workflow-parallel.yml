@@ -163,7 +163,8 @@ jobs:
       - name: 🧪 Run Playwright Tests on BrowserStack
         run: |
           echo "🕒 Workflow triggered at:
-          "TZ="Europe/Stockholm" date +"%Y-%m-%d %H:%M:%S %Z"      
+          "TZ="Europe/Stockholm" date +"%Y-%m-%d %H:%M:%S %Z"
+          
           echo "🔧 Selected Workflow Inputs:"
           echo "🌍 Environment:         ${{ github.event.inputs.appEnvironment }}"
           echo "🧪 Test Group:          ${{ github.event.inputs.testGroup }}"
@@ -278,7 +279,7 @@ jobs:
 
 
 
-          
+
 
       # - name: Download Allure results artifact
       #   uses: actions/download-artifact@v4
