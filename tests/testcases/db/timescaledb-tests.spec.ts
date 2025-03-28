@@ -16,8 +16,24 @@ import TimescaleDBPage from '@TimescaleDBPage';
 */
 test.describe.configure({ mode: 'parallel' });
 
+let Timescale: typeof TimescaleDBPage;
+
 test.beforeAll(async () => {
   await TimescaleDBPage.connectToDatabase('veriflow_timescale', 'timescale');
+});
+
+test.beforeEach(async ({ page }, testInfo) => {
+  Timescale = withSteps(TimescaleDBPage, test.step, 'Timescale');
+
+  await page.evaluate((_name) => {
+    // @ts-ignore
+    window.browserstack_executor = {
+      action: 'setSessionName',
+      arguments: {
+        name: _name,
+      },
+    };
+  }, testInfo.title);
 });
 
 test.afterAll(async () => {
@@ -25,20 +41,6 @@ test.afterAll(async () => {
 });
 
 test.describe('TimescaleDB | DB', () => {
-  let Timescale: typeof TimescaleDBPage;
-  test.beforeEach(async ({ page }, testInfo) => {
-    Timescale = withSteps(TimescaleDBPage, test.step, 'Timescale');
-
-    await page.evaluate((_name) => {
-      // @ts-ignore
-      window.browserstack_executor = {
-        action: 'setSessionName',
-        arguments: {
-          name: _name,
-        },
-      };
-    }, testInfo.title);
-  });
   
   test('[TimescaleDB][DB][Regression] Verify Data Import', async () => {  
     setupAllure('timescaleDBVerifyDataImport');
