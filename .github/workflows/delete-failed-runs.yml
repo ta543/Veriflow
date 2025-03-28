@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  delete-failed-runs:
+  delete-failed-and-cancelled-runs:
     runs-on: ubuntu-latest
     name: 'VeriFlow | Delete Runs 🗑️'
 
@@ -36,11 +36,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh auth setup-git
 
-      - name: 🗑️ Delete all failed workflow runs
+      - name: 🗑️ Delete failed and cancelled workflow runs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "🔍 Fetching failed workflow runs..."
+          echo "🔍 Fetching failed and cancelled workflow runs..."
           gh run list --limit 1000 --repo ta543/Veriflow --json databaseId,conclusion | \
-          jq -r '.[] | select(.conclusion == "failure") | .databaseId' | \
+          jq -r '.[] | select(.conclusion == "failure" or .conclusion == "cancelled") | .databaseId' | \
           xargs -n1 -I {} gh run delete {} --repo ta543/Veriflow --confirm
