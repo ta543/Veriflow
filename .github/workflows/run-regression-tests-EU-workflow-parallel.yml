@@ -79,6 +79,18 @@ jobs:
             echo "🔄 Waiting for $container..."
             docker exec $container bash -c "until pg_isready -U admin; do sleep 1; done"
           done
+
+      - name: 🕓 Wait for Adminer to become ready
+        run: |
+          echo "⏳ Waiting for Adminer on port 8081..."
+          for i in {1..30}; do
+            if curl -s http://localhost:8081 > /dev/null; then
+              echo "✅ Adminer is up!"
+              break
+            fi
+            echo "⌛ Still waiting for Adminer..."
+            sleep 2
+          done          
         
       - name: 📡 Download BrowserStack Local Binary
         run: |
