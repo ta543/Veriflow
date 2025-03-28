@@ -58,7 +58,7 @@ services:
     container_name: veriflow_adminer
     restart: always
     ports:
-      - "8081:8080"
+      - "3000:8080"
 
 volumes:
   veriflow_timescale_data:

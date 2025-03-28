@@ -27,7 +27,7 @@ const sqlEditor = () => getLocator('pre');
  */
 export async function loginToAdminerDB(dbType: 'timescale' | 'postgres', dbName: string) {
   const baseUrl =
-    process.env.USE_BS_LOCAL === 'true' ? 'http://bs-local.com:8081' : 'http://localhost:8081';
+    process.env.USE_BS_LOCAL === 'true' ? 'http://bs-local.com:3000' : 'http://localhost:3000';
 
   const credentials = AdminerLoginTestData[dbName];
   if (!credentials) {
