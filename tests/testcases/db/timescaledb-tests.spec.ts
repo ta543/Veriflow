@@ -36,6 +36,20 @@ test.beforeEach(async ({ page }, testInfo) => {
   }, testInfo.title);
 });
 
+test.afterEach(async ({ page }, testInfo) => {
+  // ✅ Set pass/fail status in BrowserStack dashboard
+  await page.evaluate((_status) => {
+    // @ts-ignore
+    window.browserstack_executor = {
+      action: 'setSessionStatus',
+      arguments: {
+        status: _status,
+        reason: _status === 'passed' ? 'All assertions passed' : 'One or more assertions failed',
+      },
+    };
+  }, testInfo.status);
+});
+
 test.afterAll(async () => {
   await DBManager.disconnect();
 });
