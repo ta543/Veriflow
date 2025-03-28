@@ -43,9 +43,9 @@ jobs:
           echo "🔍 Fetching failed workflow runs..."
           gh run list --limit 1000 --repo ta543/Veriflow --json databaseId,conclusion | \
           jq -r '.[] | select(.conclusion == "failure") | .databaseId' | \
-          xargs -n1 -I {} gh run delete {} --repo ta543/Veriflow --confirm
+          xargs -n1 -I {} sh -c "yes | gh run delete {} --repo ta543/Veriflow"
 
-          echo "🔍 Fetching cancelled workflow runs..."
+          echo "🔍 Fetching failed workflow runs..."
           gh run list --limit 1000 --repo ta543/Veriflow --json databaseId,conclusion | \
           jq -r '.[] | select(.conclusion == "cancelled") | .databaseId' | \
-          xargs -n1 -I {} gh run delete {} --repo ta543/Veriflow --confirm
+          xargs -n1 -I {} sh -c "yes | gh run delete {} --repo ta543/Veriflow"
