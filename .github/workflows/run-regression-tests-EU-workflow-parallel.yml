@@ -24,17 +24,25 @@ on:
         options:
           - 'UAT'
           - 'QA'
+      browserConfig:
+        description: 'Select Browser'
+        required: true
+        type: choice
+        options:
+          - 'chrome'
+          - 'firefox'
+          - 'edge'
+          - 'safari'
       parallelRuns:
         description: 'Number of Parallel Threads'
         required: true
-        default: '5'
+        default: '1'
         type: string
       enableSlackReport:
         description: 'Enable Slack Notifications'
         required: true
         default: false
         type: boolean
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -117,6 +125,11 @@ jobs:
           docker cp ./tests/testdata/veriflow_snapshot.dump veriflow_timescale:/snapshot.dump
           docker exec veriflow_timescale \
             bash -c "pg_restore -U admin -d veriflow_timescale --clean --if-exists /snapshot.dump"
+
+      - name: 🕒 Log Workflow Start Time in CET
+        run: |
+          echo "🕒 Workflow triggered at:"
+          TZ="Europe/Stockholm" date +"%Y-%m-%d %H:%M:%S %Z"      
       
       - name: 🧪 Run Playwright Tests on BrowserStack
         run: |

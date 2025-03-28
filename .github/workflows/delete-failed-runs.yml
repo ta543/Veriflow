@@ -1,6 +1,6 @@
 name: VeriFlow | Delete Runs
 
-run-name: '🗑️[#${{ github.run_number }}][VeriFlow Cleanup] Manual Run by ${{ github.actor }}'
+run-name: '🗑️[#${{ github.run_number }}][VeriFlow Cleanup]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
