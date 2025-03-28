@@ -82,9 +82,9 @@ jobs:
 
       - name: 🕓 Wait for Adminer to become ready
         run: |
-          echo "⏳ Waiting for Adminer to be reachable at http://localhost:8081 ..."
+          echo "⏳ Waiting for Adminer to be reachable at http://localhost:3000 ..."
           for i in {1..30}; do
-            if curl -s http://localhost:8081 > /dev/null; then
+            if curl -s http://localhost:3000 > /dev/null; then
               echo "✅ Adminer is up and running!"
               exit 0
             fi

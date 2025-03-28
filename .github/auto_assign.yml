@@ -2,6 +2,7 @@ addReviewers: true
 addAssignees: author
 reviewers:
   - ta543
+  - chappyqa
 numberOfReviewers: 0
 filterLabels:
   exclude:
