@@ -7,6 +7,8 @@ concurrency:
 run-name: "👷🚧 Regression Tests [#${{ github.run_number }}] | Env: ${{ github.event.inputs.appEnvironment || 'UAT' }} | Threads: ${{ github.event.inputs.parallelRuns }}"
 
 on:
+  schedule:
+    - cron: '0 2 * * *'  # Run daily at 2 AM UTC  
   workflow_dispatch:
     inputs:
       testGroup:
