@@ -50,7 +50,7 @@ export default defineConfig({
    * The number of worker threads to use for running tests. This is set to a different value on CI.
    * See https://playwright.dev/docs/api/class-testconfig#testconfig-workers
    */
-  workers: process.env.CI ? 1 : 10,
+  workers: process.env.CI ? 1 : 5,
   /*  Note: Add allure-playwright report */
   /**
    * The reporter to use. This can be set to use a different value on CI.
@@ -138,51 +138,49 @@ export default defineConfig({
         },
       },
     },
-    
-    /*
 
-    {
-      name: 'firefox',
-      use: {
-        ...devices['Desktop Firefox'],
-        viewport: { width: 1600, height: 1000 },
-        launchOptions: {
-          firefoxUserPrefs: {
-            'browser.cache.disk.enable': false,
-            'browser.cache.memory.enable': false,
-          },
-        },
-      },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //     viewport: { width: 1600, height: 1000 },
+    //     launchOptions: {
+    //       firefoxUserPrefs: {
+    //         'browser.cache.disk.enable': false,
+    //         'browser.cache.memory.enable': false,
+    //       },
+    //     },
+    //   },
+    // },
 
-    {
-      name: 'webkit',
-      use: {
-        ...devices['Desktop Safari'],
-        viewport: { width: 1600, height: 1000 },
-      },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: {
+    //     ...devices['Desktop Safari'],
+    //     viewport: { width: 1600, height: 1000 },
+    //   },
+    // },
 
-    // Test against mobile viewports.
-    {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
-    },
-    {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
-    },
+    // // Test against branded browsers.
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    // },
+    // {
+    //   name: 'Google Chrome',
+    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+    // },
 
-    // Test against branded browsers.
-    {
-      name: 'Microsoft Edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    },
-    {
-      name: 'Google Chrome',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    },
- */
+    // // Test against mobile viewports.
+    // {
+    //   name: 'Mobile Chrome',
+    //   use: { ...devices['Pixel 5'] },
+    // },
+    // {
+    //   name: 'Mobile Safari',
+    //   use: { ...devices['iPhone 12'] },
+    // },
+
   ],
 
   /**
