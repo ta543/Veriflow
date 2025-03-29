@@ -1,10 +1,10 @@
-name: VeriFlow | Regression Tests [Multiple Threads]
+name: VeriFlow | Run File Tests
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: false
 
-run-name: "👷🚧 Regression Tests [#${{ github.run_number }}] | Env: ${{ github.event.inputs.appEnvironment || 'UAT' }} | Threads: ${{ github.event.inputs.parallelRuns }}"
+run-name: "👷🚧 Run File Tests [#${{ github.run_number }}] | Env: ${{ github.event.inputs.appEnvironment || 'UAT' }} | Threads: ${{ github.event.inputs.parallelRuns }}"
 
 on:
   workflow_dispatch:
@@ -17,6 +17,17 @@ on:
           - 'ALL'
           - 'REGRESSION'
           - 'SMOKE'
+      testFile:
+        description: 'Select Test File to Run'
+        required: true
+        type: choice
+        options:
+          - 'ExpandTesting | E2E - /tests/testcases/e2e/expandtesting-tests.spec.ts'
+          - 'The Internet | E2E - /tests/testcases/e2e/the-internet-tests.spec.ts'
+          - 'SauceDemo | E2E - /tests/testcases/e2e/sauce-demo-tests.spec.ts'
+          - 'Practice Automation | E2E - /tests/testcases/e2e/practise-automation-tests.spec.ts'
+          - 'TimescaleDB | DB - /tests/testcases/db/timescaledb-tests.spec.ts'
+          - 'Adminer - /tests/testcases/db/adminer-tests.spec.ts'
       appEnvironment:
         description: 'Select Test Environment'
         required: true
