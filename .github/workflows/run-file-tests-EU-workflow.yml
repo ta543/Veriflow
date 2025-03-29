@@ -22,12 +22,12 @@ on:
         required: true
         type: choice
         options:
-          - 'ExpandTesting | E2E - /tests/testcases/e2e/expandtesting-tests.spec.ts'
-          - 'The Internet | E2E - /tests/testcases/e2e/the-internet-tests.spec.ts'
-          - 'SauceDemo | E2E - /tests/testcases/e2e/sauce-demo-tests.spec.ts'
-          - 'Practice Automation | E2E - /tests/testcases/e2e/practise-automation-tests.spec.ts'
-          - 'TimescaleDB | DB - /tests/testcases/db/timescaledb-tests.spec.ts'
-          - 'Adminer - /tests/testcases/db/adminer-tests.spec.ts'
+          - 'ExpandTesting | E2E'
+          - 'The Internet | E2E'
+          - 'SauceDemo | E2E'
+          - 'Practice Automation | E2E'
+          - 'TimescaleDB | DB'
+          - 'Adminer'
       appEnvironment:
         description: 'Select Test Environment'
         required: true
