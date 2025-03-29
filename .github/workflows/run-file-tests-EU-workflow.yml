@@ -139,22 +139,22 @@ jobs:
 
           # Map test file keyword to actual path
           case "${{ github.event.inputs.testFile }}" in
-            expand)
+            ExpandTesting | E2E)
               FILE_PATH="tests/testcases/e2e/expandtesting-tests.spec.ts"
               ;;
-            internet)
+            The Internet | E2E)
               FILE_PATH="tests/testcases/e2e/the-internet-tests.spec.ts"
               ;;
-            sauce)
+            SauceDemo | E2E)
               FILE_PATH="tests/testcases/e2e/sauce-demo-tests.spec.ts"
               ;;
-            practice)
+            Practice Automation | E2E)
               FILE_PATH="tests/testcases/e2e/practise-automation-tests.spec.ts"
               ;;
-            timescale)
+            TimescaleDB | DB)
               FILE_PATH="tests/testcases/db/timescaledb-tests.spec.ts"
               ;;
-            adminer)
+            Adminer)
               FILE_PATH="tests/testcases/db/adminer-tests.spec.ts"
               ;;
             *)
