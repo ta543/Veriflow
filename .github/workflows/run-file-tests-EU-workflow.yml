@@ -48,6 +48,136 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    name: 'VeriFlow | Run File Tests'
+
+    env:
+      BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+      BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+      USE_BS_LOCAL: 'true'
+
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: ✅ Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose version      
+
+      - name: 🐳 Start TimescaleDB via Docker Compose
+        run: docker-compose -f docker-compose.yml up -d
+
+      - name: 🕓 Wait for TimescaleDB to become ready
+        run: |
+          for container in veriflow_timescale veriflow_test_1 veriflow_test_2; do
+            echo "🔄 Waiting for $container..."
+            docker exec $container bash -c "until pg_isready -U admin; do sleep 1; done"
+          done
+
+      - name: 🕓 Wait for Adminer to become ready
+        run: |
+          echo "⏳ Waiting for Adminer to be reachable at http://localhost:3000 ..."
+          for i in {1..30}; do
+            if curl -s http://localhost:3000 > /dev/null; then
+              echo "✅ Adminer is up and running!"
+              exit 0
+            fi
+            echo "⌛ Adminer not ready yet... retrying in 2s [$i/30]"
+            sleep 2
+          done
+      
+          echo "❌ Adminer did not become ready in time!" >&2
+          docker logs $(docker ps -q --filter "ancestor=adminer") || true
+          exit 1
+                  
+      - name: 📡 Download BrowserStack Local Binary
+        run: |
+          curl -L "https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip" -o bslocal.zip
+          unzip bslocal.zip
+          chmod +x BrowserStackLocal
+
+      - name: 🔌 Start BrowserStack Local Tunnel
+        run: ./BrowserStackLocal --key ${{ secrets.BROWSERSTACK_ACCESS_KEY }} --local-identifier veriflow-ci &
+        continue-on-error: false
+
+      - name: 🧬 Ensure TimescaleDB extension
+        run: |
+          docker exec veriflow_timescale \
+            psql -U admin -d veriflow_timescale \
+            -c "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;"
+
+      - name: 👤 Create test_user
+        run: |
+          docker exec veriflow_timescale \
+            psql -U admin -d veriflow_timescale \
+            -c "DO \$\$ BEGIN IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'test_user') THEN CREATE ROLE test_user LOGIN PASSWORD 'test_password'; END IF; END \$\$;"
+
+      - name: 📦 Import seed.sql into TimescaleDB
+        run: |
+          docker cp tests/testdata/db-data/seed.sql veriflow_timescale:/seed.sql
+          docker exec -i veriflow_timescale \
+            psql -U admin -d veriflow_timescale -f /seed.sql
+
+      - name: 🧪 Run Playwright Tests on BrowserStack
+        run: |
+          echo "🕒 Workflow triggered at: $(TZ="Europe/Stockholm" date +"%Y-%m-%d %H:%M:%S %Z")"
+
+          echo "🔧 Selected Workflow Inputs:"
+          echo "📁 Test File:           ${{ github.event.inputs.testFile }}"
+          echo "🌍 Environment:         ${{ github.event.inputs.appEnvironment }}"
+          echo "🧵 Parallel Threads:    ${{ github.event.inputs.parallelRuns }}"
+          echo "🔔 Slack Reporting:     ${{ github.event.inputs.enableSlackReport }}"
+    
+          mkdir -p test-results/
+
+          COMMAND="npx playwright test ${{ github.event.inputs.testFile }} \
+          --project=BrowserStack \
+          --workers=${{ github.event.inputs.parallelRuns }}"
+
+          echo "🧪 Running Playwright command: $COMMAND"
+          eval $COMMAND
+
+      - name: 📊 Generate Allure Report
+        run: npx allure generate test-results/ --clean -o allure-report/
+
+      - name: ☁️ Upload Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results/
+          retention-days: 7
+
+      - name: 🔔 Send Slack Report
+        if: ${{ github.event.inputs.enableSlackReport == 'true' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_TOKEN }}
+          SLACK_COLOR: '#00FF00'
+        with:
+          args: "✅ *Playwright Tests Completed* for *${{ github.event.inputs.testFile }}* on *${{ github.event.inputs.appEnvironment }}* with *${{ github.event.inputs.parallelRuns }}* threads."
+
+
+
+
+
+
+
+
+
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
     name: 'VeriFlow | Regression Tests [Multiple Threads]'
 
     env:
