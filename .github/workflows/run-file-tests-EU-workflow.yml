@@ -136,15 +136,41 @@ jobs:
           echo "🌍 Environment:         ${{ github.event.inputs.appEnvironment }}"
           echo "🧵 Parallel Threads:    ${{ github.event.inputs.parallelRuns }}"
           echo "🔔 Slack Reporting:     ${{ github.event.inputs.enableSlackReport }}"
+
+          # Map test file keyword to actual path
+          case "${{ github.event.inputs.testFile }}" in
+            expand)
+              FILE_PATH="tests/testcases/e2e/expandtesting-tests.spec.ts"
+              ;;
+            internet)
+              FILE_PATH="tests/testcases/e2e/the-internet-tests.spec.ts"
+              ;;
+            sauce)
+              FILE_PATH="tests/testcases/e2e/sauce-demo-tests.spec.ts"
+              ;;
+            practice)
+              FILE_PATH="tests/testcases/e2e/practise-automation-tests.spec.ts"
+              ;;
+            timescale)
+              FILE_PATH="tests/testcases/db/timescaledb-tests.spec.ts"
+              ;;
+            adminer)
+              FILE_PATH="tests/testcases/db/adminer-tests.spec.ts"
+              ;;
+            *)
+              echo "❌ Invalid testFile input"
+              exit 1
+              ;;
+          esac
     
           mkdir -p test-results/
 
-          COMMAND="npx playwright test ${{ github.event.inputs.testFile }} \
-          --project=BrowserStack \
-          --workers=${{ github.event.inputs.parallelRuns }}"
 
-          echo "🧪 Running Playwright command: $COMMAND"
-          eval $COMMAND
+          echo "🧪 Running Playwright test for file: $FILE_PATH"
+
+          npx playwright test "$FILE_PATH" \
+            --project=BrowserStack \
+            --workers=${{ github.event.inputs.parallelRuns }}
 
       - name: 📊 Generate Allure Report
         run: npx allure generate test-results/ --clean -o allure-report/
@@ -160,7 +186,7 @@ jobs:
         if: ${{ github.event.inputs.enableSlackReport == 'true' }}
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_TOKEN }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
           SLACK_COLOR: '#00FF00'
         with:
           args: "✅ *Playwright Tests Completed* for *${{ github.event.inputs.testFile }}* on *${{ github.event.inputs.appEnvironment }}* with *${{ github.event.inputs.parallelRuns }}* threads."
